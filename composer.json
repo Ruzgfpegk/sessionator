@@ -1,0 +1,26 @@
+{
+  "name": "ruzgfpegk/sessionator",
+  "description": "A PHP Library to generate session files (MobaXterm only for now)",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-only",
+  "version": "0.1.0-dev",
+  "type": "library",
+  "homepage": "https://github.com/Ruzgfpegk/sessionator",
+  "authors": [
+    {
+      "name": "Ruzgfpegk",
+      "email": "Ruzgfpegk@zero-sum.fr",
+      "homepage": "https://github.com/Ruzgfpegk",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ruzgfpegk\\Sessionator\\": "src/"
+    }
+  }
+}
