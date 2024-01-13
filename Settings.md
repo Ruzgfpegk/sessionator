@@ -57,9 +57,6 @@
 | proxyLogin               | Network settings        | :heavy_check_mark: ('')                | :x:                                  | Proxy login                                                                                                                                                                                                                                                                                                                                                                   |
 | localProxyCommand        | Network settings        | :heavy_check_mark: ('')                | :x:                                  | Local proxy command (when proxyType is set to "Local")                                                                                                                                                                                                                                                                                                                        |
 
-:heavy_check_mark: V
-:x: X
-
 ## Session icons per export type
 
 Different icon names can refer to the same icon, for simplicity purposes.
