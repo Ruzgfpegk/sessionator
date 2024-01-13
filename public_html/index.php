@@ -1,6 +1,8 @@
 <?php
 declare( strict_types=1 );
 
+// This is both a testbed and an example.
+
 // Internal classes also use autoload through composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -43,3 +45,23 @@ $sessionList->newConnection( 'SSH' )->setFolderName( 'Second Directory' )
 $sessionList->exportAsText( 'MobaXterm' );
 //$sessionList->exportAsHtml( 'MobaXterm' );
 //$sessionList->download( 'MobaXterm' );
+
+
+// The above code outputs the following:
+
+/*
+[Bookmarks]
+SubRep=Main Directory
+ImgNum=41
+SSH Line 1=#149#0%localhost%22%testUserSsh%%0%-1%%%%%0%0%0%_CurrentDrive_:\pkey.key%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%12%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0#Comment with __DIEZE__ character#-1
+
+[Bookmarks_1]
+SubRep=Main Directory\RDP
+ImgNum=41
+RDP Line 1=#91#4%localhost%3389%testUserRdp%0%0%-1%0%-1%0%0%-1%%%%%0%0%%-1%%-1%-1%0%-1%0%-1%0%0%0%0#MobaFont%14%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
+
+[Bookmarks_2]
+SubRep=Second Directory
+ImgNum=41
+Second SSH Line 1=#109#0%localhost%22%%%-1%-1%%%%%0%-1%0%%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%10%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
+*/
