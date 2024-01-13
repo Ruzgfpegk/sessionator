@@ -76,6 +76,33 @@ The roadmap could be, in order:
 * mRemoteNG import
 * other session managers import and export
 
+## Architecture
+
+The terms "session" and "connection" are used interchangeably, as a session defines a connection.
+
+In the Sessionator class, the newConnection('target') method returns an object that extends the Connections\Common
+abstract class with the specificities of "target" connections.
+
+On the returned object, the methods setFolderName('forderName'), setSessionName('sessionName')
+and setHostName('hostName') set the basic properties.
+
+Some target connections have additional methods: for instance, SSH has setUserName('userName').
+
+The method setSessionParam('paramName', 'paramValue') can be used to set advanced parameters, stored into the
+sessionParams associative array property of the "target connection" object.
+
+The addToList() method adds the current object to the "stack of sessions" in the Sessionator object.
+
+Once all sessions are defined, they can be exported using one of these methods from the Sessionator object :
+* exportAsText( 'OutputFormat' ) to export as text, separating lines with the OS line separator
+* exportAsHtml( 'OutputFormat' ) to export as HTML, separating lines with "\<br\>" and the OS line separator
+* download( 'OutputFormat' ) to save as a file when called from a webserver
+
+All these methods pass the array of sessions to an object "Formats\OutputFormat\Output" by calling its relevant method.
+
+The expected behavior is that, for each element of sessionParam, the custom settings are applied on top of the defaults
+defined in the Output object, and the final stream is computed from the result.
+
 ## Caveats
 
 * Folders are exported alphabetically.
