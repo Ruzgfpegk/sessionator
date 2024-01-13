@@ -39,8 +39,15 @@ $sessionList->newConnection( 'RDP' )
             ->addToList(); // Mandatory end call
 
 $sessionList->newConnection( 'SSH' )->setFolderName( 'Second Directory' )
-            ->setSessionName( 'Second SSH Line 1' )->setHostName( 'localhost' )
+            ->setSessionName( '2nd Dir SSH Line 1' )->setHostName( 'localhost' )
             ->addToList();
+
+// Parameters can also be given one after another on the object returned by newConnection();
+$secondDirSshLine2 = $sessionList->newConnection( 'SSH' );
+$secondDirSshLine2->setFolderName( 'Second Directory' );
+$secondDirSshLine2->setSessionName( '2nd Dir SSH Line 2' );
+$secondDirSshLine2->setHostName( 'localhost' );
+$secondDirSshLine2->addToList();
 
 $sessionList->exportAsText( 'MobaXterm' );
 //$sessionList->exportAsHtml( 'MobaXterm' );
