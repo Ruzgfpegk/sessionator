@@ -88,8 +88,8 @@ class SessionIcon {
 			return self::ICON_TO_ID[ $sessionType ];
 		}
 		
-		if ( array_key_exists( "${sessionKind}_$sessionType", self::ICON_TO_ID ) ) {
-			return self::ICON_TO_ID["${sessionKind}_$sessionType"];
+		if ( array_key_exists( "{$sessionKind}_$sessionType", self::ICON_TO_ID ) ) {
+			return self::ICON_TO_ID["{$sessionKind}_$sessionType"];
 		}
 		
 		return self::ICON_TO_ID['Default'];
