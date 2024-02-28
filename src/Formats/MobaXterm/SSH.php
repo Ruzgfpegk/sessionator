@@ -89,6 +89,10 @@ class SSH extends SettingBlock implements SessionType {
 			$this->settings['userName']->setValue( $userName );
 			$this->settings['noUserName']->setValue( self::DISABLED );
 		}
+		
+		if ( $hostName = $sessionDetails->getHostName() ) {
+			$this->settings['remoteHost']->setValue( $hostName );
+		}
 	}
 	
 	public function getString(): string {

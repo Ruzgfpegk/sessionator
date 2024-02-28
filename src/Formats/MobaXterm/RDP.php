@@ -122,5 +122,9 @@ class RDP extends SettingBlock implements SessionType {
 		if ( $userName = $sessionDetails->getUserName() ) {
 			$this->settings['userName']->setValue( $userName );
 		}
+		
+		if ( $hostName = $sessionDetails->getHostName() ) {
+			$this->settings['remoteHost']->setValue( $hostName );
+		}
 	}
 }
