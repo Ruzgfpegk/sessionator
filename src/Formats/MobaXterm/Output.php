@@ -39,7 +39,7 @@ class Output extends CommonOutput implements FormatOutput {
 			// For each depth of the folder path, create intermediates if they haven't been already
 			$folders = explode( '\\', $sessionFolder );
 			
-			for ( $i = 1, $iMax = count( $folders ); $i < $iMax; $i++ ) {
+			for ( $i = 1, $iMax = count( $folders ); $i <= $iMax; $i++ ) {
 				$nameAtCurrentDepth = implode( '\\', array_splice( $folders, 0, $i ) );
 				
 				if ( ! array_key_exists( $nameAtCurrentDepth, $folderSeen ) ) {
@@ -47,16 +47,15 @@ class Output extends CommonOutput implements FormatOutput {
 					$output[] = "[Bookmarks_$folderCount]";
 					$output[] = 'SubRep=' . $nameAtCurrentDepth;
 					$output[] = 'ImgNum=41';
-					$output[] = '';
+					
+					if ( $i < $iMax ) {
+						$output[] = '';
+					}
+					
 					$folderCount++;
 					$folderSeen[ $nameAtCurrentDepth ] = true;
 				}
 			}
-			
-			// Folder declaration
-			$output[] = "[Bookmarks_$folderCount]";
-			$output[] = 'SubRep=' . $sessionFolder;
-			$output[] = 'ImgNum=41';
 			
 			// Folder sessions
 			foreach ( $sessionNames as $sessionName => $sessionDetails ) {
@@ -117,7 +116,6 @@ class Output extends CommonOutput implements FormatOutput {
 			}
 			
 			$output[] = '';
-			$folderCount++;
 		}
 		
 		return $output;
