@@ -36,6 +36,7 @@ When you've added all the connections you wanted, you can export the file this w
   proper HTML conversion)
 * `$sessionList->download( 'MobaXterm' );` : To save as a file (for MobaXterm, a CRLF Windows-1252 file), when called
   from a webserver
+* `$sessionList->saveAsFile( 'MobaXterm', 'out.mxtsessions' );` : To save as a local file on the PHP environment
 
 Which translates to this working example, in PHP:
 

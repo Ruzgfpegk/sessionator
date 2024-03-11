@@ -18,4 +18,10 @@ abstract class CommonOutput {
 			echo $sessionLine . '<br>' . PHP_EOL;
 		}
 	}
+	
+	public function saveAsFile( array $sessionList, string $fileName ): void {
+		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
+			echo $sessionLine . PHP_EOL;
+		}
+	}
 }

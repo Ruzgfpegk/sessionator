@@ -42,4 +42,14 @@ interface FormatOutput {
 	 * @return void
 	 */
 	public function downloadAsFile( array $sessionList ): void;
+	
+	/**
+	 * Saves the final file on the disk
+	 *
+	 * @param array $sessionList
+	 * @param string $fileName
+	 *
+	 * @return void
+	 */
+	public function saveAsFile( array $sessionList, string $fileName ): void;
 }

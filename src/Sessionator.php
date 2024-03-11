@@ -81,4 +81,9 @@ class Sessionator {
 		$outputFormat = FormatFactory::createOutput( $formatType );
 		$outputFormat->downloadAsFile( $this->sessionList );
 	}
+	
+	public function saveAsFile( string $formatType, string $fileName ): void {
+		$outputFormat = FormatFactory::createOutput( $formatType );
+		$outputFormat->saveAsFile( $this->sessionList, $fileName );
+	}
 }
