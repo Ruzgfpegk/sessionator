@@ -23,18 +23,38 @@ class Output extends CommonOutput implements FormatOutput {
 	 */
 	public function getAsText( array $sessionList ): array {
 		$output      = [];
-		$folderCount = 0;
+		$folderCount = 1;
+		$folderSeen  = []; // Associative array of already-created folders
+		
+		// Export header
+		$output[] = '[Bookmarks]';
+		$output[] = 'SubRep=';
+		$output[] = 'ImgNum=42';
+		$output[] = '';
 		
 		// Sort folder names alphabetically (natural sort: numbers going 1, 9, 10, ...)
 		ksort( $sessionList, SORT_NATURAL );
 		
 		foreach ( $sessionList as $sessionFolder => $sessionNames ) {
-			// Folder "header"
-			if ( $folderCount === 0 ) {
-				$output[] = '[Bookmarks]';
-			} else {
-				$output[] = "[Bookmarks_$folderCount]";
+			// For each depth of the folder path, create intermediates if they haven't been already
+			$folders = explode( '\\', $sessionFolder );
+			
+			for ( $i = 1, $iMax = count( $folders ); $i < $iMax; $i++ ) {
+				$nameAtCurrentDepth = implode( '\\', array_splice( $folders, 0, $i ) );
+				
+				if ( ! array_key_exists( $nameAtCurrentDepth, $folderSeen ) ) {
+					// Intermediate folder declaration
+					$output[] = "[Bookmarks_$folderCount]";
+					$output[] = 'SubRep=' . $nameAtCurrentDepth;
+					$output[] = 'ImgNum=41';
+					$output[] = '';
+					$folderCount++;
+					$folderSeen[ $nameAtCurrentDepth ] = true;
+				}
 			}
+			
+			// Folder declaration
+			$output[] = "[Bookmarks_$folderCount]";
 			$output[] = 'SubRep=' . $sessionFolder;
 			$output[] = 'ImgNum=41';
 			
