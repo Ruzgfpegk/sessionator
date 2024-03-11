@@ -138,6 +138,26 @@ class Output extends CommonOutput implements FormatOutput {
 	}
 	
 	/**
+	 * Save the session list as a file.
+	 *
+	 * @param array $sessionList The list of sessions to save
+	 * @param string $fileName The name of the file to save to
+	 *
+	 * @return void
+	 */
+	public function saveAsFile( array $sessionList, string $fileName ): void {
+		$sessionOutput = $this->getAsText( $sessionList );
+		
+		$outputFile = '';
+		
+		foreach ( $sessionOutput as $sessionLine ) {
+			$outputFile .= $this->convertEncoding( $sessionLine ) . "\r\n";
+		}
+		
+		file_put_contents( $fileName, $outputFile );
+	}
+	
+	/**
 	 * .mxtsessions files are CRLF files in Windows-1252 encoding, so a conversion must be made
 	 *
 	 * @param string $string The whole contents of the .mxtsessions file as one string

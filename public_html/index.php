@@ -50,6 +50,7 @@ $secondDirSshLine2->setHostName( 'localhost' );
 $secondDirSshLine2->addToList();
 
 $sessionList->exportAsText( 'MobaXterm' );
+$sessionList->saveAsFile( 'MobaXterm', 'out.mxtsessions' );
 //$sessionList->exportAsHtml( 'MobaXterm' );
 //$sessionList->download( 'MobaXterm' );
 
