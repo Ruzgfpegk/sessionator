@@ -38,13 +38,15 @@ $sessionList->newConnection( 'RDP' )
             ->setSessionParam( 'fontSize', '14' ) // Changes terminal font size (index 1) from 10 to 14
             ->addToList(); // Mandatory end call
 
-$sessionList->newConnection( 'SSH' )->setFolderName( 'Second Directory' )
-            ->setSessionName( '2nd Dir SSH Line 1' )->setHostName( 'localhost' )
+$sessionList->newConnection( 'SSH' )->setFolderName( 'Second Directory\SSH' )
+            ->setSessionName( '2nd Dir SSH Line 1' )->setHostName( 'otherhost' )
             ->addToList();
 
 // Parameters can also be given one after another on the object returned by newConnection();
+// This is especially useful if you want to specify the object name to the IDE for efficient autocompletion.
+/** @var \Ruzgfpegk\Sessionator\Connections\SSH $secondDirSshLine2 */
 $secondDirSshLine2 = $sessionList->newConnection( 'SSH' );
-$secondDirSshLine2->setFolderName( 'Second Directory' );
+$secondDirSshLine2->setFolderName( 'Second Directory\SSH' );
 $secondDirSshLine2->setSessionName( '2nd Dir SSH Line 2' );
 $secondDirSshLine2->setHostName( 'localhost' );
 $secondDirSshLine2->addToList();
@@ -59,18 +61,26 @@ $sessionList->saveAsFile( 'MobaXterm', 'out.mxtsessions' );
 
 /*
 [Bookmarks]
+SubRep=
+ImgNum=42
+
+[Bookmarks_1]
 SubRep=Main Directory
 ImgNum=41
 SSH Line 1=#149#0%localhost%22%testUserSsh%%0%-1%%%%%0%0%0%_CurrentDrive_:\pkey.key%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%12%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0#Comment with __DIEZE__ character#-1
 
-[Bookmarks_1]
+[Bookmarks_2]
 SubRep=Main Directory\RDP
 ImgNum=41
 RDP Line 1=#91#4%localhost%3389%testUserRdp%0%0%-1%0%-1%0%0%-1%%%%%0%0%%-1%%-1%-1%0%-1%0%-1%0%0%0%0#MobaFont%14%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
 
-[Bookmarks_2]
+[Bookmarks_3]
 SubRep=Second Directory
 ImgNum=41
-2nd Dir SSH Line 1=#109#0%localhost%22%%%-1%-1%%%%%0%-1%0%%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%10%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
+
+[Bookmarks_4]
+SubRep=Second Directory\SSH
+ImgNum=41
+2nd Dir SSH Line 1=#109#0%otherhost%22%%%-1%-1%%%%%0%-1%0%%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%10%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
 2nd Dir SSH Line 2=#109#0%localhost%22%%%-1%-1%%%%%0%-1%0%%%-1%0%0%0%%1080%%0%0%1%%0%%%%0%-1%-1%0#MobaFont%10%0%0%-1%15%236,236,236%30,30,30%180,180,192%0%-1%0%%xterm%-1%0%_Std_Colors_0_%80%24%0%1%-1%<none>%%0%1%-1%-1#0##-1
 */
