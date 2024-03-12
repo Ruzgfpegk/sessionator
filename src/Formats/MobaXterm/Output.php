@@ -40,7 +40,7 @@ class Output extends CommonOutput implements FormatOutput {
 			$folders = explode( '\\', $sessionFolder );
 			
 			for ( $i = 1, $iMax = count( $folders ); $i <= $iMax; $i++ ) {
-				$nameAtCurrentDepth = implode( '\\', array_splice( $folders, 0, $i ) );
+				$nameAtCurrentDepth = implode( '\\', array_slice( $folders, 0, $i ) );
 				
 				if ( ! array_key_exists( $nameAtCurrentDepth, $folderSeen ) ) {
 					// Intermediate folder declaration
