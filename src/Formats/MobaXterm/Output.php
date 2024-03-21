@@ -121,13 +121,14 @@ class Output extends CommonOutput implements FormatOutput {
 		return $output;
 	}
 	
-	public function downloadAsFile( array $sessionList ): void {
-		$sessionOutput = $this->getAsText( $sessionList );
-		
+	/**
+	 * @inheritDoc
+	 */
+	public function downloadAsFile( array $sessionList, string $lineSeparator = "\r\n"): void {
 		$outputFile = '';
 		
-		foreach ( $sessionOutput as $sessionLine ) {
-			$outputFile .= $this->convertEncoding( $sessionLine ) . "\r\n";
+		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
+			$outputFile .= $this->convertEncoding( $sessionLine ) . $lineSeparator;
 		}
 		
 		header( 'Content-type: text/plain' );
@@ -136,20 +137,13 @@ class Output extends CommonOutput implements FormatOutput {
 	}
 	
 	/**
-	 * Save the session list as a file.
-	 *
-	 * @param array $sessionList The list of sessions to save
-	 * @param string $fileName The name of the file to save to
-	 *
-	 * @return void
+	 * @inheritDoc
 	 */
-	public function saveAsFile( array $sessionList, string $fileName ): void {
-		$sessionOutput = $this->getAsText( $sessionList );
-		
+	public function saveAsFile( array $sessionList, string $fileName, string $lineSeparator = "\r\n"): void {
 		$outputFile = '';
 		
-		foreach ( $sessionOutput as $sessionLine ) {
-			$outputFile .= $this->convertEncoding( $sessionLine ) . "\r\n";
+		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
+			$outputFile .= $this->convertEncoding( $sessionLine ) . $lineSeparator;
 		}
 		
 		file_put_contents( $fileName, $outputFile );

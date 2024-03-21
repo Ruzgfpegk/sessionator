@@ -37,19 +37,21 @@ interface FormatOutput {
 	/**
 	 * Initiates a download of the final file
 	 *
-	 * @param array $sessionList
+	 * @param array $sessionList The list of sessions to save
+	 * @param string $lineSeparator The line separator to use in the output
 	 *
 	 * @return void
 	 */
-	public function downloadAsFile( array $sessionList ): void;
+	public function downloadAsFile( array $sessionList, string $lineSeparator = "\r\n" ): void;
 	
 	/**
-	 * Saves the final file on the disk
+	 * Save the session list as a file
 	 *
-	 * @param array $sessionList
-	 * @param string $fileName
+	 * @param array $sessionList The list of sessions to save
+	 * @param string $fileName The name of the file to save to
+	 * @param string $lineSeparator The line separator to use in the output
 	 *
 	 * @return void
 	 */
-	public function saveAsFile( array $sessionList, string $fileName ): void;
+	public function saveAsFile( array $sessionList, string $fileName, string $lineSeparator = "\r\n" ): void;
 }
