@@ -19,9 +19,25 @@ abstract class CommonOutput {
 		}
 	}
 	
-	public function saveAsFile( array $sessionList, string $fileName ): void {
+	public function downloadAsFile( array $sessionList, string $lineSeparator = "\r\n" ): void {
+		$outputFile = '';
+		
 		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			echo $sessionLine . PHP_EOL;
+			$outputFile .= $sessionLine . $lineSeparator;
 		}
+		
+		header( 'Content-type: text/plain' );
+		header( 'Content-Disposition: attachment; filename="ExportedSession.mxtsessions"' );
+		echo $outputFile;
+	}
+	
+	public function saveAsFile( array $sessionList, string $fileName, string $lineSeparator = "\r\n" ): void {
+		$outputFile = '';
+		
+		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
+			$outputFile .= $sessionLine . $lineSeparator;
+		}
+		
+		file_put_contents( $fileName, $outputFile );
 	}
 }
