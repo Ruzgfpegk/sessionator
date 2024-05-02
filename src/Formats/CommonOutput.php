@@ -7,6 +7,19 @@ namespace Ruzgfpegk\Sessionator\Formats;
  * The Formats\CommonOutput class is the basis upon which all classes for the various outputs (MobaXterm, ...) are built
  */
 abstract class CommonOutput {
+	protected string $contentType = 'text/plain';
+	protected string $lineSeparator = "\r\n";
+	
+	public function getAsFile( array $sessionList ): string {
+		$outputFile = '';
+		
+		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
+			$outputFile .= $sessionLine . $this->lineSeparator;
+		}
+		
+		return $outputFile;
+	}
+	
 	public function displayAsText( array $sessionList ): void {
 		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
 			echo $sessionLine . PHP_EOL;
@@ -19,24 +32,16 @@ abstract class CommonOutput {
 		}
 	}
 	
-	public function downloadAsFile( array $sessionList, string $lineSeparator = "\r\n" ): void {
-		$outputFile = '';
+	public function downloadAsFile( array $sessionList, string $fileName = 'export' ): void {
+		$outputFile = $this->getAsFile( $sessionList );
 		
-		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			$outputFile .= $sessionLine . $lineSeparator;
-		}
-		
-		header( 'Content-type: text/plain' );
-		header( 'Content-Disposition: attachment; filename="ExportedSession.mxtsessions"' );
+		header( 'Content-type: ' . $this->contentType );
+		header( 'Content-Disposition: attachment; filename="' . $fileName . '"' );
 		echo $outputFile;
 	}
 	
-	public function saveAsFile( array $sessionList, string $fileName, string $lineSeparator = "\r\n" ): void {
-		$outputFile = '';
-		
-		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			$outputFile .= $sessionLine . $lineSeparator;
-		}
+	public function saveAsFile( array $sessionList, string $fileName ): void {
+		$outputFile = $this->getAsFile( $sessionList );
 		
 		file_put_contents( $fileName, $outputFile );
 	}

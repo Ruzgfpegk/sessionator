@@ -13,12 +13,10 @@ use Ruzgfpegk\Sessionator\Formats\FormatOutput;
  * The Formats\MobaXterm\Output class defines the global .mxtsessions file format
  */
 class Output extends CommonOutput implements FormatOutput {
+	
 	/**
-	 * Returns in an array the contents of the final .mxtsessions file
+	 * @inheritDoc
 	 *
-	 * @param array $sessionList
-	 *
-	 * @return array
 	 * @throws ReflectionException
 	 */
 	public function getAsText( array $sessionList ): array {
@@ -71,7 +69,7 @@ class Output extends CommonOutput implements FormatOutput {
 				// Initializing terminal settings
 				$terminalSettings = new TerminalSettings();
 				
-				// Registering custom settings
+				// Registering custom terminal settings
 				$terminalSettings->applyParams( $sessionDetails );
 				
 				// Getting the "display reconnection message" setting TODO
@@ -103,7 +101,7 @@ class Output extends CommonOutput implements FormatOutput {
 				$sessionComment = $sessionDetailsComment;
 				
 				// Getting the session tab color TODO
-				$sessionTabColor = - 1;
+				$sessionTabColor = -1;
 				
 				$output[] = $sessionName
 				            . '=' . $sessionReconnection
@@ -124,39 +122,34 @@ class Output extends CommonOutput implements FormatOutput {
 	/**
 	 * @inheritDoc
 	 */
-	public function downloadAsFile( array $sessionList, string $lineSeparator = "\r\n"): void {
+	public function getAsFile( array $sessionList ): string {
 		$outputFile = '';
 		
 		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			$outputFile .= $this->convertEncoding( $sessionLine ) . $lineSeparator;
+			// .mxtsessions files are CRLF files in Windows-1252 encoding, so a conversion must be made
+			$outputFile .= mb_convert_encoding( $sessionLine, 'Windows-1252', 'UTF-8' ) . $this->lineSeparator;
 		}
 		
-		header( 'Content-type: text/plain' );
-		header( 'Content-Disposition: attachment; filename="ExportedSession.mxtsessions"' );
+		return $outputFile;
+	}
+	
+	/**
+	 * @inheritDoc
+	 */
+	public function downloadAsFile( array $sessionList, string $fileName = 'ExportedSession.mxtsessions' ): void {
+		$outputFile = $this->getAsFile($sessionList);
+		
+		header( 'Content-type: ' . $this->contentType );
+		header( 'Content-Disposition: attachment; filename="' . $fileName . '"' );
 		echo $outputFile;
 	}
 	
 	/**
 	 * @inheritDoc
 	 */
-	public function saveAsFile( array $sessionList, string $fileName, string $lineSeparator = "\r\n"): void {
-		$outputFile = '';
-		
-		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			$outputFile .= $this->convertEncoding( $sessionLine ) . $lineSeparator;
-		}
+	public function saveAsFile( array $sessionList, string $fileName ): void {
+		$outputFile = $this->getAsFile($sessionList);
 		
 		file_put_contents( $fileName, $outputFile );
-	}
-	
-	/**
-	 * .mxtsessions files are CRLF files in Windows-1252 encoding, so a conversion must be made
-	 *
-	 * @param string $string The whole contents of the .mxtsessions file as one string
-	 *
-	 * @return string The input string converted to the correct encoding
-	 */
-	public function convertEncoding( string $string ): string {
-		return mb_convert_encoding( $string, 'Windows-1252', 'UTF-8' );
 	}
 }
