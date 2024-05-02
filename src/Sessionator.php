@@ -73,6 +73,8 @@ class Sessionator {
 	}
 	
 	/**
+	 * Download the session list as a file in the specified format
+	 *
 	 * @param $formatType string The output format for which to download a session file
 	 *
 	 * @return void
@@ -82,6 +84,14 @@ class Sessionator {
 		$outputFormat->downloadAsFile( $this->sessionList );
 	}
 	
+	/**
+	 * Save the session list as a file in the specified format
+	 *
+	 * @param string $formatType The output format for which to save a session file
+	 * @param string $fileName The name of the file to save the session list to
+	 *
+	 * @return void
+	 */
 	public function saveAsFile( string $formatType, string $fileName ): void {
 		$outputFormat = FormatFactory::createOutput( $formatType );
 		$outputFormat->saveAsFile( $this->sessionList, $fileName );

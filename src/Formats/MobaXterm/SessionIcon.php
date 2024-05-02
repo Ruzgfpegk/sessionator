@@ -76,7 +76,7 @@ class SessionIcon {
 	];
 	
 	/**
-	 * Returns the icon for the session type or
+	 * Returns the icon for the session type
 	 *
 	 * @param string $sessionType Either the session type (SSH, RDP, ...) or the OS/distribution
 	 * @param string $sessionKind $sessionType is the subtype of icon ("Shell", "Graphical", "Terminal" or "Hardware")
