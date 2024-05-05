@@ -1,8 +1,10 @@
 # Sessionator
 
+
 ## Introduction
 
-This PHP library can be used to create session files for MobaXterm.
+This PHP library aims to be used to create session files for :
+* [MobaXterm](https://mobaxterm.mobatek.net/) (Windows+Wine, GUI)
 
 This is still a work in progress and a development version, so things may change especially as new features are added.
 
@@ -61,20 +63,27 @@ $sessionList->newConnection( 'SSH' ) // Supported types: SSH and RDP
 $sessionList->download( 'MobaXterm' );
 ```
 
+
+## Status
+
+* :heavy_check_mark: Works to a usable extent
+* :soon: Unstable WIP, or planned
+* :no_entry_sign: Unsupported by the target application
+
+| Software  | File format support | SSH                | RDP                | SFTP               | VNC                |
+|-----------|---------------------|--------------------|--------------------|--------------------|--------------------|
+| MobaXterm | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
 ## Possible evolutions
 
 Right now the library is rather basic: you define sessions and export everything.
 
-The roadmap could be, in order:
+The roadmap besides planned support could be, in order:
 
-* A few low-importance session settings (marked as TODO in Formats/MobaXterm/Output.php)
-* FTP session support
-* SFTP session support
-* Some refactoring to get a clearer view of every part
+* Add a global "disabled/enabled" constant for the connections (for setSessionParam)
 * More documentation for adding to the codebase
-* mRemoteNG export
-* MobaXterm import
-* mRemoteNG import
+* Session file import
 * other session managers import and export
 
 ## Architecture
@@ -103,6 +112,7 @@ All these methods pass the array of sessions to an object "Formats\OutputFormat\
 
 The expected behavior is that, for each element of sessionParam, the custom settings are applied on top of the defaults
 defined in the Output object, and the final stream is computed from the result.
+
 
 ## Caveats
 
