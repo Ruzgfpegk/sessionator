@@ -10,6 +10,8 @@ use RuntimeException;
  * Factory to return an object implementing the MobaXterm\SessionType interface for a given connection type
  */
 class SessionSettingsFactory {
+	private static array $cache = [];
+	
 	public static function create( string $sessionType ): SessionType {
 		if ( empty( $sessionType ) ) {
 			throw new InvalidArgumentException(
@@ -17,12 +19,18 @@ class SessionSettingsFactory {
 			);
 		}
 		
+		if ( isset( self::$cache[ $sessionType ] ) ) {
+			return new self::$cache[ $sessionType ];
+		}
+		
 		if ( ! file_exists( dirname( __DIR__ ) . '/MobaXterm/' . $sessionType . '.php' ) ) {
 			throw new RuntimeException( "No class found for session $sessionType!<br>" );
 		}
 		
-		$sessionFullType = 'Ruzgfpegk\\Sessionator\\Formats\\MobaXterm\\' . $sessionType;
+		$className = 'Ruzgfpegk\\Sessionator\\Formats\\MobaXterm\\' . $sessionType;
 		
-		return new $sessionFullType();
+		self::$cache[ $sessionType ] = $className;
+		
+		return new self::$cache[ $sessionType ];
 	}
 }
