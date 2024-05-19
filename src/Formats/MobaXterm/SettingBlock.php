@@ -26,15 +26,12 @@ abstract class SettingBlock {
 	 * @return string
 	 */
 	public function getString(): string {
-		// Sort settings by their index property
-		usort( $this->settings, static function ( $a, $b ) {
-			return $a->getIndex() - $b->getIndex();
-		} );
+		$final_settings = [];
 		
-		// Extract all values (defaults if no manual setting)
-		$final_settings = array_map( static function ( $setting ) {
-			return $setting->getValue();
-		}, $this->settings );
+		// This supposes that no index has been skipped in the declaration
+		foreach ( $this->settings as $setting ) {
+			$final_settings[ $setting->getIndex() ] = $setting->getValue();
+		}
 		
 		return implode( '%', $final_settings );
 	}
