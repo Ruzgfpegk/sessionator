@@ -126,11 +126,11 @@ class Output extends CommonOutput implements FormatOutput {
 		$outputFile = '';
 		
 		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
-			// .mxtsessions files are CRLF files in Windows-1252 encoding, so a conversion must be made
-			$outputFile .= mb_convert_encoding( $sessionLine, 'Windows-1252', 'UTF-8' ) . $this->lineSeparator;
+			$outputFile .= $sessionLine . $this->lineSeparator;
 		}
 		
-		return $outputFile;
+		// .mxtsessions files are CRLF files in Windows-1252 encoding, so a conversion must be made
+		return mb_convert_encoding( $outputFile, 'Windows-1252', 'UTF-8' );
 	}
 	
 	/**
