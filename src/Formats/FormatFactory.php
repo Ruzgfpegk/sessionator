@@ -10,6 +10,8 @@ use RuntimeException;
  * Factory to return an object implementing the Formats\FormatOutput interface for a given format
  */
 class FormatFactory {
+	private static array $cache = [];
+	
 	public static function createOutput( string $outputType ): FormatOutput {
 		if ( empty( $outputType ) ) {
 			throw new InvalidArgumentException(
@@ -17,12 +19,18 @@ class FormatFactory {
 			);
 		}
 		
+		if ( isset( self::$cache[ $outputType ] ) ) {
+			return new self::$cache[ $outputType ];
+		}
+		
 		if ( ! file_exists( dirname( __DIR__ ) . '/Formats/' . $outputType . '/Output.php' ) ) {
 			throw new RuntimeException( "No class found for format $outputType!<br>" );
 		}
 		
-		$outputFullType = 'Ruzgfpegk\\Sessionator\\Formats\\' . $outputType . '\\Output';
+		$className = 'Ruzgfpegk\\Sessionator\\Formats\\' . $outputType . '\\Output';
 		
-		return new $outputFullType();
+		self::$cache[ $outputType ] = $className;
+		
+		return new self::$cache[ $outputType ];
 	}
 }
