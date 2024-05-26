@@ -28,23 +28,23 @@ class SFTP extends SettingBlock implements SessionType {
 	
 	private function setDefaults(): void {
 		$this->settings = [
-			'sessionType'            => new Setting( 0, '7' ),
-			'remoteHost'             => new Setting( 1, 'localhost' ), // Mandatory
-			'remotePort'             => new Setting( 2, '22' ),
-			'userName'               => new Setting( 3, '' ),
-			'utf8Charset'            => new Setting( 4, self::ENABLED ),
-			'compression'            => new Setting( 5, self::DISABLED ),
-			'remoteStartupFolder'    => new Setting( 6, '' ),
-			'asciiMode'              => new Setting( 7, self::DISABLED ),
-			'twoStepsAuthentication' => new Setting( 8, self::DISABLED ),
-			'privateKeyPath'         => new Setting( 9, '' ), // When setting, change 'C' by '_CurrentDrive_'
-			'proxyTypeSftp'          => new Setting( 10, self::PROXY_TYPE_SFTP['No proxy'] ),
-			'proxyHost'              => new Setting( 11, '' ),
-			'proxyPort'              => new Setting( 12, '1080' ),
-			'proxyLogin'             => new Setting( 13, '' ),
-			'proxyPassword'          => new Setting( 14, '' ),
-			'localStartupFolder'     => new Setting( 15, '' ),
-			'preserveFileDates'      => new Setting( 16, self::ENABLED ),
+			'sessionType'            => [ 0, '7' ],
+			'remoteHost'             => [ 1, 'localhost' ], // Mandatory
+			'remotePort'             => [ 2, '22' ],
+			'userName'               => [ 3, '' ],
+			'utf8Charset'            => [ 4, self::ENABLED ],
+			'compression'            => [ 5, self::DISABLED ],
+			'remoteStartupFolder'    => [ 6, '' ],
+			'asciiMode'              => [ 7, self::DISABLED ],
+			'twoStepsAuthentication' => [ 8, self::DISABLED ],
+			'privateKeyPath'         => [ 9, '' ], // When setting, change 'C' by '_CurrentDrive_'
+			'proxyTypeSftp'          => [ 10, self::PROXY_TYPE_SFTP['No proxy'] ],
+			'proxyHost'              => [ 11, '' ],
+			'proxyPort'              => [ 12, '1080' ],
+			'proxyLogin'             => [ 13, '' ],
+			'proxyPassword'          => [ 14, '' ],
+			'localStartupFolder'     => [ 15, '' ],
+			'preserveFileDates'      => [ 16, self::ENABLED ],
 		];
 	}
 	
@@ -53,19 +53,19 @@ class SFTP extends SettingBlock implements SessionType {
 		
 		// Setup each custom parameter of the Connections/SSH class
 		if ( $userName = $sessionDetails->getUserName() ) {
-			$this->settings['userName']->setValue( $userName );
+			$this->settings['userName'][1] = $userName;
 		}
 		
 		if ( $hostName = $sessionDetails->getHostName() ) {
-			$this->settings['remoteHost']->setValue( $hostName );
+			$this->settings['remoteHost'][1] = $hostName;
 		}
 	}
 	
 	public function getString(): string {
 		// Do necessary string replacements for the current output before the final export
-		if ( $this->settings['privateKeyPath']->getValue() !== '' ) {
-			$this->settings['privateKeyPath']->setValue(
-				str_replace( 'C:\\', '_CurrentDrive_:\\', $this->settings['privateKeyPath']->getValue() )
+		if ( $this->settings['privateKeyPath'][1] !== '' ) {
+			$this->settings['privateKeyPath'][1] = str_replace(
+				'C:\\', '_CurrentDrive_:\\', $this->settings['privateKeyPath'][1]
 			);
 		}
 		

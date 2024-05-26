@@ -72,34 +72,34 @@ class TerminalSettings extends SettingBlock {
 	
 	private function setDefaults(): void {
 		$this->settings = [
-			'terminalFont'      => new Setting( 0, 'MobaFont' ),
-			'fontSize'          => new Setting( 1, '10' ),
-			'fontBold'          => new Setting( 2, self::DISABLED ),
-			'terminalUnknown3'  => new Setting( 3, self::DISABLED ), // TODO Find out what this is
-			'appendPath'        => new Setting( 4, self::ENABLED ),
-			'charset'           => new Setting( 5, self::CHARSETS['UTF-8'] ),
-			'foregroundRgb'     => new Setting( 6, '236,236,236' ),
-			'backgroundRgb'     => new Setting( 7, '30,30,30' ),
-			'cursorRgb'         => new Setting( 8, '180,180,192' ),
-			'cursorType'        => new Setting( 9, self::CURSOR_TYPE['Block'] ),
-			'backspaceSendsH'   => new Setting( 10, self::ENABLED ),
-			'logOutput'         => new Setting( 11, self::DISABLED ),
-			'logFolderPath'     => new Setting( 12, '' ),
-			'terminalType'      => new Setting( 13, 'xterm' ), // See format .md for full list
-			'lockTerminalTitle' => new Setting( 14, self::ENABLED ),
-			'terminalUnknown15' => new Setting( 15, self::DISABLED ), // TODO Find out what this is
-			'colorsScheme'      => new Setting( 16, '_Std_Colors_0_' ), // See format .md for alt format
-			'terminalRows'      => new Setting( 17, '80' ),
-			'terminalColumns'   => new Setting( 18, '24' ),
-			'fixedDimensions'   => new Setting( 19, self::DISABLED ),
-			'syntaxHighlight'   => new Setting( 20, self::SYNTAX_HIGHLIGHT['Standard keywords'] ),
-			'boldIsBrighter'    => new Setting( 21, self::ENABLED ),
-			'customMacroToggle' => new Setting( 22, self::CUSTOM_MACRO['None'] ),
-			'customMacroText'   => new Setting( 23, '' ),
-			'pasteDelay'        => new Setting( 24, self::PASTE_DELAY['Auto'] ),
-			'fontCharset'       => new Setting( 25, self::FONT_CHARSETS['DEFAULT'] ),
-			'fontAntialiasing'  => new Setting( 26, self::ENABLED ),
-			'fontLigatures'     => new Setting( 27, self::ENABLED )
+			'terminalFont'      => [ 0, 'MobaFont' ],
+			'fontSize'          => [ 1, '10' ],
+			'fontBold'          => [ 2, self::DISABLED ],
+			'terminalUnknown3'  => [ 3, self::DISABLED ], // TODO Find out what this is
+			'appendPath'        => [ 4, self::ENABLED ],
+			'charset'           => [ 5, self::CHARSETS['UTF-8'] ],
+			'foregroundRgb'     => [ 6, '236,236,236' ],
+			'backgroundRgb'     => [ 7, '30,30,30' ],
+			'cursorRgb'         => [ 8, '180,180,192' ],
+			'cursorType'        => [ 9, self::CURSOR_TYPE['Block'] ],
+			'backspaceSendsH'   => [ 10, self::ENABLED ],
+			'logOutput'         => [ 11, self::DISABLED ],
+			'logFolderPath'     => [ 12, '' ],
+			'terminalType'      => [ 13, 'xterm' ], // See format .md for full list
+			'lockTerminalTitle' => [ 14, self::ENABLED ],
+			'terminalUnknown15' => [ 15, self::DISABLED ], // TODO Find out what this is
+			'colorsScheme'      => [ 16, '_Std_Colors_0_' ], // See format .md for alt format
+			'terminalRows'      => [ 17, '80' ],
+			'terminalColumns'   => [ 18, '24' ],
+			'fixedDimensions'   => [ 19, self::DISABLED ],
+			'syntaxHighlight'   => [ 20, self::SYNTAX_HIGHLIGHT['Standard keywords'] ],
+			'boldIsBrighter'    => [ 21, self::ENABLED ],
+			'customMacroToggle' => [ 22, self::CUSTOM_MACRO['None'] ],
+			'customMacroText'   => [ 23, '' ],
+			'pasteDelay'        => [ 24, self::PASTE_DELAY['Auto'] ],
+			'fontCharset'       => [ 25, self::FONT_CHARSETS['DEFAULT'] ],
+			'fontAntialiasing'  => [ 26, self::ENABLED ],
+			'fontLigatures'     => [ 27, self::ENABLED ]
 		];
 	}
 }

@@ -81,37 +81,37 @@ class RDP extends SettingBlock implements SessionType {
 	
 	private function setDefaults(): void {
 		$this->settings = [
-			'sessionType'              => new Setting( 0, '4' ),
-			'remoteHost'               => new Setting( 1, 'localhost' ), // Mandatory
-			'remotePort'               => new Setting( 2, '3389' ),
-			'userName'                 => new Setting( 3, '' ),
-			'adminConsole'             => new Setting( 4, self::DISABLED ),
-			'redirectPorts'            => new Setting( 5, self::DISABLED ),
-			'redirectDrives'           => new Setting( 6, self::DISABLED ),
-			'redirectPrinters'         => new Setting( 7, self::DISABLED ),
-			'rdpUnknown8'              => new Setting( 8, self::ENABLED ), // TODO Find out what this is
-			'enhancedGraphics'         => new Setting( 9, self::DISABLED ),
-			'resolution'               => new Setting( 10, self::RESOLUTION['Fit to terminal'] ),
-			'rdpUnknown11'             => new Setting( 11, self::ENABLED ),
-			'remoteCommand'            => new Setting( 12, '' ),
-			'sshGatewayHostList'       => new Setting( 13, '' ), // When setting, separate hostnames using '__PIPE__'
-			'sshGatewayPortList'       => new Setting( 14, '' ), // When setting, separate ports using '__PIPE__'
-			'sshGatewayUserList'       => new Setting( 15, '' ), // When setting, separate usernames using '__PIPE__'
-			'redirectAudio'            => new Setting( 16, self::REDIRECT_AUDIO['No audio'] ),
-			'nativeAuthentication'     => new Setting( 17, self::DISABLED ),
-			'sshGatewayPrivateKeyList' => new Setting( 18, '' ), // As above, plus separate paths using '__PIPE__'
-			'redirectClipboard'        => new Setting( 19, self::ENABLED ),
-			'rdpGateway'               => new Setting( 20, '' ),
-			'forwardKeyboardShortcuts' => new Setting( 21, self::ENABLED ),
-			'displaySettingsBar'       => new Setting( 22, self::ENABLED ),
-			'rdpUnknown23'             => new Setting( 23, self::DISABLED ), // TODO Find out what this is
-			'useCredSsp'               => new Setting( 24, self::ENABLED ),
-			'redirectMicrophone'       => new Setting( 25, self::DISABLED ),
-			'autoScale'                => new Setting( 26, self::ENABLED ),
-			'zoom'                     => new Setting( 27, self::ZOOM['no'] ),
-			'colorDepth'               => new Setting( 28, self::COLOR_DEPTH['auto'] ),
-			'redirectSmartCards'       => new Setting( 29, self::DISABLED ),
-			'serverAuthentication'     => new Setting( 30, self::SERVER_AUTHENTICATION['none'] ),
+			'sessionType'              => [ 0, '4' ],
+			'remoteHost'               => [ 1, 'localhost' ], // Mandatory
+			'remotePort'               => [ 2, '3389' ],
+			'userName'                 => [ 3, '' ],
+			'adminConsole'             => [ 4, self::DISABLED ],
+			'redirectPorts'            => [ 5, self::DISABLED ],
+			'redirectDrives'           => [ 6, self::DISABLED ],
+			'redirectPrinters'         => [ 7, self::DISABLED ],
+			'rdpUnknown8'              => [ 8, self::ENABLED ], // TODO Find out what this is
+			'enhancedGraphics'         => [ 9, self::DISABLED ],
+			'resolution'               => [ 10, self::RESOLUTION['Fit to terminal'] ],
+			'rdpUnknown11'             => [ 11, self::ENABLED ],
+			'remoteCommand'            => [ 12, '' ],
+			'sshGatewayHostList'       => [ 13, '' ], // When setting, separate hostnames using '__PIPE__'
+			'sshGatewayPortList'       => [ 14, '' ], // When setting, separate ports using '__PIPE__'
+			'sshGatewayUserList'       => [ 15, '' ], // When setting, separate usernames using '__PIPE__'
+			'redirectAudio'            => [ 16, self::REDIRECT_AUDIO['No audio'] ],
+			'nativeAuthentication'     => [ 17, self::DISABLED ],
+			'sshGatewayPrivateKeyList' => [ 18, '' ], // As above, plus separate paths using '__PIPE__'
+			'redirectClipboard'        => [ 19, self::ENABLED ],
+			'rdpGateway'               => [ 20, '' ],
+			'forwardKeyboardShortcuts' => [ 21, self::ENABLED ],
+			'displaySettingsBar'       => [ 22, self::ENABLED ],
+			'rdpUnknown23'             => [ 23, self::DISABLED ], // TODO Find out what this is
+			'useCredSsp'               => [ 24, self::ENABLED ],
+			'redirectMicrophone'       => [ 25, self::DISABLED ],
+			'autoScale'                => [ 26, self::ENABLED ],
+			'zoom'                     => [ 27, self::ZOOM['no'] ],
+			'colorDepth'               => [ 28, self::COLOR_DEPTH['auto'] ],
+			'redirectSmartCards'       => [ 29, self::DISABLED ],
+			'serverAuthentication'     => [ 30, self::SERVER_AUTHENTICATION['none'] ],
 		];
 	}
 	
@@ -120,11 +120,11 @@ class RDP extends SettingBlock implements SessionType {
 		
 		// Setup each custom parameter of the Connections/SSH class
 		if ( $userName = $sessionDetails->getUserName() ) {
-			$this->settings['userName']->setValue( $userName );
+			$this->settings['userName'][1] = $userName;
 		}
 		
 		if ( $hostName = $sessionDetails->getHostName() ) {
-			$this->settings['remoteHost']->setValue( $hostName );
+			$this->settings['remoteHost'][1] = $hostName;
 		}
 	}
 }
