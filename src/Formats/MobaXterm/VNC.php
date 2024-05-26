@@ -25,24 +25,24 @@ class VNC extends SettingBlock implements SessionType {
 	
 	private function setDefaults(): void {
 		$this->settings = [
-			'sessionType'              => new Setting( 0, '5' ),
-			'remoteHost'               => new Setting( 1, 'localhost' ), // Mandatory
-			'remotePort'               => new Setting( 2, '5900' ),
-			'autoScale'                => new Setting( 3, self::ENABLED ),
-			'viewOnly'                 => new Setting( 4, self::DISABLED ),
-			'sshGatewayHostList'       => new Setting( 5, '' ), // When setting, separate hostnames using '__PIPE__'
-			'sshGatewayPortList'       => new Setting( 6, '' ), // When setting, separate ports using '__PIPE__'
-			'sshGatewayUserList'       => new Setting( 7, '' ), // When setting, separate usernames using '__PIPE__'
-			'sshGatewayPrivateKeyList' => new Setting( 8, '' ), // As above, plus separate paths using '__PIPE__'
-			'displaySettingsBar'       => new Setting( 9, self::ENABLED ),
-			'useNewVncEngine'          => new Setting( 10, self::DISABLED ),
-			'useSslTunneling'          => new Setting( 11, self::DISABLED ),
-			'useUnixLogin'             => new Setting( 12, '' ),
-			'proxyType'                => new Setting( 13, self::PROXY_TYPE['None'] ),
-			'proxyHost'                => new Setting( 14, '' ),
-			'proxyPort'                => new Setting( 15, '1080' ),
-			'proxyLogin'               => new Setting( 16, '' ),
-			'vncUnknown17'             => new Setting( 17, '' ), // TODO Find out what this is
+			'sessionType'              => [ 0, '5' ],
+			'remoteHost'               => [ 1, 'localhost' ], // Mandatory
+			'remotePort'               => [ 2, '5900' ],
+			'autoScale'                => [ 3, self::ENABLED ],
+			'viewOnly'                 => [ 4, self::DISABLED ],
+			'sshGatewayHostList'       => [ 5, '' ], // When setting, separate hostnames using '__PIPE__'
+			'sshGatewayPortList'       => [ 6, '' ], // When setting, separate ports using '__PIPE__'
+			'sshGatewayUserList'       => [ 7, '' ], // When setting, separate usernames using '__PIPE__'
+			'sshGatewayPrivateKeyList' => [ 8, '' ], // As above, plus separate paths using '__PIPE__'
+			'displaySettingsBar'       => [ 9, self::ENABLED ],
+			'useNewVncEngine'          => [ 10, self::DISABLED ],
+			'useSslTunneling'          => [ 11, self::DISABLED ],
+			'useUnixLogin'             => [ 12, '' ],
+			'proxyType'                => [ 13, self::PROXY_TYPE['None'] ],
+			'proxyHost'                => [ 14, '' ],
+			'proxyPort'                => [ 15, '1080' ],
+			'proxyLogin'               => [ 16, '' ],
+			'vncUnknown17'             => [ 17, '' ], // TODO Find out what this is
 		];
 	}
 	
@@ -51,7 +51,7 @@ class VNC extends SettingBlock implements SessionType {
 		
 		// Setup each custom parameter of the Connections/VNC class
 		if ( $hostName = $sessionDetails->getHostName() ) {
-			$this->settings['remoteHost']->setValue( $hostName );
+			$this->settings['remoteHost'][1] = $hostName;
 		}
 	}
 	
@@ -60,10 +60,10 @@ class VNC extends SettingBlock implements SessionType {
 		// None ATM
 		
 		// Make the adjustments for specific settings that change other settings behind the scenes
-		$sslTunneling = $this->settings['useSslTunneling']->getValue();
-		$proxyType    = $this->settings['proxyType']->getValue();
+		$sslTunneling = $this->settings['useSslTunneling'][1];
+		$proxyType    = $this->settings['proxyType'][1];
 		if ( $sslTunneling === self::ENABLED || $proxyType !== self::PROXY_TYPE['None'] ) {
-			$this->settings['useNewVncEngine']->setValue( self::ENABLED );
+			$this->settings['useNewVncEngine'][1] = self::ENABLED;
 		}
 		
 		return parent::getString();

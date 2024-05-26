@@ -30,7 +30,7 @@ abstract class SettingBlock {
 		
 		// This supposes that no index has been skipped in the declaration
 		foreach ( $this->settings as $setting ) {
-			$final_settings[ $setting->getIndex() ] = $setting->getValue();
+			$final_settings[ $setting[0] ] = $setting[1];
 		}
 		
 		return implode( '%', $final_settings );
@@ -47,7 +47,7 @@ abstract class SettingBlock {
 	public function applyParams( Connection $sessionDetails ): void {
 		foreach ( $sessionDetails->getSessionParams() as $sessionParam => $sessionValue ) {
 			if ( array_key_exists( $sessionParam, $this->settings ) ) {
-				$this->settings[ $sessionParam ]->setValue( $sessionValue );
+				$this->settings[ $sessionParam ][1] = $sessionValue;
 			}
 		}
 	}
