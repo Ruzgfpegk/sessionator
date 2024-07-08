@@ -137,7 +137,7 @@ class Output extends CommonOutput implements FormatOutput {
 	 * @inheritDoc
 	 */
 	public function downloadAsFile( array $sessionList, string $fileName = 'ExportedSession.mxtsessions' ): void {
-		$outputFile = $this->getAsFile($sessionList);
+		$outputFile = $this->getAsFile( $sessionList );
 		
 		header( 'Content-type: ' . $this->contentType );
 		header( 'Content-Disposition: attachment; filename="' . $fileName . '"' );
@@ -148,7 +148,7 @@ class Output extends CommonOutput implements FormatOutput {
 	 * @inheritDoc
 	 */
 	public function saveAsFile( array $sessionList, string $fileName ): void {
-		$outputFile = $this->getAsFile($sessionList);
+		$outputFile = $this->getAsFile( $sessionList );
 		
 		file_put_contents( $fileName, $outputFile );
 	}

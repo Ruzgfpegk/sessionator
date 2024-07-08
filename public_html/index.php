@@ -21,7 +21,7 @@ $sessionList->newConnection( 'SSH' )
             ->setFolderName( 'Main Directory' ) // Mandatory setting
             ->setSessionName( 'SSH Line 1' ) // Mandatory setting
             ->setSessionIcon( 'Terminal_Debian' ) // Changes icon from default SSH 109 to 149
-            ->setSessionComment( 'Comment with # character' ) // Testing the "#" replacement
+            ->setSessionComment( 'Comment with # character, a quote \' and a double-quote "' ) // Testing the "#" replacement
             ->setHostName( 'localhost' ) // Mandatory setting
             ->setUserName( 'testUserSsh' )
             ->setSessionParam( 'x11Forwarding', SettingBlock::DISABLED ) // Changes index 5 from -1 to 0

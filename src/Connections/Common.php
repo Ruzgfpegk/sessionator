@@ -14,7 +14,7 @@ abstract class Common implements Connection {
 	 */
 	private Sessionator $sessionList;
 	
-	private string $folderName;
+	private string $folderName = '';
 	
 	private string $sessionName;
 	
