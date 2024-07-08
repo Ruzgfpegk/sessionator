@@ -70,9 +70,9 @@ $sessionList->download( 'MobaXterm' );
 * :soon: Unstable WIP, or planned
 * :no_entry_sign: Unsupported by the target application
 
-| Software  | File format support | SSH                | RDP                | SFTP               | VNC                |
-|-----------|---------------------|--------------------|--------------------|--------------------|--------------------|
-| MobaXterm | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Software  | File format support | SSH                | RDP                | SFTP               | VNC                | Browser            |
+|-----------|---------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| MobaXterm | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 ## Possible evolutions
