@@ -73,6 +73,9 @@ $sessionList->download( 'MobaXterm' );
 | Software  | File format support | SSH                | RDP                | SFTP               | VNC                | Browser            |
 |-----------|---------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
 | MobaXterm | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Remmina   | :heavy_check_mark:  | :soon:             | :soon:             | :soon:             | :soon:             | :no_entry_sign:    |
+| mRemoteNG | :heavy_check_mark:  | :soon:             | :soon:             | :no_entry_sign:    | :soon:             | :soon:             |
+| nccm      | :soon:              | :soon:             | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    |
 
 
 ## Possible evolutions

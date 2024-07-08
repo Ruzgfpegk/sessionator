@@ -118,7 +118,7 @@ class RDP extends SettingBlock implements SessionType {
 	public function applyParams( Connection $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
-		// Setup each custom parameter of the Connections/SSH class
+		// Setup each custom parameter of the Connections/RDP class
 		if ( $userName = $sessionDetails->getUserName() ) {
 			$this->settings['userName'][1] = $userName;
 		}
