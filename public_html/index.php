@@ -55,6 +55,34 @@ $sessionList->newConnection( 'VNC' )
             ->setHostName( 'vnchost' ) // Mandatory setting
             ->addToList();
 
+$sessionList->newConnection( 'Browser' )
+            ->setFolderName( 'Browser sessions' )
+            ->setSessionName( 'MFing Website through Edge' )
+            ->setHostName( 'https://motherfuckingwebsite.com/' ) // Mandatory setting
+            ->setSessionParam( 'browserEngine', 'Microsoft Edge' )
+            ->addToList();
+
+$sessionList->newConnection( 'Browser' )
+            ->setFolderName( 'Browser sessions' )
+            ->setSessionName( 'Programming MFer through Chrome' )
+            ->setHostName( 'https://programming-motherfucker.com/' ) // Mandatory setting
+            ->setSessionParam( 'browserEngine', 'Google Chrome' )
+            ->addToList();
+
+$sessionList->newConnection( 'Browser' )
+            ->setFolderName( 'Browser sessions' )
+            ->setSessionName( 'Perdu through Firefox' )
+            ->setHostName( 'https://www.perdu.com/' ) // Mandatory setting
+            ->setSessionParam( 'browserEngine', 'Mozilla Firefox' )
+            ->addToList();
+
+$sessionList->newConnection( 'Browser' )
+            ->setFolderName( 'Browser sessions' )
+            ->setSessionName( 'PHP.com through IE' )
+            ->setHostName( 'https://www.php.net/' ) // Mandatory setting
+            ->setSessionParam( 'browserEngine', 'Internet Explorer' )
+            ->addToList();
+
 // Parameters can also be given one after another on the object returned by newConnection();
 // This is especially useful if you want to specify the object name to the IDE for efficient autocompletion.
 /** @var \Ruzgfpegk\Sessionator\Connections\SSH $secondDirSshLine2 */
