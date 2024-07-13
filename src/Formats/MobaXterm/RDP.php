@@ -126,5 +126,30 @@ class RDP extends SettingBlock implements SessionType {
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
+		
+		// Transform the resolution setting if it's set by the user
+		if ( ! is_numeric( $this->settings['resolution'][1] ) && array_key_exists( $this->settings['resolution'][1], self::RESOLUTION ) ) {
+			$this->settings['resolution'][1] = self::RESOLUTION[ $this->settings['resolution'][1] ];
+		}
+		
+		// Transform the redirectAudio setting if it's set by the user
+		if ( ! is_numeric( $this->settings['redirectAudio'][1] ) && array_key_exists( $this->settings['redirectAudio'][1], self::REDIRECT_AUDIO ) ) {
+			$this->settings['redirectAudio'][1] = self::REDIRECT_AUDIO[ $this->settings['redirectAudio'][1] ];
+		}
+		
+		// Transform the zoom setting if it's set by the user
+		if ( ! is_numeric( $this->settings['zoom'][1] ) && array_key_exists( $this->settings['zoom'][1], self::ZOOM ) ) {
+			$this->settings['zoom'][1] = self::ZOOM[ $this->settings['zoom'][1] ];
+		}
+		
+		// Transform the colorDepth setting if it's set by the user
+		if ( ! is_numeric( $this->settings['colorDepth'][1] ) && array_key_exists( $this->settings['colorDepth'][1], self::COLOR_DEPTH ) ) {
+			$this->settings['colorDepth'][1] = self::COLOR_DEPTH[ $this->settings['colorDepth'][1] ];
+		}
+		
+		// Transform the serverAuthentication setting if it's set by the user
+		if ( ! is_numeric( $this->settings['serverAuthentication'][1] ) && array_key_exists( $this->settings['serverAuthentication'][1], self::SERVER_AUTHENTICATION ) ) {
+			$this->settings['serverAuthentication'][1] = self::SERVER_AUTHENTICATION[ $this->settings['serverAuthentication'][1] ];
+		}
 	}
 }

@@ -59,6 +59,11 @@ class SFTP extends SettingBlock implements SessionType {
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
+		
+		// Transform the proxyTypeSftp setting if it's set by the user
+		if ( ! is_numeric( $this->settings['proxyTypeSftp'][1] ) && array_key_exists( $this->settings['proxyTypeSftp'][1], self::PROXY_TYPE ) ) {
+			$this->settings['proxyTypeSftp'][1] = self::PROXY_TYPE_SFTP[ $this->settings['proxyTypeSftp'][1] ];
+		}
 	}
 	
 	public function getString(): string {

@@ -72,6 +72,21 @@ class Browser extends SettingBlock implements SessionType {
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
+		
+		// Transform the browserIECompatibility setting if it's set by the user
+		if ( ! is_numeric( $this->settings['browserIECompatibility'][1] ) && array_key_exists( $this->settings['browserIECompatibility'][1], self::IE_EMULATION ) ) {
+			$this->settings['browserIECompatibility'][1] = self::IE_EMULATION[ $this->settings['browserIECompatibility'][1] ];
+		}
+		
+		// Transform the browserEngine setting if it's set by the user
+		if ( ! is_numeric( $this->settings['browserEngine'][1] ) && array_key_exists( $this->settings['browserEngine'][1], self::BROWSER_ENGINE ) ) {
+			$this->settings['browserEngine'][1] = self::BROWSER_ENGINE[ $this->settings['browserEngine'][1] ];
+		}
+		
+		// Transform the browserProxy setting if it's set by the user
+		if ( ! is_numeric( $this->settings['browserProxy'][1] ) && array_key_exists( $this->settings['browserProxy'][1], self::EDGE_PROXY_SETTING ) ) {
+			$this->settings['browserProxy'][1] = self::EDGE_PROXY_SETTING[ $this->settings['browserProxy'][1] ];
+		}
 	}
 	
 	public function getString(): string {
