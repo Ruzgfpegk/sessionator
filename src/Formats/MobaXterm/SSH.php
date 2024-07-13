@@ -93,6 +93,26 @@ class SSH extends SettingBlock implements SessionType {
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
+		
+		// Transform the remoteEnvironment setting if it's set by the user
+		if ( ! is_numeric( $this->settings['remoteEnvironment'][1] ) && array_key_exists( $this->settings['remoteEnvironment'][1], self::REMOTE_ENVIRONMENTS ) ) {
+			$this->settings['remoteEnvironment'][1] = self::REMOTE_ENVIRONMENTS[ $this->settings['remoteEnvironment'][1] ];
+		}
+		
+		// Transform the proxyType setting if it's set by the user
+		if ( ! is_numeric( $this->settings['proxyType'][1] ) && array_key_exists( $this->settings['proxyType'][1], self::PROXY_TYPE ) ) {
+			$this->settings['proxyType'][1] = self::PROXY_TYPE[ $this->settings['proxyType'][1] ];
+		}
+		
+		// Transform the fileBrowserProtocol setting if it's set by the user
+		if ( ! is_numeric( $this->settings['fileBrowserProtocol'][1] ) && array_key_exists( $this->settings['fileBrowserProtocol'][1], self::FILE_BROWSER_PROTOCOL ) ) {
+			$this->settings['fileBrowserProtocol'][1] = self::FILE_BROWSER_PROTOCOL[ $this->settings['fileBrowserProtocol'][1] ];
+		}
+		
+		// Transform the sshProtocolVersion setting if it's set by the user
+		if ( ! is_numeric( $this->settings['sshProtocolVersion'][1] ) && array_key_exists( $this->settings['sshProtocolVersion'][1], self::SSH_PROTOCOL_VERSION ) ) {
+			$this->settings['sshProtocolVersion'][1] = self::SSH_PROTOCOL_VERSION[ $this->settings['sshProtocolVersion'][1] ];
+		}
 	}
 	
 	public function getString(): string {

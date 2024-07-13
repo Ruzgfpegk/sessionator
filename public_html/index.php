@@ -6,14 +6,11 @@ declare( strict_types=1 );
 // Internal classes also use autoload through composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Main class
+use Ruzgfpegk\Sessionator\Sessionator;
+
 // Included to use global MobaXterm format constants
 use Ruzgfpegk\Sessionator\Formats\MobaXterm\SettingBlock;
-
-// Included to use MobaXterm SSH format constants
-use Ruzgfpegk\Sessionator\Formats\MobaXterm\SSH;
-
-// Included to use SSH constants of the format below
-use Ruzgfpegk\Sessionator\Sessionator;
 
 $sessionList = new Sessionator;
 

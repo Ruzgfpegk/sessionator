@@ -53,6 +53,11 @@ class VNC extends SettingBlock implements SessionType {
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
+		
+		// Transform the proxyType setting if it's set by the user
+		if ( ! is_numeric( $this->settings['proxyType'][1] ) && array_key_exists( $this->settings['proxyType'][1], self::PROXY_TYPE ) ) {
+			$this->settings['proxyType'][1] = self::PROXY_TYPE[ $this->settings['proxyType'][1] ];
+		}
 	}
 	
 	public function getString(): string {
