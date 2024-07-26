@@ -47,6 +47,12 @@ abstract class SettingBlock {
 	public function applyParams( Connection $sessionDetails ): void {
 		foreach ( $sessionDetails->getSessionParams() as $sessionParam => $sessionValue ) {
 			if ( array_key_exists( $sessionParam, $this->settings ) ) {
+				if ( $sessionValue === 'Enabled' ) {
+					$sessionValue = self::ENABLED;
+				} elseif ( $sessionValue === 'Disabled' ) {
+					$sessionValue = self::DISABLED;
+				}
+				
 				$this->settings[ $sessionParam ][1] = $sessionValue;
 			}
 		}
