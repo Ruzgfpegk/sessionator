@@ -9,9 +9,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // Main class
 use Ruzgfpegk\Sessionator\Sessionator;
 
-// Included to use global MobaXterm format constants
-use Ruzgfpegk\Sessionator\Formats\MobaXterm\SettingBlock;
-
 $sessionList = new Sessionator;
 
 $sessionList->newConnection( 'SSH' )
@@ -21,7 +18,7 @@ $sessionList->newConnection( 'SSH' )
             ->setSessionComment( 'Comment with # character, a quote \' and a double-quote "' ) // Testing the "#" replacement
             ->setHostName( 'localhost' ) // Mandatory setting
             ->setUserName( 'testUserSsh' )
-            ->setSessionParam( 'x11Forwarding', SettingBlock::DISABLED ) // Changes index 5 from -1 to 0
+            ->setSessionParam( 'x11Forwarding', 'Disabled' ) // Changes index 5 from -1 to 0
             ->setSessionParam( 'fontSize', '12' ) // Changes terminal font size (index 1) from 10 to 12
             ->setSessionParam( 'privateKeyPath', 'C:\pkey.key' ) // Testing the "C:\" replacement
             ->addToList(); // Mandatory end call
@@ -45,7 +42,7 @@ $sessionList->newConnection( 'RDP' )
             ->setSessionName( 'RDP Connection' ) // Mandatory setting
             ->setHostName( 'localhost' ) // Mandatory setting
             ->setUserName( 'testUserRdp' )
-            ->setSessionParam( 'redirectDrives', SettingBlock::ENABLED ) // Changes index 6 from 0 to -1
+            ->setSessionParam( 'redirectDrives', 'Enabled' ) // Changes index 6 from 0 to -1
             ->setSessionParam( 'fontSize', '14' ) // Changes terminal font size (index 1) from 10 to 14
             ->addToList(); // Mandatory end call
 
