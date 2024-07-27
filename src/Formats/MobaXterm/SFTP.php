@@ -22,6 +22,14 @@ class SFTP extends SettingBlock implements SessionType {
 		'Web proxy with NTLM authentication'   => '8',
 	];
 	
+	private const BOOLEANS = [
+		'utf8Charset',
+		'compression',
+		'asciiMode',
+		'twoStepsAuthentication',
+		'preserveFileDates'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}

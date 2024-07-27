@@ -37,6 +37,22 @@ class SSH extends SettingBlock implements SessionType {
 		'SSHv1 (insecure)' => '2',
 	];
 	
+	private const BOOLEANS = [
+		'x11Forwarding',
+		'compression',
+		'stayConnectedAfterCmd',
+		'noUserName',
+		'fileBrowser',
+		'fileBrowserFollowSshPath',
+		'sshUnknown18',
+		'adaptLocalesOnRemote',
+		'fileBrowserScpOverSftp',
+		'disconnectIfTrivialLogin',
+		'preferKnownServerAlgs',
+		'attemptLoginWithSshAgent',
+		'allowAgentForwarding'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}

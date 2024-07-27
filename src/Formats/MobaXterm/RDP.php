@@ -75,6 +75,25 @@ class RDP extends SettingBlock implements SessionType {
 		'prompt' => '2'
 	];
 	
+	private const BOOLEANS = [
+		'adminConsole',
+		'redirectPorts',
+		'redirectDrives',
+		'redirectPrinters',
+		'rdpUnknown8',
+		'enhancedGraphics',
+		'rdpUnknown11',
+		'nativeAuthentication',
+		'redirectClipboard',
+		'forwardKeyboardShortcuts',
+		'displaySettingsBar',
+		'rdpUnknown23',
+		'useCredSsp',
+		'redirectMicrophone',
+		'autoScale',
+		'redirectSmartCards'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
