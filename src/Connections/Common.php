@@ -16,6 +16,8 @@ abstract class Common implements Connection {
 	
 	private string $folderName = '';
 	
+	private string $folderIcon = '';
+	
 	private string $sessionName;
 	
 	private string $sessionIcon = '';
@@ -41,8 +43,18 @@ abstract class Common implements Connection {
 		return $this->folderName;
 	}
 	
+	public function getFolderIcon(): string {
+		return $this->folderIcon;
+	}
+	
 	public function setFolderName( string $folderName ): Connection {
 		$this->folderName = $folderName;
+		
+		return $this;
+	}
+	
+	public function setFolderIcon( string $folderIcon ): Connection {
+		$this->folderIcon = $folderIcon;
 		
 		return $this;
 	}
