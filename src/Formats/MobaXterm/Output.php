@@ -10,7 +10,7 @@ use Ruzgfpegk\Sessionator\Formats\CommonOutput;
 use Ruzgfpegk\Sessionator\Formats\FormatOutput;
 
 /**
- * The Formats\MobaXterm\Output class defines the global .mxtsessions file format
+ * The Formats\MobaXterm\Output class defines the global .mxtsessions file format for export
  */
 class Output extends CommonOutput implements FormatOutput {
 	
