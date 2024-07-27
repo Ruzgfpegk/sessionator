@@ -3,6 +3,8 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
+use Ruzgfpegk\Sessionator\Connections\Connection;
+
 /**
  * The Formats\MobaXterm\TerminalSettings class defines the Terminal part of the .mtxsession format
  */
@@ -115,5 +117,45 @@ class TerminalSettings extends SettingBlock {
 			'fontAntialiasing'  => [ 26, self::ENABLED ],
 			'fontLigatures'     => [ 27, self::ENABLED ]
 		];
+	}
+	
+	public function applyParams( Connection $sessionDetails ): void {
+		parent::applyParams( $sessionDetails );
+		
+		// Transform the charset setting if it's set by the user
+		if ( ! is_numeric( $this->settings['charset'][1] )
+		     && array_key_exists( $this->settings['charset'][1], self::CHARSETS ) ) {
+			$this->settings['charset'][1] = self::CHARSETS[ $this->settings['charset'][1] ];
+		}
+		
+		// Transform the cursorType setting if it's set by the user
+		if ( ! is_numeric( $this->settings['cursorType'][1] )
+		     && array_key_exists( $this->settings['cursorType'][1], self::CURSOR_TYPE ) ) {
+			$this->settings['cursorType'][1] = self::CURSOR_TYPE[ $this->settings['cursorType'][1] ];
+		}
+		
+		// Transform the syntaxHighlight setting if it's set by the user
+		if ( ! is_numeric( $this->settings['syntaxHighlight'][1] )
+		     && array_key_exists( $this->settings['syntaxHighlight'][1], self::SYNTAX_HIGHLIGHT ) ) {
+			$this->settings['syntaxHighlight'][1] = self::SYNTAX_HIGHLIGHT[ $this->settings['syntaxHighlight'][1] ];
+		}
+		
+		// Transform the customMacroToggle setting if it's set by the user
+		if ( array_key_exists( $this->settings['customMacroToggle'][1], self::CUSTOM_MACRO )
+		     && ! preg_match( '/^<\w+>$/', $this->settings['customMacroToggle'][1] ) ) {
+			$this->settings['customMacroToggle'][1] = self::CUSTOM_MACRO[ $this->settings['customMacroToggle'][1] ];
+		}
+		
+		// Transform the pasteDelay setting if it's set by the user
+		if ( ! is_numeric( $this->settings['pasteDelay'][1] )
+		     && array_key_exists( $this->settings['pasteDelay'][1], self::PASTE_DELAY ) ) {
+			$this->settings['pasteDelay'][1] = self::PASTE_DELAY[ $this->settings['pasteDelay'][1] ];
+		}
+		
+		// Transform the fontCharset setting if it's set by the user
+		if ( ! is_numeric( $this->settings['fontCharset'][1] )
+		     && array_key_exists( $this->settings['fontCharset'][1], self::FONT_CHARSETS ) ) {
+			$this->settings['fontCharset'][1] = self::FONT_CHARSETS[ $this->settings['fontCharset'][1] ];
+		}
 	}
 }
