@@ -22,7 +22,7 @@ class SFTP extends SettingBlock implements SessionType {
 		'Web proxy with NTLM authentication'   => '8',
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'utf8Charset',
 		'compression',
 		'asciiMode',

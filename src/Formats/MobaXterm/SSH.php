@@ -37,7 +37,7 @@ class SSH extends SettingBlock implements SessionType {
 		'SSHv1 (insecure)' => '2',
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'x11Forwarding',
 		'compression',
 		'stayConnectedAfterCmd',
