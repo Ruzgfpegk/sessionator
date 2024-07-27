@@ -34,6 +34,23 @@ class Browser extends SettingBlock implements SessionType {
 		'Specify a proxy script'       => '4',
 	];
 	
+	private const BOOLEANS = [
+		'displayTopBar',
+		'displayBackButton',
+		'displayForwardButton',
+		'displayRefreshButton',
+		'displayStopButton',
+		'displayHomeButton',
+		'displayAddressBar',
+		'browserExternalPopups',
+		'edgeDisplayTopBar',
+		'browserEnableContextMenus',
+		'edgeExternalPopups',
+		'browserEnableSmartScreen',
+		'browserAllowInsecureLocalhost',
+		'browserUseEdgeStoredPasswords'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}

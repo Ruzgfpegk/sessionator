@@ -19,6 +19,14 @@ class VNC extends SettingBlock implements SessionType {
 		'Local'  => '5'
 	];
 	
+	private const BOOLEANS = [
+		'autoScale',
+		'viewOnly',
+		'displaySettingsBar',
+		'useNewVncEngine',
+		'useSslTunneling'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}

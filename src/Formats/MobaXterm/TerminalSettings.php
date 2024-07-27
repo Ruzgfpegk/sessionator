@@ -66,6 +66,20 @@ class TerminalSettings extends SettingBlock {
 		'BALTIC'     => '186'
 	];
 	
+	private const BOOLEANS = [
+		'fontBold',
+		'terminalUnknown3',
+		'appendPath',
+		'backspaceSendsH',
+		'logOutput',
+		'lockTerminalTitle',
+		'terminalUnknown15',
+		'fixedDimensions',
+		'boldIsBrighter',
+		'fontAntialiasing',
+		'fontLigatures'
+	];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
