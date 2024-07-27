@@ -75,7 +75,7 @@ class RDP extends SettingBlock implements SessionType {
 		'prompt' => '2'
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'adminConsole',
 		'redirectPorts',
 		'redirectDrives',

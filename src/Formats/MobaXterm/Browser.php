@@ -34,7 +34,7 @@ class Browser extends SettingBlock implements SessionType {
 		'Specify a proxy script'       => '4',
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'displayTopBar',
 		'displayBackButton',
 		'displayForwardButton',

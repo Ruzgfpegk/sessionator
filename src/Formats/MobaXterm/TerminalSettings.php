@@ -66,7 +66,7 @@ class TerminalSettings extends SettingBlock {
 		'BALTIC'     => '186'
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'fontBold',
 		'terminalUnknown3',
 		'appendPath',

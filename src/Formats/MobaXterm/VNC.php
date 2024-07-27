@@ -19,7 +19,7 @@ class VNC extends SettingBlock implements SessionType {
 		'Local'  => '5'
 	];
 	
-	private const BOOLEANS = [
+	public array $booleans = [
 		'autoScale',
 		'viewOnly',
 		'displaySettingsBar',

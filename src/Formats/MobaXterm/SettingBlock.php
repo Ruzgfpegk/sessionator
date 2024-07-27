@@ -20,6 +20,9 @@ abstract class SettingBlock {
 	
 	protected array $settings = [];
 	
+	// This is populated by the devs in the extending classes
+	public array $booleans = [];
+	
 	/**
 	 * Concatenates all the elements from the configuration subsection
 	 *
