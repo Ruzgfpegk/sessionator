@@ -20,6 +20,9 @@ abstract class SettingBlock {
 	
 	protected array $settings = [];
 	
+	// This is populated dynamically and on-demand in buildFromString() under the extending classes
+	protected static array $reversedSettings  = [];
+	
 	// This is populated by the devs in the extending classes
 	public array $booleans = [];
 	
@@ -59,5 +62,40 @@ abstract class SettingBlock {
 				$this->settings[ $sessionParam ][1] = $sessionValue;
 			}
 		}
+	}
+	
+	protected function reverseSettings(): void {
+		// Get the current object name
+		$className = get_class( $this );
+		
+		// This is intended to be called only from the extending classes so that $className matches them
+		if ( empty( self::$reversedSettings[ $className ] ) ) {
+			// Build and cache the reverse mapping of $this->settings
+			foreach ( $this->settings as $setting => $indexAndDefault ) {
+				self::$reversedSettings[ $className ][ $indexAndDefault[0] ] = $setting;
+			}
+		}
+	}
+	
+	protected function reverseMapping( string $sessionSettings ): array {
+		$this->reverseSettings();
+		
+		$settingsFinal = [];
+		$className     = get_class( $this );
+		$settingsArray = explode( '%', $sessionSettings );
+		
+		foreach ( self::$reversedSettings[ $className ] as $index => $settingName ) {
+			$settingsFinal[ $settingName ] = $settingsArray[ $index ];
+			
+			if ( in_array( $settingName, $this->booleans, true ) ) {
+				if ( $settingsFinal[ $settingName ] === self::ENABLED ) {
+					$settingsFinal[ $settingName ] = 'Enabled';
+				} else {
+					$settingsFinal[ $settingName ] = 'Disabled';
+				}
+			}
+		}
+		
+		return $settingsFinal;
 	}
 }

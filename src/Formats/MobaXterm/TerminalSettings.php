@@ -82,6 +82,8 @@ class TerminalSettings extends SettingBlock {
 		'fontLigatures'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -117,6 +119,35 @@ class TerminalSettings extends SettingBlock {
 			'fontAntialiasing'  => [ 26, self::ENABLED ],
 			'fontLigatures'     => [ 27, self::ENABLED ]
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['CHARSETS']         = array_flip( self::CHARSETS );
+			self::$reversedConstants['CURSOR_TYPE']      = array_flip( self::CURSOR_TYPE );
+			self::$reversedConstants['SYNTAX_HIGHLIGHT'] = array_flip( self::SYNTAX_HIGHLIGHT );
+			self::$reversedConstants['CUSTOM_MACRO']     = array_flip( self::CUSTOM_MACRO );
+			self::$reversedConstants['PASTE_DELAY']      = array_flip( self::PASTE_DELAY );
+			self::$reversedConstants['FONT_CHARSETS']    = array_flip( self::FONT_CHARSETS );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['charset']           = self::$reversedConstants['CHARSETS'][ $settingsFinal['charset'] ];
+		$settingsFinal['cursorType']        = self::$reversedConstants['CURSOR_TYPE'][ $settingsFinal['cursorType'] ];
+		$settingsFinal['syntaxHighlight']   = self::$reversedConstants['SYNTAX_HIGHLIGHT'][ $settingsFinal['syntaxHighlight'] ];
+		$settingsFinal['customMacroToggle'] = self::$reversedConstants['CUSTOM_MACRO'][ $settingsFinal['customMacroToggle'] ];
+		$settingsFinal['pasteDelay']        = self::$reversedConstants['PASTE_DELAY'][ $settingsFinal['pasteDelay'] ];
+		$settingsFinal['fontCharset']       = self::$reversedConstants['FONT_CHARSETS'][ $settingsFinal['fontCharset'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {

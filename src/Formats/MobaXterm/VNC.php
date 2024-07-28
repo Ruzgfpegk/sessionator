@@ -27,6 +27,8 @@ class VNC extends SettingBlock implements SessionType {
 		'useSslTunneling'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -52,6 +54,25 @@ class VNC extends SettingBlock implements SessionType {
 			'proxyLogin'               => [ 16, '' ],
 			'vncUnknown17'             => [ 17, '' ], // TODO Find out what this is
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['PROXY_TYPE'] = array_flip( self::PROXY_TYPE );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['proxyType'] = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {

@@ -30,6 +30,8 @@ class SFTP extends SettingBlock implements SessionType {
 		'preserveFileDates'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -54,6 +56,25 @@ class SFTP extends SettingBlock implements SessionType {
 			'localStartupFolder'     => [ 15, '' ],
 			'preserveFileDates'      => [ 16, self::ENABLED ],
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['PROXY_TYPE_SFTP'] = array_flip( self::PROXY_TYPE_SFTP );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['proxyTypeSftp'] = self::$reversedConstants['PROXY_TYPE_SFTP'][ $settingsFinal['proxyTypeSftp'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {
