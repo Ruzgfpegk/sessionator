@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * Interface to define a common basis to all MobaXterm session types (that extend SettingBlock)
@@ -14,11 +14,11 @@ interface SessionType {
 	/**
 	 * Registers all parameters set by "->setSessionParam( 'paramName', 'paramValue' )"
 	 *
-	 * @param Connection $sessionDetails
+	 * @param Session $sessionDetails
 	 *
 	 * @return void
 	 */
-	public function applyParams( Connection $sessionDetails ): void;
+	public function applyParams( Session $sessionDetails ): void;
 	
 	public function decodeFromString( string $sessionSettings ): array;
 }

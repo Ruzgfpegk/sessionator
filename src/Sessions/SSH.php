@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Ruzgfpegk\Sessionator\Connections;
+namespace Ruzgfpegk\Sessionator\Sessions;
 
 /**
- * The SSH object extends the Common object with specificities of SSH connections
+ * The SSH object extends the Common object with specificities of SSH sessions
  */
 class SSH extends Common {
 	private string $userName = '';
@@ -12,11 +12,11 @@ class SSH extends Common {
 	/**
 	 * Setter for the userName property.
 	 *
-	 * @param $userName string Sets the username for this connection
+	 * @param $userName string Sets the username for this session
 	 *
-	 * @return Connection
+	 * @return Session
 	 */
-	public function setUserName( string $userName ): Connection {
+	public function setUserName( string $userName ): Session {
 		$this->userName = $userName;
 		
 		return $this;

@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * The Formats\MobaXterm\SSH class defines the SSH part of the .mxtsessions format
@@ -124,10 +124,10 @@ class SSH extends SettingBlock implements SessionType {
 		return $settingsFinal;
 	}
 	
-	public function applyParams( Connection $sessionDetails ): void {
+	public function applyParams( Session $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
-		// Setup each custom parameter of the Connections/SSH class
+		// Setup each custom parameter of the Sessions/SSH class
 		if ( $userName = $sessionDetails->getUserName() ) {
 			$this->settings['userName'][1] = $userName;
 			$this->settings['noUserName'][1] = self::DISABLED;

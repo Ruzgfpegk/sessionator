@@ -3,8 +3,8 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
-use Ruzgfpegk\Sessionator\Connections\ConnectionFactory;
+use Ruzgfpegk\Sessionator\Sessions\Session;
+use Ruzgfpegk\Sessionator\Sessions\SessionFactory;
 use Ruzgfpegk\Sessionator\Formats\CommonInput;
 use Ruzgfpegk\Sessionator\Formats\FormatInput;
 
@@ -12,7 +12,7 @@ use Ruzgfpegk\Sessionator\Formats\FormatInput;
  * The Formats\MobaXterm\Input class defines the global .mxtsessions file format for import
  */
 class Input extends CommonInput implements FormatInput {
-	private const CONNECTION_TYPES = [
+	private const SESSION_TYPES = [
 		'0'  => 'SSH',
 		'4'  => 'RDP',
 		'5'  => 'VNC',
@@ -23,10 +23,10 @@ class Input extends CommonInput implements FormatInput {
 	/**
 	 * @param string $fileName
 	 *
-	 * @return array List of "Connection" objects
+	 * @return array List of "Session" objects
 	 */
 	public function importFromFile( string $fileName ): array {
-		$importedConnectionsList = [];
+		$importedSessionsList = [];
 		
 		// Read the file
 		$readFile = file_get_contents( $fileName );
@@ -49,20 +49,20 @@ class Input extends CommonInput implements FormatInput {
 			$folderImage = $mobaFileSection['ImgNum'];
 			unset( $mobaFileSection['SubRep'], $mobaFileSection['ImgNum'] );
 			
-			foreach ( $mobaFileSection as $connectionName => $connectionSettingsString ) {
-				$connection = $this->decodeIndividualConnection( $connectionSettingsString );
+			foreach ( $mobaFileSection as $sessionName => $sessionSettingsString ) {
+				$session = $this->decodeIndividualSession( $sessionSettingsString );
 				// Finish setting up the elements with the info only this function has
-				$connection->setFolderName( $folderName );
-				$connection->setSessionName( $connectionName );
+				$session->setFolderName( $folderName );
+				$session->setSessionName( $sessionName );
 				// TODO one day: set folder image function
-				$importedConnectionsList[] = $connection;
+				$importedSessionsList[] = $session;
 			}
 		}
 		
-		return $importedConnectionsList;
+		return $importedSessionsList;
 	}
 	
-	private function decodeIndividualConnection( string $connectionSettingsString ): Connection {
+	private function decodeIndividualSession( string $sessionSettingsString ): Session {
 		// Split the string into parts using "#" as separator
 		[
 			$reconnectionSetting, // TODO
@@ -72,32 +72,32 @@ class Input extends CommonInput implements FormatInput {
 			$sessionTabSetting, // TODO
 			$sessionComment,
 			$sessionTabColor // TODO
-		] = explode( '#', $connectionSettingsString );
+		] = explode( '#', $sessionSettingsString );
 		
-		// Prepare the "Connection" part
+		// Prepare the global "Session" part
 		$firstSeparatorPos = strpos( $sessionTypeSettings, '%' );
 		$sessionTypeNum    = substr( $sessionTypeSettings, 0, $firstSeparatorPos );
-		$sessionType       = self::CONNECTION_TYPES[ $sessionTypeNum ];
-		$connection        = ConnectionFactory::create( $sessionType );
+		$sessionType       = self::SESSION_TYPES[ $sessionTypeNum ];
+		$session         = SessionFactory::create( $sessionType );
 		
 		// Set up the "Session Type" part
 		$decodedSessionTypeSettings = SessionSettingsFactory::create( $sessionType )->decodeFromString( $sessionTypeSettings );
 		foreach ( $decodedSessionTypeSettings as $decodedSetting => $value ) {
-			$connection->setSessionParam( $decodedSetting, $value );
+			$session->setSessionParam( $decodedSetting, $value );
 		}
 		
 		// Set up the "Terminal" part
 		$decodedSettings = ( new TerminalSettings() )->decodeFromString( $sessionTerminalSettings );
 		foreach ( $decodedSettings as $decodedSetting => $value ) {
-			$connection->setSessionParam( $decodedSetting, $value );
+			$session->setSessionParam( $decodedSetting, $value );
 		}
 		
 		// Set up the basic info (folder and session name are set up by the importFromFile caller function)
-		$connection->setSessionIcon( ( new SessionIcon() )->getIconName( $sessionIcon ) );
-		$connection->setSessionComment( $sessionComment );
-		$connection->setHostName( $decodedSessionTypeSettings['remoteHost'] );
+		$session->setSessionIcon( ( new SessionIcon() )->getIconName( $sessionIcon ) );
+		$session->setSessionComment( $sessionComment );
+		$session->setHostName( $decodedSessionTypeSettings['remoteHost'] );
 		# TODO
 		
-		return $connection;
+		return $session;
 	}
 }

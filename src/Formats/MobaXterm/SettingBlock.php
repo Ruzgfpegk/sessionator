@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * This class describes the common elements of MobaXterm "configuration subsections".
@@ -41,11 +41,11 @@ abstract class SettingBlock {
 	/**
 	 * Registers all parameters set by "->setSessionParam( 'paramName', 'paramValue' )"
 	 *
-	 * @param Connection $sessionDetails
+	 * @param Session $sessionDetails
 	 *
 	 * @return void
 	 */
-	public function applyParams( Connection $sessionDetails ): void {
+	public function applyParams( Session $sessionDetails ): void {
 		foreach ( $sessionDetails->getSessionParams() as $sessionParam => $sessionValue ) {
 			if ( array_key_exists( $sessionParam, $this->settings ) ) {
 				if ( $sessionValue === 'Enabled' ) {

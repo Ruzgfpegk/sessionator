@@ -3,8 +3,8 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
-use Ruzgfpegk\Sessionator\Connections\ConnectionFactory;
+use Ruzgfpegk\Sessionator\Sessions\Session;
+use Ruzgfpegk\Sessionator\Sessions\SessionFactory;
 use Ruzgfpegk\Sessionator\Formats\FormatFactory;
 
 /**
@@ -16,36 +16,47 @@ class Sessionator {
 	/**
 	 * First dimension: Folder name
 	 * Second dimension: Session name
-	 * Value: Object implementing the Connection interface and extending the Common abstract class
+	 * Value: Object implementing the Session interface and extending the Common abstract class
 	 *
 	 * @var array
 	 */
 	private array $sessionList = [];
 	
 	/**
-	 * Fetches an object for the connection type and links its session list to the caller Sessionator object
+	 * Fetches an object for the session type and links its session list to the caller Sessionator object
 	 *
-	 * @param $connectionType string The type of connection to create
+	 * @param $sessionType string The type of session to create
 	 *
-	 * @return Connection
+	 * @return Session
 	 */
-	public function newConnection( string $connectionType ): Connection {
-		$connection = ConnectionFactory::create( $connectionType );
-		$connection->setSessionList( $this );
+	public function newSession( string $sessionType ): Session {
+		$session = SessionFactory::create( $sessionType );
+		$session->setSessionList( $this );
 		
-		return $connection;
+		return $session;
 	}
 	
 	/**
-	 * Registers the object for the connection in the main Sessionator object
-	 * Called by Connections\Common::addToList() through its sessionList property set in Sessionator::newConnection()
+	 * A temporary alias for newSession(), as it was its previous name
 	 *
-	 * @param $connection Connection
+	 * @param $sessionType string The type of session to create
+	 *
+	 * @return Session
+	 */
+	public function newConnection( string $sessionType ): Session {
+		return $this->newSession( $sessionType );
+	}
+	
+	/**
+	 * Registers the object for the session in the main Sessionator object
+	 * Called by Sessions\Common::addToList() through its sessionList property set in Sessionator::newSession()
+	 *
+	 * @param $session Session
 	 *
 	 * @return void
 	 */
-	public function addToList( Connection $connection ): void {
-		$this->sessionList[ $connection->getFolderName() ][ $connection->getSessionName() ] = $connection;
+	public function addToList( Session $session ): void {
+		$this->sessionList[ $session->getFolderName() ][ $session->getSessionName() ] = $session;
 	}
 	
 	/**
@@ -95,11 +106,11 @@ class Sessionator {
 	 * @return void
 	 */
 	public function importFromFile( string $fileName, string $formatType ): void {
-		$inputFormat         = FormatFactory::createInput( $formatType );
-		$importedConnections = $inputFormat->importFromFile( $fileName );
+		$inputFormat      = FormatFactory::createInput( $formatType );
+		$importedSessions = $inputFormat->importFromFile( $fileName );
 		
-		foreach ( $importedConnections as $importedConnection ) {
-			$this->addToList( $importedConnection );
+		foreach ( $importedSessions as $importedSession ) {
+			$this->addToList( $importedSession );
 		}
 	}
 	
