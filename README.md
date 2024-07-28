@@ -31,6 +31,10 @@ Then, for each session, chain everything you need:
 * `->setSessionParam( 'parameterName', 'parameterValue' )` : (Optional) See Settings.md for the full list of settings
 * `->addToList();` : You HAVE to put it at the end to save the built session in the stack
 
+You can also import the contents of a session file in a given format:
+
+* `->importFromFile( 'MobaXtermFileToImport.mxtsessions', 'MobaXterm' )` : (Optional) To import connexions from an existing MobaXterm session file
+
 When you've added all the connections you wanted, you can export the file this way:
 
 * `$sessionList->exportAsText( 'MobaXterm' );` : To export to the terminal (beware of the file format!)
@@ -59,6 +63,8 @@ $sessionList->newConnection( 'SSH' ) // Supported types: SSH and RDP
             ->setSessionParam( 'fontSize', '12' ) // Changes terminal font size (index 1) from 10 to 12
             ->setSessionParam( 'privateKeyPath', 'C:\pkey.key' ) // Testing the "C:\" replacement
             ->addToList(); // Mandatory end call
+
+$sessionList->importFromFile( 'MobaXtermFileToImport.mxtsessions', 'MobaXterm' );
 
 $sessionList->download( 'MobaXterm' );
 ```
