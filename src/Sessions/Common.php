@@ -43,14 +43,14 @@ abstract class Common implements Session {
 		return $this->folderName;
 	}
 	
-	public function getFolderIcon(): string {
-		return $this->folderIcon;
-	}
-	
 	public function setFolderName( string $folderName ): Session {
 		$this->folderName = $folderName;
 		
 		return $this;
+	}
+	
+	public function getFolderIcon(): string {
+		return $this->folderIcon;
 	}
 	
 	public function setFolderIcon( string $folderIcon ): Session {
@@ -59,14 +59,14 @@ abstract class Common implements Session {
 		return $this;
 	}
 	
+	public function getSessionName(): string {
+		return $this->sessionName;
+	}
+	
 	public function setSessionName( string $sessionName ): Session {
 		$this->sessionName = $sessionName;
 		
 		return $this;
-	}
-	
-	public function getSessionName(): string {
-		return $this->sessionName;
 	}
 	
 	public function getSessionIcon(): string {
@@ -89,18 +89,12 @@ abstract class Common implements Session {
 		return $this;
 	}
 	
-	public function setHostName( string $hostName ): Session {
-		$this->hostName = $hostName;
-		
-		return $this;
-	}
-	
 	public function getHostName(): string {
 		return $this->hostName;
 	}
 	
-	public function setSessionParam( string $paramName, string $paramValue ): Session {
-		$this->sessionParams[ $paramName ] = $paramValue;
+	public function setHostName( string $hostName ): Session {
+		$this->hostName = $hostName;
 		
 		return $this;
 	}
@@ -118,6 +112,12 @@ abstract class Common implements Session {
 		}
 		
 		return '';
+	}
+	
+	public function setSessionParam( string $paramName, string $paramValue ): Session {
+		$this->sessionParams[ $paramName ] = $paramValue;
+		
+		return $this;
 	}
 	
 	public function getSessionParams(): array {
