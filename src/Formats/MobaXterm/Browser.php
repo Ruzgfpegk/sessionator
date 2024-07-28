@@ -51,6 +51,8 @@ class Browser extends SettingBlock implements SessionType {
 		'browserUseEdgeStoredPasswords'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -80,6 +82,29 @@ class Browser extends SettingBlock implements SessionType {
 			'browserProxyScript'            => [ 19, '' ], // Edge only, alias of the previous one, as both share the same space
 			'browserProxyPort'              => [ 20, '' ], // Edge only
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['IE_EMULATION']       = array_flip( self::IE_EMULATION );
+			self::$reversedConstants['BROWSER_ENGINE']     = array_flip( self::BROWSER_ENGINE );
+			self::$reversedConstants['EDGE_PROXY_SETTING'] = array_flip( self::EDGE_PROXY_SETTING );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['browserIECompatibility'] = self::$reversedConstants['IE_EMULATION'][ $settingsFinal['browserIECompatibility'] ];
+		$settingsFinal['browserEngine']          = self::$reversedConstants['BROWSER_ENGINE'][ $settingsFinal['browserEngine'] ];
+		$settingsFinal['browserProxy']           = self::$reversedConstants['EDGE_PROXY_SETTING'][ $settingsFinal['browserProxy'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {

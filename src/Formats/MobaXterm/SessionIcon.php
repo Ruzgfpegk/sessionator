@@ -75,6 +75,9 @@ class SessionIcon {
 		'Hardware_Satellite_Dish'  => 145,
 	];
 	
+	
+	private static array $idToIcon = [];
+	
 	/**
 	 * Returns the icon for the session type
 	 *
@@ -93,5 +96,23 @@ class SessionIcon {
 		}
 		
 		return self::ICON_TO_ID['Default'];
+	}
+	
+	/**
+	 * Returns the icon name for the icon ID
+	 *
+	 * @param string $iconId The icon ID
+	 *
+	 * @return string
+	 */
+	public function getIconName( string $iconId ): string {
+		$iconIdInt = (int) $iconId;
+		
+		if ( empty( self::$idToIcon ) ) {
+			// Build and cache the reverse mapping of self::ICON_TO_ID
+			self::$idToIcon = array_flip( self::ICON_TO_ID );
+		}
+		
+		return self::$idToIcon[ $iconIdInt ] ?? 'Default';
 	}
 }

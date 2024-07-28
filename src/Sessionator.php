@@ -87,6 +87,23 @@ class Sessionator {
 	}
 	
 	/**
+	 * Load sessions from a file in the specified format
+	 *
+	 * @param string $fileName The name of the file to load the session list from
+	 * @param string $formatType The input format for which to load a session file
+	 *
+	 * @return void
+	 */
+	public function importFromFile( string $fileName, string $formatType ): void {
+		$inputFormat         = FormatFactory::createInput( $formatType );
+		$importedConnections = $inputFormat->importFromFile( $fileName );
+		
+		foreach ( $importedConnections as $importedConnection ) {
+			$this->addToList( $importedConnection );
+		}
+	}
+	
+	/**
 	 * Save the session list as a file in the specified format
 	 *
 	 * @param string $formatType The output format for which to save a session file

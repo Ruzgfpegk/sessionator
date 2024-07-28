@@ -11,6 +11,8 @@ use Ruzgfpegk\Sessionator\Sessionator;
 
 $sessionList = new Sessionator;
 
+$sessionList->importFromFile( 'public_html/MobaXterm-importTest.mxtsessions', 'MobaXterm' );
+
 $sessionList->newConnection( 'SSH' )
             ->setFolderName( 'Main Directory' ) // Mandatory setting
             ->setSessionName( 'SSH Line 1' ) // Mandatory setting

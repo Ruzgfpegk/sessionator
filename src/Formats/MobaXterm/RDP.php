@@ -94,6 +94,8 @@ class RDP extends SettingBlock implements SessionType {
 		'redirectSmartCards'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -132,6 +134,33 @@ class RDP extends SettingBlock implements SessionType {
 			'redirectSmartCards'       => [ 29, self::DISABLED ],
 			'serverAuthentication'     => [ 30, self::SERVER_AUTHENTICATION['none'] ],
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['RESOLUTION']            = array_flip( self::RESOLUTION );
+			self::$reversedConstants['REDIRECT_AUDIO']        = array_flip( self::REDIRECT_AUDIO );
+			self::$reversedConstants['ZOOM']                  = array_flip( self::ZOOM );
+			self::$reversedConstants['COLOR_DEPTH']           = array_flip( self::COLOR_DEPTH );
+			self::$reversedConstants['SERVER_AUTHENTICATION'] = array_flip( self::SERVER_AUTHENTICATION );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['resolution']            = self::$reversedConstants['RESOLUTION'][ $settingsFinal['resolution'] ];
+		$settingsFinal['redirectAudio']         = self::$reversedConstants['REDIRECT_AUDIO'][ $settingsFinal['redirectAudio'] ];
+		$settingsFinal['zoom']                  = self::$reversedConstants['ZOOM'][ $settingsFinal['zoom'] ];
+		$settingsFinal['colorDepth']            = self::$reversedConstants['COLOR_DEPTH'][ $settingsFinal['colorDepth'] ];
+		$settingsFinal['serverAuthentication']  = self::$reversedConstants['SERVER_AUTHENTICATION'][ $settingsFinal['serverAuthentication'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {

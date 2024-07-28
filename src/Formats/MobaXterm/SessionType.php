@@ -19,4 +19,6 @@ interface SessionType {
 	 * @return void
 	 */
 	public function applyParams( Connection $sessionDetails ): void;
+	
+	public function decodeFromString( string $sessionSettings ): array;
 }

@@ -53,6 +53,8 @@ class SSH extends SettingBlock implements SessionType {
 		'allowAgentForwarding'
 	];
 	
+	private static array $reversedConstants = [];
+	
 	public function __construct() {
 		$this->setDefaults();
 	}
@@ -95,6 +97,31 @@ class SSH extends SettingBlock implements SessionType {
 			'attemptLoginWithSshAgent' => [ 33, self::ENABLED ],
 			'allowAgentForwarding'     => [ 34, self::DISABLED ],
 		];
+	}
+	
+	private function reverseConstants(): void {
+		if ( empty( self::$reversedConstants ) ) {
+			// Build and cache the reverse mapping of public constants
+			self::$reversedConstants['REMOTE_ENVIRONMENTS']   = array_flip( self::REMOTE_ENVIRONMENTS );
+			self::$reversedConstants['PROXY_TYPE']            = array_flip( self::PROXY_TYPE );
+			self::$reversedConstants['FILE_BROWSER_PROTOCOL'] = array_flip( self::FILE_BROWSER_PROTOCOL );
+			self::$reversedConstants['SSH_PROTOCOL_VERSION']  = array_flip( self::SSH_PROTOCOL_VERSION );
+		}
+	}
+	
+	public function decodeFromString( string $sessionSettings ): array {
+		// Decode the settings
+		$settingsFinal = $this->reverseMapping( $sessionSettings );
+		
+		// Decode the constants
+		$this->reverseConstants();
+		$settingsFinal['remoteEnvironment']   = self::$reversedConstants['REMOTE_ENVIRONMENTS'][ $settingsFinal['remoteEnvironment'] ];
+		$settingsFinal['proxyType']           = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
+		$settingsFinal['fileBrowserProtocol'] = self::$reversedConstants['FILE_BROWSER_PROTOCOL'][ $settingsFinal['fileBrowserProtocol'] ];
+		$settingsFinal['sshProtocolVersion']  = self::$reversedConstants['SSH_PROTOCOL_VERSION'][ $settingsFinal['sshProtocolVersion'] ];
+		
+		// Return the standardized array
+		return $settingsFinal;
 	}
 	
 	public function applyParams( Connection $sessionDetails ): void {
