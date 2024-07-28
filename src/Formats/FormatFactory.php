@@ -17,7 +17,7 @@ class FormatFactory {
 	}
 	
 	public static function createOutput( string $formatType ): FormatOutput {
-		return self::createIo( $formatType, 'Output' );
+		return self::createIo( $formatType );
 	}
 	
 	/**
@@ -47,9 +47,7 @@ class FormatFactory {
 			throw new RuntimeException( "No class found for format $formatName/$ioType!<br>" );
 		}
 		
-		$className = 'Ruzgfpegk\\Sessionator\\Formats\\' . $formatName . '\\' . $ioType;
-		
-		self::$cache[ $formatName ][ $ioType ] = $className;
+		self::$cache[ $formatName ][ $ioType ] = 'Ruzgfpegk\\Sessionator\\Formats\\' . $formatName . '\\' . $ioType;
 		
 		return new self::$cache[ $formatName ][ $ioType ];
 	}

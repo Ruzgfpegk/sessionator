@@ -43,6 +43,7 @@ class SessionIcon {
 		'Graphical_RaspberryPi'    => 92,
 		'Graphical_Linux'          => 93,
 		// Custom - Terminals
+		'Terminal_Warning'         => 103,
 		'Terminal_Ubuntu'          => 105,
 		'Terminal_Linux'           => 111,
 		'Terminal_SUSE'            => 115,
