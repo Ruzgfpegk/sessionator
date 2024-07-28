@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * The Formats\MobaXterm\SFTP class defines the SFTP part of the .mxtsessions format
@@ -77,10 +77,10 @@ class SFTP extends SettingBlock implements SessionType {
 		return $settingsFinal;
 	}
 	
-	public function applyParams( Connection $sessionDetails ): void {
+	public function applyParams( Session $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
-		// Setup each custom parameter of the Connections/SFTP class
+		// Setup each custom parameter of the Sessions/SFTP class
 		if ( $userName = $sessionDetails->getUserName() ) {
 			$this->settings['userName'][1] = $userName;
 		}

@@ -21,13 +21,13 @@ $sessionList = new Sessionator;
 
 Then, for each session, chain everything you need:
 
-* `$sessionList->newConnection( 'type' )` : Set the new connection type (currently supported: SSH and RDP)
-* `->setFolderName( 'Folder' )` : The hierarchy where the connection will be stored (MobaXterm uses the \ separator)
-* `->setSessionName( 'Session' )` : Choose the name of the connection under the folder
-* `->setSessionIcon( 'Icon_Name' )` : (Optional) Override the default icon for the connection type (see Settings.md)
-* `->setSessionComment( 'Comment' )` : (Optional) Set a comment to the connection
+* `$sessionList->newSession( 'type' )` : Set the new session type (see "Status" below to see what's currently supported for which format)
+* `->setFolderName( 'Folder' )` : The hierarchy where the session will be stored (MobaXterm uses the \ separator)
+* `->setSessionName( 'Session' )` : Choose the name of the session under the folder
+* `->setSessionIcon( 'Icon_Name' )` : (Optional) Override the default icon for the session type (see Settings.md)
+* `->setSessionComment( 'Comment' )` : (Optional) Set a comment to the session
 * `->setHostName( 'target.server.local' )` : You have to connect do something, don't you?
-* `->setUserName( 'root' )` : (Optional) The connection username. Use "\<default\>" for the Windows one in MobaXterm.
+* `->setUserName( 'root' )` : (Optional) The session username. Use "\<default\>" for the Windows one in MobaXterm.
 * `->setSessionParam( 'parameterName', 'parameterValue' )` : (Optional) See Settings.md for the full list of settings
 * `->addToList();` : You HAVE to put it at the end to save the built session in the stack
 
@@ -51,7 +51,7 @@ use Ruzgfpegk\Sessionator\Sessionator;
 
 $sessionList = new Sessionator;
 
-$sessionList->newConnection( 'SSH' ) // Supported types: SSH and RDP
+$sessionList->newSession( 'SSH' ) // Supported types: SSH and RDP
             ->setFolderName( 'Main Directory\SSH' ) // Mandatory setting
             ->setSessionName( 'SSH Line 1' ) // Mandatory setting
             ->setSessionIcon( 'Terminal_Debian' ) // Changes icon from default SSH 109 to 149
@@ -90,12 +90,13 @@ The roadmap besides planned support could be, in order:
 * Session file import
 * other session managers import and export
 
-## Architecture
 
-The terms "session" and "connection" are used interchangeably, as a session defines a connection.
+## Workflow
 
-In the Sessionator class, the newConnection('target') method returns an object that extends the Connections\Common
-abstract class with the specificities of "target" connections.
+In this project, it is assumed that a session defines a connection.
+
+In the Sessionator class, the newSession('target') method returns an object that extends the Connections\Common
+abstract class with the specificities of "target" sessions (SSH, RDP, SFTP, VNC, etc.).
 
 On the returned object, the methods setFolderName('forderName'), setSessionName('sessionName')
 and setHostName('hostName') set the basic properties.

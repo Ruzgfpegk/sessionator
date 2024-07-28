@@ -1,18 +1,18 @@
 <?php
 declare( strict_types=1 );
 
-namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
+namespace Ruzgfpegk\Sessionator\Sessions;
 
 use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Factory to return an object implementing the MobaXterm\SessionType interface for a given session type
+ * Factory to return an object implementing the Session interface for a given session type
  */
-class SessionSettingsFactory {
+class SessionFactory {
 	private static array $cache = [];
 	
-	public static function create( string $sessionType ): SessionType {
+	public static function create( string $sessionType ): Session {
 		if ( empty( $sessionType ) ) {
 			throw new InvalidArgumentException(
 				'The first parameter should be a string containing the session type.<br>'
@@ -23,11 +23,11 @@ class SessionSettingsFactory {
 			return new self::$cache[ $sessionType ];
 		}
 		
-		if ( ! file_exists( dirname( __DIR__ ) . '/MobaXterm/' . $sessionType . '.php' ) ) {
+		if ( ! file_exists( dirname( __DIR__ ) . '/Sessions/' . $sessionType . '.php' ) ) {
 			throw new RuntimeException( "No class found for session $sessionType!<br>" );
 		}
 		
-		$className = 'Ruzgfpegk\\Sessionator\\Formats\\MobaXterm\\' . $sessionType;
+		$className = 'Ruzgfpegk\\Sessionator\\Sessions\\' . $sessionType;
 		
 		self::$cache[ $sessionType ] = $className;
 		

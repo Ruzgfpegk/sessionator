@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * The Formats\MobaXterm\TerminalSettings class defines the Terminal part of the .mtxsession format
@@ -150,7 +150,7 @@ class TerminalSettings extends SettingBlock {
 		return $settingsFinal;
 	}
 	
-	public function applyParams( Connection $sessionDetails ): void {
+	public function applyParams( Session $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
 		// Transform the charset setting if it's set by the user

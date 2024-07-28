@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 
-use Ruzgfpegk\Sessionator\Connections\Connection;
+use Ruzgfpegk\Sessionator\Sessions\Session;
 
 /**
  * The Formats\MobaXterm\Browser class defines the Browser part of the .mxtsessions format
@@ -107,10 +107,10 @@ class Browser extends SettingBlock implements SessionType {
 		return $settingsFinal;
 	}
 	
-	public function applyParams( Connection $sessionDetails ): void {
+	public function applyParams( Session $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
-		// Setup each custom parameter of the Connections/Browser class
+		// Setup each custom parameter of the Sessions/Browser class
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}

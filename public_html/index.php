@@ -13,7 +13,7 @@ $sessionList = new Sessionator;
 
 $sessionList->importFromFile( 'public_html/MobaXterm-importTest.mxtsessions', 'MobaXterm' );
 
-$sessionList->newConnection( 'SSH' )
+$sessionList->newSession( 'SSH' )
             ->setFolderName( 'Main Directory' ) // Mandatory setting
             ->setSessionName( 'SSH Line 1' ) // Mandatory setting
             ->setSessionIcon( 'Terminal_Debian' ) // Changes icon from default SSH 109 to 149
@@ -25,13 +25,13 @@ $sessionList->newConnection( 'SSH' )
             ->setSessionParam( 'privateKeyPath', 'C:\pkey.key' ) // Testing the "C:\" replacement
             ->addToList(); // Mandatory end call
 
-$sessionList->newConnection( 'SSH' )
+$sessionList->newSession( 'SSH' )
             ->setFolderName( 'Main Directory\Subdir' )
             ->setSessionName( 'Sub Dir SSH Line 1' )
             ->setHostName( 'otherhost' )
             ->addToList();
 
-$sessionList->newConnection( 'SFTP' )
+$sessionList->newSession( 'SFTP' )
             ->setFolderName( 'File transfer' )
             ->setSessionName( 'SFTP Connection' )
             ->setHostName( 'sftphost' ) // Mandatory setting
@@ -39,7 +39,7 @@ $sessionList->newConnection( 'SFTP' )
             ->setSessionParam( 'privateKeyPath', 'C:\pkey.key' )
             ->addToList();
 
-$sessionList->newConnection( 'RDP' )
+$sessionList->newSession( 'RDP' )
             ->setFolderName( 'Graphical sessions' ) // Mandatory setting
             ->setSessionName( 'RDP Connection' ) // Mandatory setting
             ->setHostName( 'localhost' ) // Mandatory setting
@@ -48,44 +48,44 @@ $sessionList->newConnection( 'RDP' )
             ->setSessionParam( 'fontSize', '14' ) // Changes terminal font size (index 1) from 10 to 14
             ->addToList(); // Mandatory end call
 
-$sessionList->newConnection( 'VNC' )
+$sessionList->newSession( 'VNC' )
             ->setFolderName( 'Graphical sessions' )
             ->setSessionName( 'VNC Connection' )
             ->setHostName( 'vnchost' ) // Mandatory setting
             ->addToList();
 
-$sessionList->newConnection( 'Browser' )
+$sessionList->newSession( 'Browser' )
             ->setFolderName( 'Browser sessions' )
             ->setSessionName( 'MFing Website through Edge' )
             ->setHostName( 'https://motherfuckingwebsite.com/' ) // Mandatory setting
             ->setSessionParam( 'browserEngine', 'Microsoft Edge' )
             ->addToList();
 
-$sessionList->newConnection( 'Browser' )
+$sessionList->newSession( 'Browser' )
             ->setFolderName( 'Browser sessions' )
             ->setSessionName( 'Programming MFer through Chrome' )
             ->setHostName( 'https://programming-motherfucker.com/' ) // Mandatory setting
             ->setSessionParam( 'browserEngine', 'Google Chrome' )
             ->addToList();
 
-$sessionList->newConnection( 'Browser' )
+$sessionList->newSession( 'Browser' )
             ->setFolderName( 'Browser sessions' )
             ->setSessionName( 'Perdu through Firefox' )
             ->setHostName( 'https://www.perdu.com/' ) // Mandatory setting
             ->setSessionParam( 'browserEngine', 'Mozilla Firefox' )
             ->addToList();
 
-$sessionList->newConnection( 'Browser' )
+$sessionList->newSession( 'Browser' )
             ->setFolderName( 'Browser sessions' )
             ->setSessionName( 'PHP.com through IE' )
             ->setHostName( 'https://www.php.net/' ) // Mandatory setting
             ->setSessionParam( 'browserEngine', 'Internet Explorer' )
             ->addToList();
 
-// Parameters can also be given one after another on the object returned by newConnection();
+// Parameters can also be given one after another on the object returned by newSession();
 // This is especially useful if you want to specify the object name to the IDE for efficient autocompletion.
-/** @var \Ruzgfpegk\Sessionator\Connections\SSH $secondDirSshLine2 */
-$secondDirSshLine2 = $sessionList->newConnection( 'SSH' );
+/** @var \Ruzgfpegk\Sessionator\Sessions\SSH $secondDirSshLine2 */
+$secondDirSshLine2 = $sessionList->newSession( 'SSH' );
 $secondDirSshLine2->setFolderName( 'Main Directory\Subdir' );
 $secondDirSshLine2->setSessionName( 'Sub Dir SSH Line 2' );
 $secondDirSshLine2->setHostName( 'localhost' );

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Ruzgfpegk\Sessionator\Connections;
+namespace Ruzgfpegk\Sessionator\Sessions;
 
 use Ruzgfpegk\Sessionator\Sessionator;
 
 /**
- * The Connections\Common class is the basis upon which all classes for various connections (SSH, RDP, ...) are built
+ * The Sessions\Common class is the basis upon which all classes for various sessions (SSH, RDP, ...) are built
  */
-abstract class Common implements Connection {
+abstract class Common implements Session {
 	/**
 	 * @var Sessionator The "manager" object (beware of recursion!)
 	 */
@@ -47,19 +47,19 @@ abstract class Common implements Connection {
 		return $this->folderIcon;
 	}
 	
-	public function setFolderName( string $folderName ): Connection {
+	public function setFolderName( string $folderName ): Session {
 		$this->folderName = $folderName;
 		
 		return $this;
 	}
 	
-	public function setFolderIcon( string $folderIcon ): Connection {
+	public function setFolderIcon( string $folderIcon ): Session {
 		$this->folderIcon = $folderIcon;
 		
 		return $this;
 	}
 	
-	public function setSessionName( string $sessionName ): Connection {
+	public function setSessionName( string $sessionName ): Session {
 		$this->sessionName = $sessionName;
 		
 		return $this;
@@ -73,7 +73,7 @@ abstract class Common implements Connection {
 		return $this->sessionIcon;
 	}
 	
-	public function setSessionIcon( string $sessionIcon ): Connection {
+	public function setSessionIcon( string $sessionIcon ): Session {
 		$this->sessionIcon = $sessionIcon;
 		
 		return $this;
@@ -83,13 +83,13 @@ abstract class Common implements Connection {
 		return $this->sessionComment;
 	}
 	
-	public function setSessionComment( string $sessionComment ): Connection {
+	public function setSessionComment( string $sessionComment ): Session {
 		$this->sessionComment = $sessionComment;
 		
 		return $this;
 	}
 	
-	public function setHostName( string $hostName ): Connection {
+	public function setHostName( string $hostName ): Session {
 		$this->hostName = $hostName;
 		
 		return $this;
@@ -99,7 +99,7 @@ abstract class Common implements Connection {
 		return $this->hostName;
 	}
 	
-	public function setSessionParam( string $paramName, string $paramValue ): Connection {
+	public function setSessionParam( string $paramName, string $paramValue ): Session {
 		$this->sessionParams[ $paramName ] = $paramValue;
 		
 		return $this;
