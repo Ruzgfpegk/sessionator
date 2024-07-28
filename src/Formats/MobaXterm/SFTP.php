@@ -90,7 +90,7 @@ class SFTP extends SettingBlock implements SessionType {
 		}
 		
 		// Transform the proxyTypeSftp setting if it's set by the user
-		if ( ! is_numeric( $this->settings['proxyTypeSftp'][1] ) && array_key_exists( $this->settings['proxyTypeSftp'][1], self::PROXY_TYPE ) ) {
+		if ( ! is_numeric( $this->settings['proxyTypeSftp'][1] ) && array_key_exists( $this->settings['proxyTypeSftp'][1], self::PROXY_TYPE_SFTP ) ) {
 			$this->settings['proxyTypeSftp'][1] = self::PROXY_TYPE_SFTP[ $this->settings['proxyTypeSftp'][1] ];
 		}
 	}

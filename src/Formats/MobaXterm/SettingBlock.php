@@ -32,16 +32,11 @@ abstract class SettingBlock {
 	 * @return string
 	 */
 	public function getString(): string {
-		$final_settings = [];
-		
 		// This supposes that no index has been skipped in the declaration
-		foreach ( $this->settings as $setting ) {
-			$final_settings[ $setting[0] ] = $setting[1];
-		}
+		$final_settings = array_column( $this->settings, 1, 0 );
 		
 		return implode( '%', $final_settings );
 	}
-	
 	
 	/**
 	 * Registers all parameters set by "->setSessionParam( 'paramName', 'paramValue' )"
