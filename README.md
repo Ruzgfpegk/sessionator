@@ -48,7 +48,6 @@ Which translates to this working example, in PHP:
 
 ```php
 use Ruzgfpegk\Sessionator\Sessionator;
-use Ruzgfpegk\Sessionator\Formats\MobaXterm\SettingBlock; // Use global MobaXterm format constants
 
 $sessionList = new Sessionator;
 
@@ -59,7 +58,7 @@ $sessionList->newConnection( 'SSH' ) // Supported types: SSH and RDP
             ->setSessionComment( 'Comment with # character' ) // Testing the "#" replacement
             ->setHostName( 'localhost' ) // Mandatory setting
             ->setUserName( 'testUserSsh' )
-            ->setSessionParam( 'x11Forwarding', SettingBlock::DISABLED ) // Changes index 5 from -1 to 0
+            ->setSessionParam( 'x11Forwarding', 'Disabled' ) // Changes index 5 from -1 to 0
             ->setSessionParam( 'fontSize', '12' ) // Changes terminal font size (index 1) from 10 to 12
             ->setSessionParam( 'privateKeyPath', 'C:\pkey.key' ) // Testing the "C:\" replacement
             ->addToList(); // Mandatory end call
