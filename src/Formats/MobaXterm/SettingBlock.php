@@ -46,8 +46,15 @@ abstract class SettingBlock {
 	 * @return void
 	 */
 	public function applyParams( Session $sessionDetails ): void {
+		$importFormat = $sessionDetails->getImportFormat();
+		
 		foreach ( $sessionDetails->getSessionParams() as $sessionParam => $sessionValue ) {
 			if ( array_key_exists( $sessionParam, $this->settings ) ) {
+				// Compare the value against the default one from the import format vs this format
+				if ( $importFormat !== '' && $importFormat !== 'MobaXterm' ) {
+					// TODO: Implement this, with a cached default for each import format met
+				}
+				
 				if ( $sessionValue === 'Enabled' ) {
 					$sessionValue = self::ENABLED;
 				} elseif ( $sessionValue === 'Disabled' ) {

@@ -26,7 +26,7 @@ abstract class Common implements Session {
 	
 	private string $hostName;
 	
-	private string $importFormat;
+	private string $importFormat = '';
 	
 	private array $sessionParams = [];
 	
