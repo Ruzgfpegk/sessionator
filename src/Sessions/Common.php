@@ -26,6 +26,8 @@ abstract class Common implements Session {
 	
 	private string $hostName;
 	
+	private string $importFormat;
+	
 	private array $sessionParams = [];
 	
 	/**
@@ -122,6 +124,16 @@ abstract class Common implements Session {
 	
 	public function getSessionParams(): array {
 		return $this->sessionParams;
+	}
+	
+	public function getImportFormat(): string {
+		return $this->importFormat;
+	}
+	
+	public function setImportFormat( string $importFormat ): Session {
+		$this->importFormat = $importFormat;
+		
+		return $this;
 	}
 	
 	public function addToList(): void {

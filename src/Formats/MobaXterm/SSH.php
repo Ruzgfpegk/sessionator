@@ -115,10 +115,23 @@ class SSH extends SettingBlock implements SessionType {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['remoteEnvironment']   = self::$reversedConstants['REMOTE_ENVIRONMENTS'][ $settingsFinal['remoteEnvironment'] ];
-		$settingsFinal['proxyType']           = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
-		$settingsFinal['fileBrowserProtocol'] = self::$reversedConstants['FILE_BROWSER_PROTOCOL'][ $settingsFinal['fileBrowserProtocol'] ];
-		$settingsFinal['sshProtocolVersion']  = self::$reversedConstants['SSH_PROTOCOL_VERSION'][ $settingsFinal['sshProtocolVersion'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'remoteEnvironment', $settingsFinal ) ) {
+			$settingsFinal['remoteEnvironment'] = self::$reversedConstants['REMOTE_ENVIRONMENTS'][ $settingsFinal['remoteEnvironment'] ];
+		}
+		
+		if ( array_key_exists( 'proxyType', $settingsFinal ) ) {
+			$settingsFinal['proxyType'] = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
+		}
+		
+		if ( array_key_exists( 'fileBrowserProtocol', $settingsFinal ) ) {
+			$settingsFinal['fileBrowserProtocol'] = self::$reversedConstants['FILE_BROWSER_PROTOCOL'][ $settingsFinal['fileBrowserProtocol'] ];
+		}
+		
+		if ( array_key_exists( 'sshProtocolVersion', $settingsFinal ) ) {
+			$settingsFinal['sshProtocolVersion'] = self::$reversedConstants['SSH_PROTOCOL_VERSION'][ $settingsFinal['sshProtocolVersion'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;

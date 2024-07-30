@@ -78,7 +78,7 @@ class Input extends CommonInput implements FormatInput {
 		$firstSeparatorPos = strpos( $sessionTypeSettings, '%' );
 		$sessionTypeNum    = substr( $sessionTypeSettings, 0, $firstSeparatorPos );
 		$sessionType       = self::SESSION_TYPES[ $sessionTypeNum ];
-		$session         = SessionFactory::create( $sessionType );
+		$session           = SessionFactory::create( $sessionType );
 		
 		// Set up the "Session Type" part
 		$decodedSessionTypeSettings = SessionSettingsFactory::create( $sessionType )->decodeFromString( $sessionTypeSettings );
@@ -96,7 +96,9 @@ class Input extends CommonInput implements FormatInput {
 		$session->setSessionIcon( ( new SessionIcon() )->getIconName( $sessionIcon ) );
 		$session->setSessionComment( $sessionComment );
 		$session->setHostName( $decodedSessionTypeSettings['remoteHost'] );
-		# TODO
+		
+		// Set up the import format (to fetch its defaults later on)
+		$session->setImportFormat( 'MobaXterm' );
 		
 		return $session;
 	}

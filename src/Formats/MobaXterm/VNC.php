@@ -69,7 +69,11 @@ class VNC extends SettingBlock implements SessionType {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['proxyType'] = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'proxyType', $settingsFinal ) ) {
+			$settingsFinal['proxyType'] = self::$reversedConstants['PROXY_TYPE'][ $settingsFinal['proxyType'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;

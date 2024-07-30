@@ -153,11 +153,27 @@ class RDP extends SettingBlock implements SessionType {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['resolution']            = self::$reversedConstants['RESOLUTION'][ $settingsFinal['resolution'] ];
-		$settingsFinal['redirectAudio']         = self::$reversedConstants['REDIRECT_AUDIO'][ $settingsFinal['redirectAudio'] ];
-		$settingsFinal['zoom']                  = self::$reversedConstants['ZOOM'][ $settingsFinal['zoom'] ];
-		$settingsFinal['colorDepth']            = self::$reversedConstants['COLOR_DEPTH'][ $settingsFinal['colorDepth'] ];
-		$settingsFinal['serverAuthentication']  = self::$reversedConstants['SERVER_AUTHENTICATION'][ $settingsFinal['serverAuthentication'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'resolution', $settingsFinal ) ) {
+			$settingsFinal['resolution'] = self::$reversedConstants['RESOLUTION'][ $settingsFinal['resolution'] ];
+		}
+		
+		if ( array_key_exists( 'redirectAudio', $settingsFinal ) ) {
+			$settingsFinal['redirectAudio'] = self::$reversedConstants['REDIRECT_AUDIO'][ $settingsFinal['redirectAudio'] ];
+		}
+		
+		if ( array_key_exists( 'zoom', $settingsFinal ) ) {
+			$settingsFinal['zoom'] = self::$reversedConstants['ZOOM'][ $settingsFinal['zoom'] ];
+		}
+		
+		if ( array_key_exists( 'colorDepth', $settingsFinal ) ) {
+			$settingsFinal['colorDepth'] = self::$reversedConstants['COLOR_DEPTH'][ $settingsFinal['colorDepth'] ];
+		}
+		
+		if ( array_key_exists( 'serverAuthentication', $settingsFinal ) ) {
+			$settingsFinal['serverAuthentication'] = self::$reversedConstants['SERVER_AUTHENTICATION'][ $settingsFinal['serverAuthentication'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;

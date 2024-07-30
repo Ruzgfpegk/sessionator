@@ -139,12 +139,31 @@ class TerminalSettings extends SettingBlock {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['charset']           = self::$reversedConstants['CHARSETS'][ $settingsFinal['charset'] ];
-		$settingsFinal['cursorType']        = self::$reversedConstants['CURSOR_TYPE'][ $settingsFinal['cursorType'] ];
-		$settingsFinal['syntaxHighlight']   = self::$reversedConstants['SYNTAX_HIGHLIGHT'][ $settingsFinal['syntaxHighlight'] ];
-		$settingsFinal['customMacroToggle'] = self::$reversedConstants['CUSTOM_MACRO'][ $settingsFinal['customMacroToggle'] ];
-		$settingsFinal['pasteDelay']        = self::$reversedConstants['PASTE_DELAY'][ $settingsFinal['pasteDelay'] ];
-		$settingsFinal['fontCharset']       = self::$reversedConstants['FONT_CHARSETS'][ $settingsFinal['fontCharset'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'charset', $settingsFinal ) ) {
+			$settingsFinal['charset'] = self::$reversedConstants['CHARSETS'][ $settingsFinal['charset'] ];
+		}
+		
+		if ( array_key_exists( 'cursorType', $settingsFinal ) ) {
+			$settingsFinal['cursorType'] = self::$reversedConstants['CURSOR_TYPE'][ $settingsFinal['cursorType'] ];
+		}
+		
+		if ( array_key_exists( 'syntaxHighlight', $settingsFinal ) ) {
+			$settingsFinal['syntaxHighlight'] = self::$reversedConstants['SYNTAX_HIGHLIGHT'][ $settingsFinal['syntaxHighlight'] ];
+		}
+		
+		if ( array_key_exists( 'customMacroToggle', $settingsFinal ) ) {
+			$settingsFinal['customMacroToggle'] = self::$reversedConstants['CUSTOM_MACRO'][ $settingsFinal['customMacroToggle'] ];
+		}
+		
+		if ( array_key_exists( 'pasteDelay', $settingsFinal ) ) {
+			$settingsFinal['pasteDelay'] = self::$reversedConstants['PASTE_DELAY'][ $settingsFinal['pasteDelay'] ];
+		}
+		
+		if ( array_key_exists( 'fontCharset', $settingsFinal ) ) {
+			$settingsFinal['fontCharset'] = self::$reversedConstants['FONT_CHARSETS'][ $settingsFinal['fontCharset'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;
