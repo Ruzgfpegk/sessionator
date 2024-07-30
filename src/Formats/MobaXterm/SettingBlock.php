@@ -80,13 +80,17 @@ abstract class SettingBlock {
 		$settingsArray = explode( '%', $sessionSettings );
 		
 		foreach ( self::$reversedSettings[ $className ] as $index => $settingName ) {
-			$settingsFinal[ $settingName ] = $settingsArray[ $index ];
-			
-			if ( in_array( $settingName, $this->booleans, true ) ) {
-				if ( $settingsFinal[ $settingName ] === self::ENABLED ) {
-					$settingsFinal[ $settingName ] = 'Enabled';
-				} else {
-					$settingsFinal[ $settingName ] = 'Disabled';
+			// Only import the settings that differ from their default values
+			if ( $settingsArray[ $index ] !== $this->settings[ $settingName ][1] ) {
+				$settingsFinal[ $settingName ] = $settingsArray[ $index ];
+				
+				// Transform the changed settings that are booleans
+				if ( in_array( $settingName, $this->booleans, true ) ) {
+					if ( $settingsFinal[ $settingName ] === self::ENABLED ) {
+						$settingsFinal[ $settingName ] = 'Enabled';
+					} else {
+						$settingsFinal[ $settingName ] = 'Disabled';
+					}
 				}
 			}
 		}

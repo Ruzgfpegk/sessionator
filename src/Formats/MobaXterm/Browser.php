@@ -99,9 +99,19 @@ class Browser extends SettingBlock implements SessionType {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['browserIECompatibility'] = self::$reversedConstants['IE_EMULATION'][ $settingsFinal['browserIECompatibility'] ];
-		$settingsFinal['browserEngine']          = self::$reversedConstants['BROWSER_ENGINE'][ $settingsFinal['browserEngine'] ];
-		$settingsFinal['browserProxy']           = self::$reversedConstants['EDGE_PROXY_SETTING'][ $settingsFinal['browserProxy'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'browserIECompatibility', $settingsFinal ) ) {
+			$settingsFinal['browserIECompatibility'] = self::$reversedConstants['IE_EMULATION'][ $settingsFinal['browserIECompatibility'] ];
+		}
+		
+		if ( array_key_exists( 'browserEngine', $settingsFinal ) ) {
+			$settingsFinal['browserEngine'] = self::$reversedConstants['BROWSER_ENGINE'][ $settingsFinal['browserEngine'] ];
+		}
+		
+		if ( array_key_exists( 'browserProxy', $settingsFinal ) ) {
+			$settingsFinal['browserProxy'] = self::$reversedConstants['EDGE_PROXY_SETTING'][ $settingsFinal['browserProxy'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;

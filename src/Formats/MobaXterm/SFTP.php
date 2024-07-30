@@ -71,7 +71,11 @@ class SFTP extends SettingBlock implements SessionType {
 		
 		// Decode the constants
 		$this->reverseConstants();
-		$settingsFinal['proxyTypeSftp'] = self::$reversedConstants['PROXY_TYPE_SFTP'][ $settingsFinal['proxyTypeSftp'] ];
+		
+		// De-transform the settings
+		if ( array_key_exists( 'proxyTypeSftp', $settingsFinal ) ) {
+			$settingsFinal['proxyTypeSftp'] = self::$reversedConstants['PROXY_TYPE_SFTP'][ $settingsFinal['proxyTypeSftp'] ];
+		}
 		
 		// Return the standardized array
 		return $settingsFinal;
