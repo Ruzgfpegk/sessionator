@@ -67,7 +67,7 @@ class Output extends CommonOutput implements FormatOutput {
 				$sessionSettings->applyParams( $sessionDetails );
 				
 				// Initializing terminal settings
-				$terminalSettings = new TerminalSettings();
+				$terminalSettings = SessionSettingsFactory::create( 'TerminalSettings' );
 				
 				// Registering custom terminal settings
 				$terminalSettings->applyParams( $sessionDetails );

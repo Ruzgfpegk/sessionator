@@ -10,7 +10,7 @@ use RuntimeException;
  * Factory to return an object implementing the MobaXterm\SessionType interface for a given session type
  */
 class SessionSettingsFactory {
-	private static array $cache = [];
+	private static array $classTemplate_cache = [];
 	
 	public static function create( string $sessionType ): SessionType {
 		if ( empty( $sessionType ) ) {
@@ -19,18 +19,20 @@ class SessionSettingsFactory {
 			);
 		}
 		
-		if ( isset( self::$cache[ $sessionType ] ) ) {
-			return new self::$cache[ $sessionType ];
+		// If there's already a cached template for this session type, we clone it
+		if ( isset( self::$classTemplate_cache[ $sessionType ] ) ) {
+			return clone self::$classTemplate_cache[ $sessionType ];
 		}
 		
+		// If not, we create it
 		if ( ! file_exists( dirname( __DIR__ ) . '/MobaXterm/' . $sessionType . '.php' ) ) {
 			throw new RuntimeException( "No class found for session $sessionType!<br>" );
 		}
 		
 		$className = 'Ruzgfpegk\\Sessionator\\Formats\\MobaXterm\\' . $sessionType;
 		
-		self::$cache[ $sessionType ] = $className;
+		self::$classTemplate_cache[ $sessionType ] = new $className;
 		
-		return new self::$cache[ $sessionType ];
+		return clone self::$classTemplate_cache[ $sessionType ];
 	}
 }
