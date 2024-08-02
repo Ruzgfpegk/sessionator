@@ -4,9 +4,9 @@ declare( strict_types=1 );
 namespace Ruzgfpegk\Sessionator\Sessions;
 
 /**
- * The RDP object extends the Common object with specificities of RDP sessions
+ * The RDP object extends the SessionBase object with specificities of RDP sessions
  */
-class RDP extends Common {
+class RDP extends SessionBase {
 	private string $userName = '';
 	
 	/**

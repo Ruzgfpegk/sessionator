@@ -8,7 +8,7 @@ use Ruzgfpegk\Sessionator\Sessionator;
 /**
  * The Sessions\Common class is the basis upon which all classes for various sessions (SSH, RDP, ...) are built
  */
-abstract class Common implements Session {
+abstract class SessionBase implements Session {
 	/**
 	 * @var Sessionator The "manager" object (beware of recursion!)
 	 */

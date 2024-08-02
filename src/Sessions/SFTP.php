@@ -4,9 +4,9 @@ declare( strict_types=1 );
 namespace Ruzgfpegk\Sessionator\Sessions;
 
 /**
- * The SFTP object extends the Common object with specificities of SFTP sessions
+ * The SFTP object extends the SessionBase object with specificities of SFTP sessions
  */
-class SFTP extends Common {
+class SFTP extends SessionBase {
 	private string $userName = '';
 	
 	/**
