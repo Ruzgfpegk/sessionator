@@ -3,6 +3,8 @@ declare( strict_types=1 );
 
 namespace Ruzgfpegk\Sessionator;
 
+use RuntimeException;
+
 use Ruzgfpegk\Sessionator\Sessions\Session;
 use Ruzgfpegk\Sessionator\Sessions\SessionFactory;
 use Ruzgfpegk\Sessionator\Formats\FormatFactory;
@@ -45,6 +47,26 @@ class Sessionator {
 	 */
 	public function newConnection( string $sessionType ): Session {
 		return $this->newSession( $sessionType );
+	}
+	
+	/**
+	 * Use an already existing session as a reference to create a new one
+	 *
+	 * @param string $folderName The folder name where the existing session is stored
+	 * @param string $sessionName The name of the existing session to clone
+	 *
+	 * @return Session
+	 */
+	public function importFromSession( string $folderName, string $sessionName ): Session {
+		if ( array_key_exists( $folderName, $this->sessionList ) && array_key_exists( $sessionName, $this->sessionList[ $folderName ] ) ) {
+			$clonedSession = clone $this->sessionList[ $folderName ][ $sessionName ];
+			$clonedSession->setSessionName( $sessionName . '_Clone' );
+			$clonedSession->setSessionList( $this );
+			
+			return $clonedSession;
+		} else {
+			throw new RuntimeException( 'The session ' . $folderName . '\\' . $sessionName . ' does not exist' );
+		}
 	}
 	
 	/**

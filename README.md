@@ -22,8 +22,8 @@ $sessionList = new Sessionator;
 Then, for each session, chain everything you need:
 
 * `$sessionList->newSession( 'type' )` : Set the new session type (see "Status" below to see what's currently supported for which format)
-* `->setFolderName( 'Folder' )` : The hierarchy where the session will be stored (MobaXterm uses the \ separator)
-* `->setSessionName( 'Session' )` : Choose the name of the session under the folder
+* `->setFolderName( 'FolderName' )` : The hierarchy where the session will be stored (MobaXterm uses the \ separator)
+* `->setSessionName( 'SessionName' )` : Choose the name of the session under the folder
 * `->setSessionIcon( 'Icon_Name' )` : (Optional) Override the default icon for the session type (see Settings.md)
 * `->setSessionComment( 'Comment' )` : (Optional) Set a comment to the session
 * `->setHostName( 'target.server.local' )` : You have to connect do something, don't you?
@@ -33,7 +33,12 @@ Then, for each session, chain everything you need:
 
 You can also import the contents of a session file in a given format:
 
-* `->importFromFile( 'MobaXtermFileToImport.mxtsessions', 'MobaXterm' )` : (Optional) To import connexions from an existing MobaXterm session file
+* `$sessionList->importFromFile( 'MobaXtermFileToImport.mxtsessions', 'MobaXterm' )` : (Optional) To import connexions from an existing MobaXterm session file
+
+You can start a new session from a reference session like this:
+
+* `$sessionList->importFromSession( 'FolderName', 'SessionName' )` : Use 'FolderName\SessionName' as a reference session for this new one
+* `->setSessionName( 'SessionName_Clone' )` : By default, '_Clone' will be appended at the end of the cloned session name
 
 When you've added all the connections you wanted, you can export the file this way:
 
