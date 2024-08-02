@@ -8,7 +8,7 @@ use Ruzgfpegk\Sessionator\Sessions\Session;
 /**
  * The Formats\MobaXterm\TerminalSettings class defines the Terminal part of the .mtxsession format
  */
-class TerminalSettings extends SettingBlock {
+class TerminalSettings extends SettingBlock implements SessionType {
 	public const CHARSETS = [ // TODO Complete the list
 		'ISO-8859-1'  => '0',
 		'ISO-8859-15' => '1',
