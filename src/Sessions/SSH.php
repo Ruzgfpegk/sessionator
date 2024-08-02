@@ -4,9 +4,9 @@ declare( strict_types=1 );
 namespace Ruzgfpegk\Sessionator\Sessions;
 
 /**
- * The SSH object extends the Common object with specificities of SSH sessions
+ * The SSH object extends the SessionBase object with specificities of SSH sessions
  */
-class SSH extends Common {
+class SSH extends SessionBase {
 	private string $userName = '';
 	
 	/**
