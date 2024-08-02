@@ -31,6 +31,11 @@ $sessionList->newSession( 'SSH' )
             ->setHostName( 'otherhost' )
             ->addToList();
 
+$sessionList->importFromSession( 'Main Directory\Subdir', 'Sub Dir SSH Line 1' )
+            ->setSessionName( 'Sub Dir SSH Line 1_Cloned' )
+            ->setHostName( 'otherhost_clone' )
+            ->addToList();
+
 $sessionList->newSession( 'SFTP' )
             ->setFolderName( 'File transfer' )
             ->setSessionName( 'SFTP Connection' )
