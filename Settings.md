@@ -1,5 +1,6 @@
 # Sessionator
 
+
 ## Settings per session type
 
 ### MobaXterm
@@ -88,29 +89,6 @@
 | browserProxyPort              | Advanced Browser settings (Edge only)        | :x:                                    | :x:                           | :x:                                  | :x:                           | :heavy_check_mark: ('')                    | Proxy port (Edge only)                                                                                                                                                                                                                                                                                                                                                        |
 | browserProxyScript            | Advanced Browser settings (Edge only)        | :x:                                    | :x:                           | :x:                                  | :x:                           | :heavy_check_mark: ('')                    | Proxy script (Edge only)                                                                                                                                                                                                                                                                                                                                                      |
 
-
-### Remmina
- | Setting             | Setting group | SSH (default)             | RDP (default) | Description                       | Format setting     |
- |---------------------|---------------|---------------------------|---------------|-----------------------------------|--------------------|
- | remoteHost          | Basic         | :heavy_check_mark: ('')   |               | Server                            | server (host)      |
- | remotePort          | Basic         | :heavy_check_mark: (None) |               | (protocol port implied if absent) | server (host:port) |
- |                     | Basic         |                           |               | Authentication Type               |                    |
- |                     | Basic         |                           |               | Username                          |                    |
- |                     | Basic         |                           |               | User password                     |                    |
- |                     | Basic         |                           |               | SSH identity file                 |                    |
- |                     | Basic         |                           |               | SSH certificate file              |                    |
- |                     | Basic         |                           |               | Password to unlock private key    |                    |
- |                     | Basic         |                           |               | Opening command                   |                    |
- |                     | Basic         |                           |               | Start-up background program       |                    |
- |                     | Basic         |                           |               |                                   |                    |
- |                     | Advanced      |                           |               |                                   |                    |
- |                     | Behavior      |                           |               |                                   |                    |
- |                     | SSH Tunnel    |                           |               |                                   |                    |
- | ->setSessionComment | Notes         |                           |               |                                   | notes_text         |
-
-
-### mRemoteNG
-
 ### Bash
 
 | Setting                  | SSH (default)                 | SFTP (default)               | Description                                               |
@@ -132,7 +110,7 @@
 
 Different icon names can refer to the same icon, for simplicity purposes.
 
-The default icon for a session type is the one with the same name.
+For MobaXterm, the default icon for a session type is the one with the same name.
 
 | Icon name                | Description                             | MobaXterm          | mRemoteNG |
 |--------------------------|-----------------------------------------|--------------------|-----------|
