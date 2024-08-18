@@ -179,6 +179,12 @@ class SSH extends SettingBlock implements SessionType {
 			);
 		}
 		
+		if ( $this->settings['sshGatewayPrivateKeyList'][1] !== '' ) {
+			$this->settings['sshGatewayPrivateKeyList'][1] = str_replace(
+				'C:\\', '_CurrentDrive_:\\', $this->settings['sshGatewayPrivateKeyList'][1]
+			);
+		}
+		
 		// Make the adjustments for specific settings that change other settings behind the scenes
 		$fileBrowserProtocol = $this->settings['fileBrowserProtocol'][1];
 		if ( $fileBrowserProtocol === self::FILE_BROWSER_PROTOCOL['disabled'] ) {

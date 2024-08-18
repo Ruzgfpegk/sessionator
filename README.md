@@ -113,14 +113,12 @@ The amount of supported options is rather limited for now, so treat it as a prev
 
 ## Possible evolutions
 
-Right now the library is rather basic: you define sessions and export everything.
+Right now the library allows you to define MobaXterm sessions, import an existing file if needed, and export everything.
 
-The roadmap besides planned support could be, in order:
+The roadmap could be, in order:
 
-* Add a global "disabled/enabled" constant for the connections (for setSessionParam)
-* More documentation for adding to the codebase
-* Session file import
-* other session managers import and export
+* More documentation
+* Import and export for other session managers
 
 
 ## Workflow
