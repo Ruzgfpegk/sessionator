@@ -5,10 +5,15 @@
 
 This PHP library aims to be used to create session files for :
 * [MobaXterm](https://mobaxterm.mobatek.net/) (Windows+Wine, GUI)
+* A self-contained Bash script (Linux, CLI, SSH/SFTP only at first)
 
 This is still a work in progress and a development version, so things may change especially as new features are added.
 
-The minimum PHP version targeted is currently 7.4 and the mbstring extension is required.
+The minimum PHP version targeted is currently 7.4.
+
+Required PHP extension for MobaXterm output:
+* mbstring
+
 
 ## How to use
 
@@ -83,6 +88,28 @@ $sessionList->download( 'MobaXterm' );
 | Software  | File export        | File import        | SSH                | RDP                | SFTP               | VNC                | Browser            |
 |-----------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
 | MobaXterm | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Bash      | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :soon:             |
+
+
+## Bash output
+
+The Bash output produces a bash script that launches connections in the active window (by default), in screen or in tmux.
+
+To quote its help:
+```
+ Usage: Connector.sh [-hk] [-t direct|screen|tmux] [-s SESSION] SERVER
+ Starts a connection to SERVER and send it (or not) to a terminal manager with a named session
+ 
+ -h               display this help and exit
+ -k               keep the terminal active after starting the connection (tmux and screen only)
+ -t TERMINAL      direct, screen or tmux (default: direct)
+ -s SESSION       the name of the tmux or screen session to use (default: sessionator)
+```
+
+It only addresses servers by their name, so folders are ignored.
+
+The amount of supported options is rather limited for now, so treat it as a preview.
+
 
 ## Possible evolutions
 

@@ -98,12 +98,18 @@ $secondDirSshLine2->addToList();
 
 // Batch of CLI tests to try each export format:
 $sessionList->saveAsFile( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
+$sessionList->saveAsFile( 'Bash', 'Sessions-Bash.sh' );
 
+// For quick CLI tests (can't do it with Remmina):
+#$sessionList->exportAsText( 'MobaXterm' );
+#$sessionList->exportAsText( 'Bash' );
 
 // For quick web tests:
 #$sessionList->exportAsHtml( 'MobaXterm' );
+#$sessionList->exportAsHtml( 'Bash' );
 #$sessionList->download( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
 
+#$sessionList->download( 'Bash', 'Sessions-Bash.sh' );
 
 // $sessionList->exportAsText( 'MobaXterm' ) outputs the following:
 /*

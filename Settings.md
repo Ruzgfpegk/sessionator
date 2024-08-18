@@ -111,6 +111,23 @@
 
 ### mRemoteNG
 
+### Bash
+
+| Setting                  | SSH (default)                 | SFTP (default)               | Description                                               |
+|--------------------------|-------------------------------|------------------------------|-----------------------------------------------------------|
+| remoteHost               | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | Server                                                    |
+| remotePort               | :heavy_check_mark: (22)       | :heavy_check_mark: (22)      | (protocol port implied if absent)                         |
+| userName                 | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | Username                                                  |
+| x11Forwarding            | :heavy_check_mark: (Disabled) | :x:                          | X11-Forwarding                                            |
+| compression              | :heavy_check_mark: (Enabled)  | :heavy_check_mark: (Enabled) | SSH Compression                                           |
+| privateKeyPath           | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | Private key path                                          |
+| sshGatewayHostList       | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | SSH Gateway host list (only one supported for now)        |
+| sshGatewayPortList       | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | SSH Gateway port list (only one supported for now)        |
+| sshGatewayUserList       | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | SSH Gateway user list (only one supported for now)        |
+| sshGatewayPrivateKeyList | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | SSH Gateway private key list (only one supported for now) |
+| preserveFileDates        | :x:                           | :heavy_check_mark: (Enabled) | Preserve file dates                                       |
+
+
 ## Session icons per export type
 
 Different icon names can refer to the same icon, for simplicity purposes.
