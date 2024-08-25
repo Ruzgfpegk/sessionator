@@ -26,8 +26,8 @@ class Output extends CommonOutput implements FormatOutput {
 	public function getAsText( array $sessionList ): array {
 		$output = [];
 		
-		$startMarker = "  ## START_SERVERS ##";
-		$endMarker   = "  ## END_SERVERS ##";
+		$startMarker = "## START_SERVERS ##";
+		$endMarker   = "## END_SERVERS ##";
 		
 		$scriptContent = file( __DIR__ . '/Connector.sh', FILE_IGNORE_NEW_LINES );
 		
@@ -70,7 +70,7 @@ class Output extends CommonOutput implements FormatOutput {
 				// Getting the comment
 				$sessionComment = $sessionDetails->getSessionComment();
 
-				$finalLine = '  populate_server_info_' . strtolower($sessionType) . ' '
+				$finalLine = 'populate_server_info_' . strtolower($sessionType) . ' '
 				             . '"' . $sessionName . '"'
 				             . ' ' . $sessionSettings;
 				
