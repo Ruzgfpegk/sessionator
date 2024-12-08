@@ -29,6 +29,7 @@ $sessionList->newSession( 'SSH' )
             ->setPathName( 'Main Directory\Subdir' )
             ->setSessionName( 'Sub Dir SSH Line 1' )
             ->setHostName( 'otherhost' )
+            ->setSessionParam( 'displayScrollbar', 'Enabled' ) // To check that the expert terminal settings are only added when changed
             ->addToList();
 
 $sessionList->importFromSession( 'Main Directory\Subdir', 'Sub Dir SSH Line 1' )
@@ -96,20 +97,26 @@ $secondDirSshLine2->setSessionName( 'Sub Dir SSH Line 2' );
 $secondDirSshLine2->setHostName( 'localhost' );
 $secondDirSshLine2->addToList();
 
-// Batch of CLI tests to try each export format:
-$sessionList->saveAsFile( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
-$sessionList->saveAsFile( 'Bash', 'Sessions-Bash.sh' );
+if ( PHP_SAPI === 'cli' ) {
+	// Batch of CLI tests to try each export format:
+	$sessionList->saveAsFile( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
+	$sessionList->saveAsFile( 'Bash', 'Sessions-Bash.sh' );
 
-// For quick CLI tests (can't do it with Remmina):
-#$sessionList->exportAsText( 'MobaXterm' );
-#$sessionList->exportAsText( 'Bash' );
-
-// For quick web tests:
-#$sessionList->exportAsHtml( 'MobaXterm' );
-#$sessionList->exportAsHtml( 'Bash' );
-#$sessionList->download( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
-
-#$sessionList->download( 'Bash', 'Sessions-Bash.sh' );
+	// For quick CLI tests:
+	#$sessionList->exportAsText( 'MobaXterm' );
+	#$sessionList->exportAsText( 'Bash' );
+	
+	// Stats
+	echo 'Object storage type: ' . $sessionList->getSessionStorageType() . PHP_EOL;
+	echo 'Maximum memory usage (PHP): ' . round( memory_get_peak_usage() / ( 1024 * 1024 ), 2 ) . 'MiB' . PHP_EOL;
+	echo 'Maximum memory usage (SYS): ' . round( memory_get_peak_usage( true ) / ( 1024 * 1024 ), 2 ) . 'MiB' . PHP_EOL;
+} else { // Web
+	// For quick web tests:
+	#$sessionList->exportAsHtml( 'MobaXterm' );
+	#$sessionList->exportAsHtml( 'Bash' );
+	$sessionList->download( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
+	#$sessionList->download( 'Bash', 'Sessions-Bash.sh' );
+}
 
 // $sessionList->exportAsText( 'MobaXterm' ) outputs the following:
 /*

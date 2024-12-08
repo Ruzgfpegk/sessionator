@@ -11,6 +11,8 @@ This is still a work in progress and a development version, so things may change
 
 The minimum PHP version targeted is currently 7.4.
 
+If the Ds extension is available, DS\Set will be used for the storage of objects instead of arrays.
+
 Required PHP extension for MobaXterm output:
 * mbstring
 
@@ -27,8 +29,8 @@ $sessionList = new Sessionator;
 Then, for each session, chain everything you need:
 
 * `$sessionList->newSession( 'type' )` : Set the new session type (see "Status" below to see what's currently supported for which format)
-* `->setFolderName( 'FolderName' )` : The hierarchy where the session will be stored (MobaXterm uses the \ separator)
-* `->setSessionName( 'SessionName' )` : Choose the name of the session under the folder
+* `->setPathName( 'PathName' )` : The hierarchy where the session will be stored (MobaXterm uses the \ separator)
+* `->setSessionName( 'SessionName' )` : Choose the name of the session under the path
 * `->setSessionIcon( 'Icon_Name' )` : (Optional) Override the default icon for the session type (see Settings.md)
 * `->setSessionComment( 'Comment' )` : (Optional) Set a comment to the session
 * `->setHostName( 'target.server.local' )` : You have to connect do something, don't you?
