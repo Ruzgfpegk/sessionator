@@ -14,7 +14,7 @@ abstract class SessionBase implements Session {
 	 */
 	private Sessionator $sessionList;
 	
-	private string $folderName = '';
+	private string $pathName = '';
 	
 	private string $folderIcon = '';
 	
@@ -41,12 +41,24 @@ abstract class SessionBase implements Session {
 		$this->sessionList = $sessionList;
 	}
 	
-	public function getFolderName(): string {
-		return $this->folderName;
+	public function getPathName(): string {
+		return $this->pathName;
 	}
 	
+	/** @deprecated */
+	public function getFolderName(): string {
+		return $this->getPathName();
+	}
+	
+	public function setPathName( string $pathName ): Session {
+		$this->pathName = $pathName;
+		
+		return $this;
+	}
+	
+	/** @deprecated */
 	public function setFolderName( string $folderName ): Session {
-		$this->folderName = $folderName;
+		$this->setPathName( $folderName );
 		
 		return $this;
 	}

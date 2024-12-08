@@ -52,7 +52,7 @@ class Input extends CommonInput implements FormatInput {
 			foreach ( $mobaFileSection as $sessionName => $sessionSettingsString ) {
 				$session = $this->decodeIndividualSession( $sessionSettingsString );
 				// Finish setting up the elements with the info only this function has
-				$session->setFolderName( $folderName );
+				$session->setPathName( $folderName );
 				$session->setSessionName( $sessionName );
 				// TODO one day: set folder image function
 				$importedSessionsList[] = $session;
