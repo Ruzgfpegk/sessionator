@@ -6,6 +6,7 @@ namespace Ruzgfpegk\Sessionator\Formats\Bash;
 use ReflectionClass;
 use ReflectionException;
 
+use Ruzgfpegk\Sessionator\Internals\SessionList;
 use Ruzgfpegk\Sessionator\Formats\CommonOutput;
 use Ruzgfpegk\Sessionator\Formats\FormatOutput;
 
@@ -23,7 +24,7 @@ class Output extends CommonOutput implements FormatOutput {
 	 *
 	 * @throws ReflectionException
 	 */
-	public function getAsText( array $sessionList ): array {
+	public function getAsText( SessionList $sessionList ): array {
 		$output = [];
 		
 		$startMarker = "## START_SERVERS ##";
@@ -34,8 +35,7 @@ class Output extends CommonOutput implements FormatOutput {
 		$lineNumber = 0;
 		$totalLines = count( $scriptContent );
 		
-		// Sort folder names alphabetically (natural sort: numbers going 1, 9, 10, ...)
-		ksort( $sessionList, SORT_NATURAL );
+		$sessionList->sort();
 		
 		// Copy all lines until the start marker (including it)
 		for ( ; $lineNumber < $totalLines; $lineNumber++ ) {
@@ -48,8 +48,11 @@ class Output extends CommonOutput implements FormatOutput {
 		}
 		
 		// Export all the servers from the session list : FOLDER NAMES ARE IGNORED HERE!
-		foreach ( $sessionList as $sessionFolder => $sessionNames ) {
-			foreach ( $sessionNames as $sessionName => $sessionDetails ) {
+		foreach ( $sessionList->getPathList() as $sessionPath ) {
+			foreach ( $sessionList->getPathSessions( $sessionPath ) as $sessionDetails ) {
+				// Getting the session name from the object (for non-array session lists)
+				$sessionName = $sessionDetails->getSessionName();
+				
 				// Getting the session type from its class name
 				$sessionType = ( new ReflectionClass( $sessionDetails ) )->getShortName();
 				

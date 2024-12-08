@@ -5,7 +5,9 @@ namespace Ruzgfpegk\Sessionator;
 
 use RuntimeException;
 
+use Ruzgfpegk\Sessionator\Internals\SessionList;
 use Ruzgfpegk\Sessionator\Sessions\Session;
+use Ruzgfpegk\Sessionator\Sessions\SessionBase;
 use Ruzgfpegk\Sessionator\Sessions\SessionFactory;
 use Ruzgfpegk\Sessionator\Formats\FormatFactory;
 
@@ -14,15 +16,21 @@ use Ruzgfpegk\Sessionator\Formats\FormatFactory;
  */
 class Sessionator {
 	// Class defaults
+	private SessionList $sessionList;
+	private string $sessionListType;
 	
-	/**
-	 * First dimension: Folder name
-	 * Second dimension: Session name
-	 * Value: Object implementing the Session interface and extending the Common abstract class
-	 *
-	 * @var array
-	 */
-	private array $sessionList = [];
+	/** Runtime setup */
+	public function __construct() {
+		if ( extension_loaded( 'ds' ) ) {
+			$this->sessionList = new SessionList( 'Ds' );
+		} else {
+			$this->sessionList = new SessionList( 'array' ); // array or SPL should be available
+		}
+	}
+	
+	public function getSessionStorageType(): string {
+		return $this->sessionList->getSessionStorageType();
+	}
 	
 	/**
 	 * Fetches an object for the session type and links its session list to the caller Sessionator object
@@ -58,8 +66,8 @@ class Sessionator {
 	 * @return Session
 	 */
 	public function importFromSession( string $pathName, string $sessionName ): Session {
-		if ( array_key_exists( $pathName, $this->sessionList ) && array_key_exists( $sessionName, $this->sessionList[ $pathName ] ) ) {
-			$clonedSession = clone $this->sessionList[ $pathName ][ $sessionName ];
+		if ( $this->sessionList->pathExists( $pathName ) && $this->sessionList->pathList[ $pathName ]->hasSession( $sessionName ) ) {
+			$clonedSession = clone $this->sessionList->pathList[ $pathName ]->getSession( $sessionName );
 			$clonedSession->setSessionName( $sessionName . '_Clone' );
 			$clonedSession->setSessionList( $this );
 			
@@ -71,14 +79,14 @@ class Sessionator {
 	
 	/**
 	 * Registers the object for the session in the main Sessionator object
-	 * Called by Sessions\Common::addToList() through its sessionList property set in Sessionator::newSession()
+	 * Called by Sessions\SessionBase::addToList() through its sessionList property set in Sessionator::newSession()
 	 *
-	 * @param $session Session
+	 * @param $session SessionBase
 	 *
 	 * @return void
 	 */
-	public function addToList( Session $session ): void {
-		$this->sessionList[ $session->getFolderName() ][ $session->getSessionName() ] = $session;
+	public function addToList( SessionBase $session ): void {
+		$this->sessionList->add( $session );
 	}
 	
 	/**

@@ -6,6 +6,7 @@ namespace Ruzgfpegk\Sessionator\Formats\MobaXterm;
 use ReflectionClass;
 use ReflectionException;
 
+use Ruzgfpegk\Sessionator\Internals\SessionList;
 use Ruzgfpegk\Sessionator\Formats\CommonOutput;
 use Ruzgfpegk\Sessionator\Formats\FormatOutput;
 
@@ -19,7 +20,7 @@ class Output extends CommonOutput implements FormatOutput {
 	 *
 	 * @throws ReflectionException
 	 */
-	public function getAsText( array $sessionList ): array {
+	public function getAsText( SessionList $sessionList ): array {
 		$output      = [];
 		$folderCount = 1;
 		$folderSeen  = []; // Associative array of already-created folders
@@ -30,12 +31,11 @@ class Output extends CommonOutput implements FormatOutput {
 		$output[] = 'ImgNum=42';
 		$output[] = '';
 		
-		// Sort folder names alphabetically (natural sort: numbers going 1, 9, 10, ...)
-		ksort( $sessionList, SORT_NATURAL );
+		$sessionList->sort();
 		
-		foreach ( $sessionList as $sessionFolder => $sessionNames ) {
+		foreach ( $sessionList->getPathList() as $sessionPath ) {
 			// For each depth of the folder path, create intermediates if they haven't been already
-			$folders = explode( '\\', $sessionFolder );
+			$folders = explode( '\\', $sessionPath );
 			
 			for ( $i = 1, $iMax = count( $folders ); $i <= $iMax; $i++ ) {
 				$nameAtCurrentDepth = implode( '\\', array_slice( $folders, 0, $i ) );
@@ -56,7 +56,10 @@ class Output extends CommonOutput implements FormatOutput {
 			}
 			
 			// Folder sessions
-			foreach ( $sessionNames as $sessionName => $sessionDetails ) {
+			foreach ( $sessionList->getPathSessions( $sessionPath ) as $sessionDetails ) {
+				// Getting the session name from the object (for non-array session lists)
+				$sessionName = $sessionDetails->getSessionName();
+				
 				// Getting the session type from its class name
 				$sessionType = ( new ReflectionClass( $sessionDetails ) )->getShortName();
 				
@@ -122,7 +125,7 @@ class Output extends CommonOutput implements FormatOutput {
 	/**
 	 * @inheritDoc
 	 */
-	public function getAsFile( array $sessionList ): string {
+	public function getAsFile( SessionList $sessionList ): string {
 		$outputFile = '';
 		
 		foreach ( $this->getAsText( $sessionList ) as $sessionLine ) {
@@ -136,7 +139,7 @@ class Output extends CommonOutput implements FormatOutput {
 	/**
 	 * @inheritDoc
 	 */
-	public function downloadAsFile( array $sessionList, string $fileName = 'ExportedSession.mxtsessions' ): void {
+	public function downloadAsFile( SessionList $sessionList, string $fileName = 'ExportedSession.mxtsessions' ): void {
 		$outputFile = $this->getAsFile( $sessionList );
 		
 		header( 'Content-type: ' . $this->contentType );
@@ -147,7 +150,7 @@ class Output extends CommonOutput implements FormatOutput {
 	/**
 	 * @inheritDoc
 	 */
-	public function saveAsFile( array $sessionList, string $fileName ): void {
+	public function saveAsFile( SessionList $sessionList, string $fileName ): void {
 		$outputFile = $this->getAsFile( $sessionList );
 		
 		file_put_contents( $fileName, $outputFile );
