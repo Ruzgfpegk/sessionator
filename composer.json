@@ -18,6 +18,12 @@
     "php": ">=7.4",
     "ext-mbstring": "*"
   },
+  "suggest": {
+    "ext-ds": "*"
+  },
+  "require-dev": {
+    "php-ds/php-ds": "*"
+  },
   "autoload": {
     "psr-4": {
       "Ruzgfpegk\\Sessionator\\": "src/"

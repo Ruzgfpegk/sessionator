@@ -12,7 +12,7 @@ use RuntimeException;
 class SessionFactory {
 	private static array $cache = [];
 	
-	public static function create( string $sessionType ): Session {
+	public static function create( string $sessionType ): SessionBase {
 		if ( empty( $sessionType ) ) {
 			throw new InvalidArgumentException(
 				'The first parameter should be a string containing the session type.<br>'
