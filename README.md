@@ -62,7 +62,7 @@ use Ruzgfpegk\Sessionator\Sessionator;
 $sessionList = new Sessionator;
 
 $sessionList->newSession( 'SSH' ) // Supported types: SSH and RDP
-            ->setFolderName( 'Main Directory\SSH' ) // Mandatory setting
+            ->setPathName( 'Main Directory\SSH' ) // Mandatory setting
             ->setSessionName( 'SSH Line 1' ) // Mandatory setting
             ->setSessionIcon( 'Terminal_Debian' ) // Changes icon from default SSH 109 to 149
             ->setSessionComment( 'Comment with # character' ) // Testing the "#" replacement
