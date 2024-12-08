@@ -47,7 +47,7 @@ class Sessionator {
 	}
 	
 	/**
-	 * A temporary alias for newSession(), as it was its previous name
+	 * A temporary alias for newSession(), as newConnection() was its previous name
 	 *
 	 * @param $sessionType string The type of session to create
 	 *

@@ -40,14 +40,4 @@ class SFTP extends SettingLine implements SessionType {
 			$this->settings['remoteHost'][1] = $hostName;
 		}
 	}
-	
-	public function getString(): string {
-		// Do necessary string replacements for the current output before the final export
-		// None ATM
-		
-		// Make the adjustments for specific settings that change other settings behind the scenes
-		// None ATM
-		
-		return parent::getString();
-	}
 }
