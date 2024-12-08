@@ -39,10 +39,8 @@ class Output extends CommonOutput implements FormatOutput {
 		
 		// Copy all lines until the start marker (including it)
 		for ( ; $lineNumber < $totalLines; $lineNumber++ ) {
-			if ( strpos( $scriptContent[ $lineNumber ], $startMarker ) === false ) {
-				$output[] = $scriptContent[ $lineNumber ];
-			} else {
-				$output[] = $scriptContent[ $lineNumber ];
+			$output[] = $scriptContent[ $lineNumber ];
+			if ( strpos( $scriptContent[ $lineNumber ], $startMarker ) !== false ) {
 				break;
 			}
 		}
