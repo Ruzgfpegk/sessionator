@@ -37,6 +37,7 @@ class SSH extends SettingBlock implements SessionType {
 		'SSHv1 (insecure)' => '2',
 	];
 	
+	// Used when reading the config file into settings (by reverseMapping())
 	public array $booleans = [
 		'x11Forwarding',
 		'compression',

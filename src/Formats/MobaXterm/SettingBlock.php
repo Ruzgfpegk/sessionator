@@ -15,8 +15,13 @@ use Ruzgfpegk\Sessionator\Sessions\Session;
  * So these three classes have common traits that are inherited from here.
  */
 abstract class SettingBlock {
+	// Most true/false values are stored as -1 or 0
 	public const ENABLED = '-1';
 	public const DISABLED = '0';
+	
+	// Some true/false values are stored as 0 or 1
+	public const CHECKED   = '1';
+	public const UNCHECKED = '0';
 	
 	protected array $settings = [];
 	
@@ -25,6 +30,9 @@ abstract class SettingBlock {
 	
 	// This is populated by the devs in the extending classes
 	public array $booleans = [];
+	
+	// Also populated by the devs in the extending classes
+	public array $alternativeBooleans = [];
 	
 	/**
 	 * Concatenates all the elements from the configuration subsection
@@ -55,10 +63,18 @@ abstract class SettingBlock {
 					// TODO: Implement this, with a cached default for each import format met
 				}
 				
-				if ( $sessionValue === 'Enabled' ) {
-					$sessionValue = self::ENABLED;
-				} elseif ( $sessionValue === 'Disabled' ) {
-					$sessionValue = self::DISABLED;
+				if ( array_key_exists( $sessionParam, $this->alternativeBooleans ) ) {
+					if ( $sessionValue === 'Enabled' ) {
+						$sessionValue = self::CHECKED;
+					} elseif ( $sessionValue === 'Disabled' ) {
+						$sessionValue = self::UNCHECKED;
+					}
+				} else {
+					if ( $sessionValue === 'Enabled' ) {
+						$sessionValue = self::ENABLED;
+					} elseif ( $sessionValue === 'Disabled' ) {
+						$sessionValue = self::DISABLED;
+					}
 				}
 				
 				$this->settings[ $sessionParam ][1] = $sessionValue;
@@ -87,6 +103,11 @@ abstract class SettingBlock {
 		$settingsArray = explode( '%', $sessionSettings );
 		
 		foreach ( self::$reversedSettings[ $className ] as $index => $settingName ) {
+			// Skip settings that didn't exist in older .mxtsessions files
+			if ( ! array_key_exists( $index, $settingsArray ) ) {
+				continue;
+			}
+			
 			// Only import the settings that differ from their default values
 			if ( $settingsArray[ $index ] !== $this->settings[ $settingName ][1] ) {
 				$settingsFinal[ $settingName ] = $settingsArray[ $index ];
