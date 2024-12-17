@@ -69,7 +69,7 @@ class SSH extends SettingBlock implements SessionType {
 			'sshUnknown4'              => [ 4, '' ], // TODO Find out what this is
 			'x11Forwarding'            => [ 5, self::ENABLED ],
 			'compression'              => [ 6, self::ENABLED ],
-			'commandAtLogin'           => [ 7, '' ], // When setting, change ';' by '__PTVIRG__'
+			'commandAtLogin'           => [ 7, '' ], // ';' gets changed to '__PTVIRG__', '"' to '__DBLQUO__' and '|' to '__PIPE__'
 			'sshGatewayHostList'       => [ 8, '' ], // When setting, separate hostnames using '__PIPE__'
 			'sshGatewayPortList'       => [ 9, '' ], // When setting, separate ports using '__PIPE__'
 			'sshGatewayUserList'       => [ 10, '' ], // When setting, separate usernames using '__PIPE__'
@@ -134,6 +134,20 @@ class SSH extends SettingBlock implements SessionType {
 			$settingsFinal['sshProtocolVersion'] = self::$reversedConstants['SSH_PROTOCOL_VERSION'][ $settingsFinal['sshProtocolVersion'] ];
 		}
 		
+		if ( array_key_exists( 'remoteCommand', $settingsFinal ) ) {
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__PTVIRG__', ';', $settingsFinal['remoteCommand']
+			);
+			
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__DBLQUO__', '"', $settingsFinal['remoteCommand']
+			);
+			
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__PIPE__', '|', $settingsFinal['remoteCommand']
+			);
+		}
+		
 		// Return the standardized array
 		return $settingsFinal;
 	}
@@ -174,6 +188,21 @@ class SSH extends SettingBlock implements SessionType {
 	
 	public function getString(): string {
 		// Do necessary string replacements for the current output before the final export
+		
+		if ( $this->settings['commandAtLogin'][1] !== '' ) {
+			$this->settings['commandAtLogin'][1] = str_replace(
+				';', '__PTVIRG__', $this->settings['commandAtLogin'][1]
+			);
+			
+			$this->settings['commandAtLogin'][1] = str_replace(
+				'"', '__DBLQUO__', $this->settings['commandAtLogin'][1]
+			);
+			
+			$this->settings['commandAtLogin'][1] = str_replace(
+				'|', '__PIPE__', $this->settings['commandAtLogin'][1]
+			);
+		}
+		
 		if ( $this->settings['privateKeyPath'][1] !== '' ) {
 			$this->settings['privateKeyPath'][1] = str_replace(
 				'C:\\', '_CurrentDrive_:\\', $this->settings['privateKeyPath'][1]

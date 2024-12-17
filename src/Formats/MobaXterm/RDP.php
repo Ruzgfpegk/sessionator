@@ -114,7 +114,7 @@ class RDP extends SettingBlock implements SessionType {
 			'enhancedGraphics'         => [ 9, self::DISABLED ],
 			'resolution'               => [ 10, self::RESOLUTION['Fit to terminal'] ],
 			'rdpUnknown11'             => [ 11, self::ENABLED ],
-			'remoteCommand'            => [ 12, '' ],
+			'remoteCommand'            => [ 12, '' ], // ';' gets changed to '__PTVIRG__', '"' to '__DBLQUO__' and '|' to '__PIPE__'
 			'sshGatewayHostList'       => [ 13, '' ], // When setting, separate hostnames using '__PIPE__'
 			'sshGatewayPortList'       => [ 14, '' ], // When setting, separate ports using '__PIPE__'
 			'sshGatewayUserList'       => [ 15, '' ], // When setting, separate usernames using '__PIPE__'
@@ -175,6 +175,20 @@ class RDP extends SettingBlock implements SessionType {
 			$settingsFinal['serverAuthentication'] = self::$reversedConstants['SERVER_AUTHENTICATION'][ $settingsFinal['serverAuthentication'] ];
 		}
 		
+		if ( array_key_exists( 'remoteCommand', $settingsFinal ) ) {
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__PTVIRG__', ';', $settingsFinal['remoteCommand']
+			);
+			
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__DBLQUO__', '"', $settingsFinal['remoteCommand']
+			);
+			
+			$settingsFinal['remoteCommand'] = str_replace(
+				'__PIPE__', '|', $settingsFinal['remoteCommand']
+			);
+		}
+		
 		// Return the standardized array
 		return $settingsFinal;
 	}
@@ -215,5 +229,25 @@ class RDP extends SettingBlock implements SessionType {
 		if ( ! is_numeric( $this->settings['serverAuthentication'][1] ) && array_key_exists( $this->settings['serverAuthentication'][1], self::SERVER_AUTHENTICATION ) ) {
 			$this->settings['serverAuthentication'][1] = self::SERVER_AUTHENTICATION[ $this->settings['serverAuthentication'][1] ];
 		}
+	}
+	
+	public function getString(): string {
+		// Do necessary string replacements for the current output before the final export
+		
+		if ( $this->settings['remoteCommand'][1] !== '' ) {
+			$this->settings['remoteCommand'][1] = str_replace(
+				';', '__PTVIRG__', $this->settings['remoteCommand'][1]
+			);
+			
+			$this->settings['remoteCommand'][1] = str_replace(
+				'"', '__DBLQUO__', $this->settings['remoteCommand'][1]
+			);
+			
+			$this->settings['remoteCommand'][1] = str_replace(
+				'|', '__PIPE__', $this->settings['remoteCommand'][1]
+			);
+		}
+		
+		return parent::getString();
 	}
 }
