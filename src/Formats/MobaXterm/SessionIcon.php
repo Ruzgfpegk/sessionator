@@ -43,6 +43,7 @@ class SessionIcon {
 		'Graphical_RaspberryPi'    => 92,
 		'Graphical_Linux'          => 93,
 		// Custom - Terminals
+		'Terminal_Prompt'          => 97,
 		'Terminal_Warning'         => 103,
 		'Terminal_Ubuntu'          => 105,
 		'Terminal_Linux'           => 111,
@@ -65,6 +66,7 @@ class SessionIcon {
 		// Custom - Hardware
 		'Hardware_Workstation'     => 114,
 		'Hardware_Modem'           => 118,
+		'Hardware_Storage_Bay'     => 119,
 		'Hardware_Firewall'        => 120,
 		'Hardware_Drive_Cloud'     => 121,
 		'Hardware_Satellite'       => 125,
@@ -74,6 +76,31 @@ class SessionIcon {
 		'Hardware_NAS'             => 142,
 		'Hardware_AP'              => 144,
 		'Hardware_Satellite_Dish'  => 145,
+		'Hardware_Emitter'         => 146,
+		'Hardware_Satellite_Orbit' => 146,
+		// Fallback for unsupported icons, not really accurate.
+		'mRemote'                  => 114, // Hardware_Workstation
+		'mRemoteNG'                => 114, // Hardware_Workstation
+		'Terminal_PuTTY'           => 97,  // Terminal_Prompt
+		'Hardware_Router'          => 116,
+		'Hardware_Switch'          => 116,
+		'Hardware_Telephone'       => 118, // Hardware_Modem
+		'Server_AntiVirus'         => 133,
+		'Server_Backup'            => 126, // Hardware_SAN
+		'Server_Build'             => 147,
+		'Server_DataBase'          => 134,
+		'Server_Domain_Controller' => 124,
+		'Server_ESX'               => 197, // Terminal_VirtualBox
+		'Server_Fax'               => 118, // Hardware_Modem
+		'Server_File_Server'       => 142, // Hardware_NAS
+		'Server_Finance'           => 122,
+		'Server_Logging'           => 134,
+		'Server_Mail'              => 141, // Paper plane
+		'Server_SharePoint'        => 132,
+		'Server_Terminal_Server'   => 114, // Hardware_Workstation
+		'Server_Test'              => 137,
+		'Server_Virtual_Machine'   => 197, // Terminal_VirtualBox
+		'Server_Web'               => 130, // FTP
 	];
 	
 	
