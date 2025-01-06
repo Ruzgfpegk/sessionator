@@ -137,6 +137,14 @@ abstract class SessionBase implements Session {
 		return '';
 	}
 	
+	/**
+	 * Sets a singular parameter to a given value
+	 *
+	 * @param string $paramName Parameter name (see Settings.md)
+	 * @param string $paramValue Value to set the parameter to
+	 *
+	 * @return Session Returns the Session-implementing object for chaining
+	 */
 	public function setSessionParam( string $paramName, string $paramValue ): Session {
 		$this->sessionParams[ $paramName ] = $paramValue;
 		
