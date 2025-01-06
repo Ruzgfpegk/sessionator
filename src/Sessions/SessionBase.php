@@ -114,6 +114,15 @@ abstract class SessionBase implements Session {
 	}
 	
 	/**
+	 * Some formats need to get a value even if nothing's set, the UserName trait provides a real getter
+	 *
+	 * @return string
+	 */
+	public function getUserName(): string {
+		return '';
+	}
+	
+	/**
 	 * Returns the value of a setting that got added using setSessionParam()
 	 *
 	 * @param string $paramName Name of the parameter to retrieve
