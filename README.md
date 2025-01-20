@@ -112,6 +112,65 @@ It only addresses servers by their name, so folders are ignored.
 
 The amount of supported options is rather limited for now, so treat it as a preview.
 
+### Bash completion
+
+Add the following to your `~/.bashrc` to enable completion of sessions and adjust the last line with your script name, here `Connector.sh`:
+
+```bash
+_comp_sessionator() {
+  local cur prev opts i servers sessions terminal command_path
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD - 1]}"
+  opts="-h -k -t -s"
+
+  # Fetching the caller's path
+  local command="${COMP_WORDS[0]}"
+  command_path=$(command -v "${command}")
+
+  # Completion for '-'
+  if [[ ${cur} == -* ]]; then
+    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+    return 0
+  fi
+
+  # Completion for '-t'
+  if [[ ${prev} == -t ]]; then
+    COMPREPLY=($(compgen -W "direct screen tmux" -- ${cur}))
+    return 0
+  fi
+
+  # Preparing completion for '-s'
+  for ((i = 1; i < ${#COMP_WORDS[@]}; i++)); do
+    if [[ "${COMP_WORDS[i]}" == "-t" ]]; then
+      terminal="${COMP_WORDS[i + 1]}"
+      break
+    fi
+  done
+
+  # Completion for '-s'
+  if [[ "${prev}" == "-s" ]]; then
+    if [[ "${terminal}" == "screen" ]]; then
+      # List of active screen sessions matching the name
+      sessions=$(screen -ls ${cur} | awk '/\t/ {print $1}' | cut -d. -f2)
+    elif [[ "${terminal}" == "tmux" ]]; then
+      # List of active tmux sessions matching the name
+      sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep -i "^${cur}")
+    fi
+    COMPREPLY=($(compgen -W "${sessions}" -- "${cur}"))
+    return 0
+  fi
+
+  # Completion for the server name
+  if [[ ${COMP_CWORD} -eq 1 || "${prev}" != "-s" ]]; then
+    servers=$(grep -o "^populate_server_info_[^[:space:]]* \"${cur}[^\"]*\"" "${command_path}" | cut -d'"' -f2)
+    COMPREPLY=($(compgen -W "${servers}" -- "${cur}"))
+    return 0
+  fi
+}
+complete -F _comp_sessionator Connector.sh
+```
+
 
 ## Possible evolutions
 
