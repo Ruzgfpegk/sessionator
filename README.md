@@ -114,7 +114,13 @@ The amount of supported options is rather limited for now, so treat it as a prev
 
 ### Bash completion
 
-Add the following to your `~/.bashrc` to enable completion of sessions and adjust the last line with your script name, here `Connector.sh`:
+If you're only planning on using Bash, to enable completions the easiest method is to add the following snippet to your `~/.bashrc`,
+and adjust the last line with your script name, here `Connector.sh`.
+
+If you're planning on using Zsh with bashcompinit, or a cleaner organization, you should put it in a separate file,
+for instance in your [local completions folder](https://github.com/scop/bash-completion/tree/main?tab=readme-ov-file#faq),
+typically `~/.local/share/bash-completion/completions` (`mkdir -p` it if needed), with a name matching the connector script name
+(the "complete" command at the end would only be used by Zsh's bashcompinit in this case).
 
 ```bash
 _comp_sessionator() {
@@ -169,6 +175,15 @@ _comp_sessionator() {
   fi
 }
 complete -F _comp_sessionator Connector.sh
+```
+
+### Zsh completion
+
+At the end of your `~/.zshrc` file, to be able to use the bash completion script, add the following with the right path:
+
+```zsh
+autoload bashcompinit && bashcompinit.
+[[ -r ~/.local/share/bash-completion/completions/Connector.sh ]] && source ~/.local/share/bash-completion/completions/Connector.sh
 ```
 
 
