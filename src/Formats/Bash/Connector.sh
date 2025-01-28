@@ -268,24 +268,18 @@ command_to_tmux() {
   local session_name="$3"
   local keep_terminal="$4"
 
-  local session_attached
-
-  # Store output of filtered list-sessions
-  session_attached=$(tmux list-sessions -F '#{session_attached}' -f "#{session_name} eq '${session_name}' and #{session_attached}==1" 2>/dev/null)
-  local session_missing="$?"
-
-  # Choose the right command depending on if the session exists or not
-  if [[ $session_missing -eq 1 ]]; then
-    # No session : create the session and execute the command in it
+  # Check if a session already exists
+  if ! tmux has-session -t "$session_name" 2>/dev/null; then
+    # If not, create it with the window and execute the command in it
     tmux new-session -d -s "$session_name" -n "$window_name" "$command"
   else
-    # Session exists : send the window/command to the session
+    # If the session exists, create the window and execute the command in it
     tmux new-window -t "$session_name" -n "$window_name" "$command"
   fi
 
-  # If keep_terminal is empty/false and the session isn't already attached, we switch to the session in the same shell
-  if [[ -z "$keep_terminal" && $session_attached -eq 0 ]]; then
-    exec tmux attach-session -t "$session_name"
+  # If the keep_terminal flag isn't "true", attach the session to the terminal
+  if [[ "$keep_terminal" != "true" ]]; then
+    tmux attach-session -t "$session_name"
   fi
 }
 
