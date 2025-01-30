@@ -182,7 +182,7 @@ complete -F _comp_sessionator Connector.sh
 At the end of your `~/.zshrc` file, to be able to use the bash completion script, add the following with the right path:
 
 ```zsh
-autoload bashcompinit && bashcompinit.
+autoload bashcompinit && bashcompinit
 [[ -r ~/.local/share/bash-completion/completions/Connector.sh ]] && source ~/.local/share/bash-completion/completions/Connector.sh
 ```
 
