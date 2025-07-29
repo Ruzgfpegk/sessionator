@@ -40,7 +40,7 @@ class Output extends CommonOutput implements FormatOutput {
 		// Copy all lines until the start marker (including it)
 		for ( ; $lineNumber < $totalLines; $lineNumber++ ) {
 			$output[] = $scriptContent[ $lineNumber ];
-			if ( strpos( $scriptContent[ $lineNumber ], $startMarker ) !== false ) {
+			if ( str_contains( $scriptContent[ $lineNumber ], $startMarker ) ) {
 				break;
 			}
 		}
@@ -85,7 +85,7 @@ class Output extends CommonOutput implements FormatOutput {
 		
 		// Locate the end marker
 		for ( ; $lineNumber < $totalLines; $lineNumber++ ) {
-			if ( strpos( $scriptContent[ $lineNumber ], $endMarker ) !== false ) {
+			if ( str_contains( $scriptContent[ $lineNumber ], $endMarker ) ) {
 				break;
 			}
 		}

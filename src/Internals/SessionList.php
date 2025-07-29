@@ -12,7 +12,7 @@ use Ruzgfpegk\Sessionator\Sessions\SessionBase;
  */
 class SessionList {
 	/**
-	 * @var string Choices : 'array', 'SPL' or 'Ds'
+	 * @var string Choices: 'array', 'SPL' or 'Ds'
 	 */
 	private string $sessionStorageType;
 	/**
@@ -45,19 +45,12 @@ class SessionList {
 		$pathName = $session->getPathName();
 		
 		if ( ! $this->pathExists( $pathName ) ) {
-			switch ( $this->sessionStorageType ) {
-				case 'array':
-					$this->pathList[ $pathName ] = new SessionPathArray();
-					break;
-				case 'SPL':
-					$this->pathList[ $pathName ] = new SessionPathSpl();
-					break;
-				case 'Ds':
-					$this->pathList[ $pathName ] = new SessionPathDs();
-					break;
-				default:
-					throw new RuntimeException( 'Session storage type' . $this->sessionStorageType . ' not yet implemented' );
-			}
+			$this->pathList[ $pathName ] = match ( $this->sessionStorageType ) {
+				'array' => new SessionPathArray(),
+				'SPL'   => new SessionPathSpl(),
+				'Ds'    => new SessionPathDs(),
+				default => throw new RuntimeException( 'Session storage type ' . $this->sessionStorageType . ' not yet implemented' ),
+			};
 		}
 		
 		$this->pathList[ $pathName ]->addSession( $session );

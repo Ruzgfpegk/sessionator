@@ -9,7 +9,7 @@ This PHP library aims to be used to create session files for :
 
 This is still a work in progress and a development version, so things may change especially as new features are added.
 
-The minimum PHP version targeted is currently 7.4.
+The minimum PHP version targeted is currently 8.1.
 
 If the Ds extension is available, DS\Set will be used for the storage of objects instead of arrays.
 
