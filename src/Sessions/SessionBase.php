@@ -28,6 +28,9 @@ abstract class SessionBase implements Session {
 	
 	private string $importFormat = '';
 	
+	/**
+	 * @var array<string, mixed> Session parameters
+	 */
 	private array $sessionParams = [];
 	
 	/**
@@ -127,14 +130,10 @@ abstract class SessionBase implements Session {
 	 *
 	 * @param string $paramName Name of the parameter to retrieve
 	 *
-	 * @return mixed|string The value of the parameter if found, or an empty string otherwise
+	 * @return mixed The value of the parameter if found, or an empty string otherwise
 	 */
-	public function getSessionParam( string $paramName ) {
-		if ( array_key_exists( $paramName, $this->sessionParams ) ) {
-			return $this->sessionParams[ $paramName ];
-		}
-		
-		return '';
+	public function getSessionParam( string $paramName ): mixed {
+		return $this->sessionParams[$paramName] ?? '';
 	}
 	
 	/**

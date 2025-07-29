@@ -35,7 +35,7 @@ class Sessionator {
 	/**
 	 * Fetches an object for the session type and links its session list to the caller Sessionator object
 	 *
-	 * @param $sessionType string The type of session to create
+	 * @param string $sessionType The type of session to create
 	 *
 	 * @return Session
 	 */
@@ -49,7 +49,7 @@ class Sessionator {
 	/**
 	 * A temporary alias for newSession(), as newConnection() was its previous name
 	 *
-	 * @param $sessionType string The type of session to create
+	 * @param string $sessionType The type of session to create
 	 *
 	 * @return Session
 	 */
@@ -81,7 +81,7 @@ class Sessionator {
 	 * Registers the object for the session in the main Sessionator object
 	 * Called by Sessions\SessionBase::addToList() through its sessionList property set in Sessionator::newSession()
 	 *
-	 * @param $session SessionBase
+	 * @param SessionBase $session
 	 *
 	 * @return void
 	 */
@@ -92,7 +92,7 @@ class Sessionator {
 	/**
 	 * Displays in text form (ex: console output) the session file for the specified format (MobaXterm, ...)
 	 *
-	 * @param $formatType string The output format for which to show a text output
+	 * @param string $formatType The output format for which to show a text output
 	 *
 	 * @return void
 	 */
@@ -104,7 +104,7 @@ class Sessionator {
 	/**
 	 * Displays in HTML form (ex: web output) the session file for the specified format (MobaXterm, ...)
 	 *
-	 * @param $formatType string The output format for which to show an HTML output
+	 * @param string $formatType The output format for which to show an HTML output
 	 *
 	 * @return void
 	 */
@@ -116,8 +116,8 @@ class Sessionator {
 	/**
 	 * Download the session list as a file in the specified format
 	 *
-	 * @param $formatType string The output format for which to download a session file
-	 * @param $fileName string The name of the file to save the session list to
+	 * @param string $formatType The output format for which to download a session file
+	 * @param string $fileName The name of the file to save the session list to
 	 *
 	 * @return void
 	 */

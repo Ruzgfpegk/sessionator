@@ -3,7 +3,7 @@ declare( strict_types=1 );
 
 // This is both a testbed and an example.
 
-// Internal classes also use autoload through composer
+// Internal classes also use autoloading through composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Main class

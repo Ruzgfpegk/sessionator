@@ -34,6 +34,12 @@ abstract class CommonOutput {
 		}
 	}
 	
+	/**
+	 * Download the session list as a file
+	 * 
+	 * @param SessionList $sessionList The session list to download
+	 * @param string $fileName The name of the file to download
+	 */
 	public function downloadAsFile( SessionList $sessionList, string $fileName = 'export' ): void {
 		$outputFile = $this->getAsFile( $sessionList );
 		
@@ -42,6 +48,12 @@ abstract class CommonOutput {
 		echo $outputFile;
 	}
 	
+	/**
+	 * Save the session list as a file
+	 * 
+	 * @param SessionList $sessionList The session list to save
+	 * @param string $fileName The name of the file to save to
+	 */
 	public function saveAsFile( SessionList $sessionList, string $fileName ): void {
 		$outputFile = $this->getAsFile( $sessionList );
 		
