@@ -5,7 +5,7 @@
 
 # Globals:
 declare -A SERVER_INFO
-declare CONNECTION_COMMAND
+declare -a CONNECTION_COMMAND
 
 #######################################
 # The list of options for the script
@@ -132,33 +132,35 @@ ssh_connection_command() {
   local sshGatewayUserList="${SERVER_INFO[$server, sshGatewayUserList]}"
   local sshGatewayPrivateKeyList="${SERVER_INFO[$server, sshGatewayPrivateKeyList]}"
 
-  local ssh_options=""
+  CONNECTION_COMMAND=(ssh)
 
   if [[ -n "$sshGatewayHostList" && -n "$sshGatewayPortList" && -n "$sshGatewayUserList" ]]; then
-    ssh_options="$ssh_options -o ProxyCommand=\"ssh -W %h:%p -q"
+    local proxy_cmd=(ssh -W %h:%p -q)
     if [[ -n "$sshGatewayPrivateKeyList" ]]; then
-      ssh_options="$ssh_options -i $sshGatewayPrivateKeyList"
+      proxy_cmd+=(-i "$sshGatewayPrivateKeyList")
     fi
-    ssh_options="$ssh_options $sshGatewayUserList@$sshGatewayHostList\""
+    proxy_cmd+=("$sshGatewayUserList@$sshGatewayHostList")
+
+    CONNECTION_COMMAND+=(-o "ProxyCommand=${proxy_cmd[*]}")
   fi
   if [[ "$compression" -eq 1 ]]; then
-    ssh_options="$ssh_options -C"
+    CONNECTION_COMMAND+=(-C)
   fi
   if [[ "$x11Forwarding" -eq 1 ]]; then
-    ssh_options="$ssh_options -X"
+    CONNECTION_COMMAND+=(-X)
   fi
   if [[ -n "$privateKeyPath" ]]; then
-    ssh_options="$ssh_options -i $privateKeyPath"
+    CONNECTION_COMMAND+=(-i "$privateKeyPath")
   fi
   if [[ "$port" != "22" ]]; then
-    ssh_options="$ssh_options -p $port"
+    CONNECTION_COMMAND+=(-p $port)
   fi
   if [[ -z "$user" ]]; then
     # Get the current user if none is set
     user=$(whoami)
   fi
 
-  CONNECTION_COMMAND="ssh${ssh_options} $user@$host"
+  CONNECTION_COMMAND+=("$user@$host")
 }
 
 #######################################
@@ -183,36 +185,38 @@ sftp_connection_command() {
   local sshGatewayUserList="${SERVER_INFO[$server, sshGatewayUserList]}"
   local sshGatewayPrivateKeyList="${SERVER_INFO[$server, sshGatewayPrivateKeyList]}"
 
-  local sftp_options=""
+  CONNECTION_COMMAND=(ssh)
 
   if [[ -n "$sshGatewayHostList" && -n "$sshGatewayPortList" && -n "$sshGatewayUserList" ]]; then
-    sftp_options="$sftp_options -o ProxyCommand=\"ssh -W %h:%p -q"
+    local proxy_cmd=(ssh -W %h:%p -q)
     if [[ -n "$sshGatewayPrivateKeyList" ]]; then
-      sftp_options="$sftp_options -i $sshGatewayPrivateKeyList"
+      proxy_cmd+=(-i "$sshGatewayPrivateKeyList")
     fi
-    sftp_options="$sftp_options $sshGatewayUserList@$sshGatewayHostList\""
+    proxy_cmd+=("$sshGatewayUserList@$sshGatewayHostList")
+
+    CONNECTION_COMMAND+=(-o "ProxyCommand=${proxy_cmd[*]}")
   fi
   if [[ "$compression" -eq 1 ]]; then
-    sftp_options="$sftp_options -C"
+    CONNECTION_COMMAND+=(-C)
   fi
   if [[ "$x11Forwarding" -eq 1 ]]; then
-    sftp_options="$sftp_options -X"
+    CONNECTION_COMMAND+=(-X)
   fi
   if [[ "$preserveFileDates" -eq 1 ]]; then
-    sftp_options="$sftp_options -p"
+    CONNECTION_COMMAND+=(-p)
   fi
   if [[ -n "$privateKeyPath" ]]; then
-    sftp_options="$sftp_options -i $privateKeyPath"
+    CONNECTION_COMMAND+=(-i "$privateKeyPath")
   fi
   if [[ "$port" != "22" ]]; then
-    sftp_options="$sftp_options -P $port"
+    CONNECTION_COMMAND+=(-P $port)
   fi
   if [[ -z "$user" ]]; then
     # Get the current user if none is set
     user=$(whoami)
   fi
 
-  CONNECTION_COMMAND="sftp${sftp_options} $user@$host"
+  CONNECTION_COMMAND+=("$user@$host")
 }
 
 #######################################
@@ -220,16 +224,16 @@ sftp_connection_command() {
 # Globals:
 #   None
 # Arguments:
-#   The command to execute
 #   The window name
 #   The session name
 #   The keep terminal flag
+#   The command to execute
 #######################################
 command_to_screen() {
-  local command="$1"
-  local window_name="$2"
-  local session_name="$3"
-  local keep_terminal="$4"
+  local window_name="$1"
+  local session_name="$2"
+  local keep_terminal="$3"
+  shift 3
 
   # Store error code of session listing:
   (screen -list | grep -q "\.$session_name")
@@ -239,11 +243,11 @@ command_to_screen() {
 
   # Choose the right command depending on if the session exists or not
   if [[ $session_missing -eq 1 ]]; then
-    # No session : create the session and execute the command in it
-    screen -dmS "$session_name" -t "$window_name" $command
+    # No session: create the session and execute the command in it
+    screen -dmS "$session_name" -t "$window_name" -- "$@"
   else
-    # Session exists : send the window/command to the session
-    screen -S "$session_name" -X screen -t "$window_name" $command
+    # Session exists: send the window/command to the session
+    screen -S "$session_name" -X screen -t "$window_name" -- "$@"
   fi
 
   # If keep_terminal is empty/false and the session is not attached, switch to the session in the same shell
@@ -257,16 +261,20 @@ command_to_screen() {
 # Globals:
 #   None
 # Arguments:
-#   The command to execute
 #   The window name
 #   The session name
 #   The keep terminal flag
+#   The command to execute
 #######################################
 command_to_tmux() {
-  local command="$1"
-  local window_name="$2"
-  local session_name="$3"
-  local keep_terminal="$4"
+  local window_name="$1"
+  local session_name="$2"
+  local keep_terminal="$3"
+  shift 3
+
+  local tmux_cmd
+  # Escape shell characters with %q
+  printf -v tmux_cmd '%q ' "$@"
 
   # Check if a session already exists
   if ! tmux has-session -t "$session_name" 2>/dev/null; then
@@ -366,18 +374,18 @@ main() {
   esac
 
   # In case of emergency, uncomment to check:
-  #echo "CONNECTION_COMMAND: $CONNECTION_COMMAND"
+  #echo "CONNECTION_COMMAND: ${CONNECTION_COMMAND[@]}"
 
   # Execute the final command
   case "$terminal" in
   direct) # Exits the script and executes the command directly
-    exec $CONNECTION_COMMAND
+    exec "${CONNECTION_COMMAND[@]}"
     ;;
   screen)
-    command_to_screen "$CONNECTION_COMMAND" "$server_name" "$session_name" "$keep_terminal"
+    command_to_screen "$server_name" "$session_name" "$keep_terminal" "${CONNECTION_COMMAND[@]}"
     ;;
   tmux)
-    command_to_tmux "$CONNECTION_COMMAND" "$server_name" "$session_name" "$keep_terminal"
+    command_to_tmux "$server_name" "$session_name" "$keep_terminal" "${CONNECTION_COMMAND[@]}"
     ;;
   *)
     err "Invalid terminal: $terminal. Supported terminals are 'direct', 'screen' and 'tmux'."
