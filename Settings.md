@@ -166,6 +166,22 @@
 | sshGatewayPrivateKeyList | :heavy_check_mark: ('')       | :heavy_check_mark: ('')      | SSH Gateway private key list (only one supported for now) |
 | preserveFileDates        | :x:                           | :heavy_check_mark: (Enabled) | Preserve file dates                                       |
 
+### Ansible (INI)
+
+The last item in the "folder path" will be used as a section name, with spaces replaced by underscores.
+
+The session name will have its spaces replaced by dashes ('-').
+
+| Setting                  | SSH (default)           | Description                                               |
+|--------------------------|-------------------------|-----------------------------------------------------------|
+| remoteHost               | :heavy_check_mark: ('') | --                                                        |
+| remotePort               | :heavy_check_mark: (22) | --                                                        |
+| userName                 | :heavy_check_mark: ('') | --                                                        |
+| sshGatewayHostList       | :heavy_check_mark: ('') | SSH Gateway host list (only one supported for now)        |
+| sshGatewayPortList       | :heavy_check_mark: ('') | SSH Gateway port list (only one supported for now)        |
+| sshGatewayUserList       | :heavy_check_mark: ('') | SSH Gateway user list (only one supported for now)        |
+| sshGatewayPrivateKeyList | :heavy_check_mark: ('') | SSH Gateway private key list (only one supported for now) |
+
 
 ## Session icons per export type
 

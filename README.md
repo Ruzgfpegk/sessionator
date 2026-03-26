@@ -6,6 +6,7 @@
 This PHP library aims to be used to create session files for :
 * [MobaXterm](https://mobaxterm.mobatek.net/) (Windows+Wine, GUI)
 * A self-contained Bash script (Linux, CLI, SSH/SFTP only at first)
+* Ansible inventories (INI format)
 
 This is still a work in progress and a development version, so things may change especially as new features are added.
 
@@ -87,11 +88,11 @@ $sessionList->download( 'MobaXterm' );
 * :soon: Unstable WIP, or planned
 * :no_entry_sign: Unsupported by the target application
 
-| Software  | File export        | File import        | SSH                | RDP                | SFTP               | VNC                | Browser            |
-|-----------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
-| MobaXterm | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Bash      | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :soon:             |
-
+| Software      | File export        | File import        | SSH                | RDP                | SFTP               | VNC                | Browser            |
+|---------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| MobaXterm     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Bash          | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :soon:             | :soon:             |
+| Ansible (INI) | :heavy_check_mark: | :soon:             | :heavy_check_mark: | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    |
 
 ## Bash output
 

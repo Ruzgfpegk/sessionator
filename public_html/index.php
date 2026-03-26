@@ -37,6 +37,12 @@ $sessionList->importFromSession( 'Main Directory\Subdir', 'Sub Dir SSH Line 1' )
             ->setHostName( 'otherhost_clone' )
             ->addToList();
 
+$sessionList->newSession( 'SSH' )
+            ->setSessionName( 'Root SSH session' ) // TODO: Handle cases without path
+            ->setHostName( 'targethost' )
+            ->setSessionParam( 'remotePort', '2222' )
+            ->addToList();
+
 $sessionList->newSession( 'SFTP' )
             ->setPathName( 'File transfer' )
             ->setSessionName( 'SFTP Connection' )
@@ -101,6 +107,7 @@ if ( PHP_SAPI === 'cli' ) {
 	// Batch of CLI tests to try each export format:
 	$sessionList->saveAsFile( 'MobaXterm', 'Sessions-MobaXterm.mxtsessions' );
 	$sessionList->saveAsFile( 'Bash', 'Sessions-Bash.sh' );
+	$sessionList->saveAsFile( 'Ansible_INI', 'Sessions-Ansible.ini' );
 
 	// For quick CLI tests:
 	#$sessionList->exportAsText( 'MobaXterm' );

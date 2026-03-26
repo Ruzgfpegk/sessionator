@@ -65,6 +65,15 @@ class SessionList {
 		ksort( $this->pathList, SORT_NATURAL );
 	}
 	
+	/**
+	 * Sort path names reverse alphabetically (natural sort: numbers going "10, 9, 1")
+	 *
+	 * @return void
+	 */
+	public function rsort(): void {
+		krsort( $this->pathList, SORT_NATURAL );
+	}
+	
 	public function count(): int {
 		$total = 0;
 		
