@@ -17,7 +17,6 @@ use Ruzgfpegk\Sessionator\Formats\FormatFactory;
 class Sessionator {
 	// Class defaults
 	private SessionList $sessionList;
-	private string $sessionListType;
 	
 	/** Runtime setup */
 	public function __construct() {

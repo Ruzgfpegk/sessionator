@@ -120,7 +120,7 @@ class Browser extends SettingBlock implements SessionType {
 	public function applyParams( Session $sessionDetails ): void {
 		parent::applyParams( $sessionDetails );
 		
-		// Setup each custom parameter of the Sessions/Browser class
+		// Set up each custom parameter of the Sessions/Browser class
 		if ( $hostName = $sessionDetails->getHostName() ) {
 			$this->settings['remoteHost'][1] = $hostName;
 		}

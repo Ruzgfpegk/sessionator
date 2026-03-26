@@ -63,7 +63,7 @@ class Input extends CommonInput implements FormatInput {
 	}
 	
 	private function decodeIndividualSession( string $sessionSettingsString ): Session {
-		// Split the string into parts using "#" as separator
+		// Split the string into parts using "#" as a separator
 		[
 			$reconnectionSetting, // TODO
 			$sessionIcon,

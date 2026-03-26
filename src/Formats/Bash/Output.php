@@ -45,7 +45,7 @@ class Output extends CommonOutput implements FormatOutput {
 			}
 		}
 		
-		// Export all the servers from the session list : FOLDER NAMES ARE IGNORED HERE!
+		// Export all the servers from the session list: FOLDER NAMES ARE IGNORED HERE!
 		foreach ( $sessionList->getPathList() as $sessionPath ) {
 			foreach ( $sessionList->getPathSessions( $sessionPath ) as $sessionDetails ) {
 				// Getting the session name from the object (for non-array session lists)

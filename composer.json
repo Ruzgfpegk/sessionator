@@ -1,6 +1,6 @@
 {
   "name": "ruzgfpegk/sessionator",
-  "description": "A PHP Library to generate session files (MobaXterm only for now)",
+  "description": "A PHP Library to generate session files for various managers",
   "minimum-stability": "stable",
   "license": "GPL-3.0-only",
   "version": "0.1.0-dev",

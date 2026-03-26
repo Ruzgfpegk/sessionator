@@ -111,14 +111,14 @@ To quote its help:
 
 It only addresses servers by their name, so folders are ignored.
 
-The amount of supported options is rather limited for now, so treat it as a preview.
+The number of supported options is rather limited for now, so treat it as a preview.
 
 ### Bash completion
 
 If you're only planning on using Bash, to enable completions the easiest method is to add the following snippet to your `~/.bashrc`,
 and adjust the last line with your script name, here `Connector.sh`.
 
-If you're planning on using Zsh with bashcompinit, or a cleaner organization, you should put it in a separate file,
+If you're planning on using Zsh with bashcompinit, or a cleaner organisation, you should put it in a separate file,
 for instance in your [local completions folder](https://github.com/scop/bash-completion/tree/main?tab=readme-ov-file#faq),
 typically `~/.local/share/bash-completion/completions` (`mkdir -p` it if needed), with a name matching the connector script name
 (the "complete" command at the end would only be used by Zsh's bashcompinit in this case).
@@ -202,27 +202,31 @@ The roadmap could be, in order:
 
 In this project, it is assumed that a session defines a connection.
 
-In the Sessionator class, the newSession('target') method returns an object that extends the Connections\Common
+A new object that instantiates the Sessionator class is an empty container for all the sessions.
+
+From this object, the `newSession('target')` method can be called to return an object that extends the Connections\Common
 abstract class with the specificities of "target" sessions (SSH, RDP, SFTP, VNC, etc.).
 
-On the returned object, the methods setFolderName('forderName'), setSessionName('sessionName')
-and setHostName('hostName') set the basic properties.
+From this returned object, the methods `setFolderName('forderName')`, `setSessionName('sessionName')`
+and `setHostName('hostName')` set the basic properties.
 
-Some target connections have additional methods: for instance, SSH has setUserName('userName').
+Some target connections have additional methods: for instance, SSH has `setUserName('userName')`.
 
-The method setSessionParam('paramName', 'paramValue') can be used to set advanced parameters, stored into the
+The method `setSessionParam('paramName', 'paramValue')` can be used to set advanced parameters, stored into the
 sessionParams associative array property of the "target connection" object.
 
-The addToList() method adds the current object to the "stack of sessions" in the Sessionator object.
+See the Settings.md file for the full list of supported parameters for each target type.
 
-Once all sessions are defined, they can be exported using one of these methods from the Sessionator object :
-* exportAsText( 'OutputFormat' ) to export as text, separating lines with the OS line separator
-* exportAsHtml( 'OutputFormat' ) to export as HTML, separating lines with "\<br\>" and the OS line separator
-* download( 'OutputFormat' ) to save as a file when called from a webserver
+The `addToList()` method then adds the configured session to the "stack of sessions" in the Sessionator object.
+
+Once all sessions are defined and added to the list, that list can be exported using one of these methods from the Sessionator object :
+* `exportAsText( 'OutputFormat' )` to export as text, separating lines with the OS line separator
+* `exportAsHtml( 'OutputFormat' )` to export as HTML, separating lines with "\<br\>" and the OS line separator
+* `download( 'OutputFormat' )` to save as a file when called from a webserver
 
 All these methods pass the array of sessions to an object "Formats\OutputFormat\Output" by calling its relevant method.
 
-The expected behavior is that, for each element of sessionParam, the custom settings are applied on top of the defaults
+The expected behaviour is that, for each element of sessionParam, the custom settings are applied on top of the defaults
 defined in the Output object, and the final stream is computed from the result.
 
 
