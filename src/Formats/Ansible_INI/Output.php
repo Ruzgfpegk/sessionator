@@ -42,7 +42,7 @@ class Output extends CommonOutput implements FormatOutput {
 			$groups   = explode( '\\', $sessionPath );
 			$depthMax = count( $groups ) - 1;
 			
-			$sectionName = str_replace( ' ', '_', $groups[ $depthMax ] );
+			$sectionName = str_replace( [ ' ', '-' ], '_', $groups[ $depthMax ] );
 			
 			$output[] = '[' . ( $sectionName ?: 'UNNAMED' ) . ']';
 			
